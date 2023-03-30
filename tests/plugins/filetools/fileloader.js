@@ -1,14 +1,9 @@
-/* bender-tags: editor,clipboard,filetools */
+/* bender-tags: editor,unit,clipboard,filetools */
 /* bender-ckeditor-plugins: filetools */
-/* bender-include: _helpers/tools.js */
-/* global fileTools */
 
 'use strict';
 
 ( function() {
-	// IE/Edge doesn't support File constructor, so there is a need to mimic it.
-	fileTools.mockFileType();
-
 	var File = window.File,
 		Blob = window.Blob,
 		FormData = window.FormData,
@@ -19,18 +14,22 @@
 		testFile, lastFormData,
 		listeners = [],
 		editorMock = {
-			config: {
-				fileTools_requestHeaders: {
-					foo: 'bar',
-					hello: 'world'
-				}
-			}
+			config: {}
 		},
 		editorMockDefaultFileName = {
 			config: {
 				fileTools_defaultFileName: 'default-file-name'
 			}
 		};
+
+	function createFileMock() {
+		window.File = File = function( data, name ) {
+			var file = new Blob( data , {} );
+			file.name = name;
+
+			return file;
+		};
+	}
 
 	function createFormDataMock() {
 		window.FormData = function() {
@@ -161,9 +160,7 @@
 						setTimeout( function() {
 							xhr.onabort();
 						}, 0 );
-					},
-
-					setRequestHeader: sinon.stub()
+					}
 				};
 
 			return xhr;
@@ -238,6 +235,10 @@
 			if ( !CKEDITOR.plugins.clipboard.isFileApiSupported ) {
 				assert.ignore();
 			}
+
+			// IE doesn't support File constructor, so there is a need to mimic it.
+			if ( typeof MSBlobBuilder === 'function' )
+				createFileMock();
 
 			// FormData in IE & Chrome 47- supports only adding data, not getting it, so mocking (polyfilling?) is required.
 			// Note that mocking is needed only for tests, as CKEditor.fileTools uses only append method
@@ -395,7 +396,7 @@
 			wait();
 		},
 
-		'test upload with custom field name (https://dev.ckeditor.com/ticket/13518)': function() {
+		'test upload with custom field name (#13518)': function() {
 			var loader = new FileLoader( editorMock, pngBase64, 'name.png' );
 
 			attachListener( editorMock, 'fileUploadRequest', function( evt ) {
@@ -421,7 +422,7 @@
 			wait();
 		},
 
-		'test upload with additional request parameters provided (https://dev.ckeditor.com/ticket/13518)': function() {
+		'test upload with additional request parameters provided (#13518)': function() {
 			var loader = new FileLoader( editorMock, pngBase64, 'name.png' );
 
 			createXMLHttpRequestMock( [ 'load' ] );
@@ -435,13 +436,7 @@
 			wait();
 		},
 
-		'test if name of file is correctly attached (https://dev.ckeditor.com/ticket/13518)': function() {
-			// Ignore because of Edge upstream (#3184).
-			// developer.microsoft.com/en-us/microsoft-edge/platform/issues/22326784
-			if ( CKEDITOR.env.edge && CKEDITOR.env.version >= 18 ) {
-				assert.ignore();
-			}
-
+		'test if name of file is correctly attached (#13518)': function() {
 			var name = 'customName.png',
 				loader = new FileLoader( editorMock, pngBase64, name );
 
@@ -456,7 +451,7 @@
 			wait();
 		},
 
-		'test upload response not encoded (https://dev.ckeditor.com/ticket/13030)': function() {
+		'test upload response not encoded (#13030)': function() {
 			var loader = new FileLoader( editorMock, pngBase64, 'na me.png' ),
 				observer = observeEvents( loader );
 
@@ -974,7 +969,7 @@
 			wait();
 		},
 
-		'test additional data passed to xhr via fileUploadRequest listener (https://dev.ckeditor.com/ticket/13518)': function() {
+		'test additional data passed to xhr via fileUploadRequest listener (#13518)': function() {
 			var loader = new FileLoader( editorMock, testFile ),
 				file = new File( [], 'a' );
 
@@ -997,7 +992,7 @@
 			wait();
 		},
 
-		'test additional data in fileUploadResponse (https://dev.ckeditor.com/ticket/13519)': function() {
+		'test additional data in fileUploadResponse (#13519)': function() {
 			var data,
 				loader = new FileLoader( editorMock, testFile );
 
@@ -1220,23 +1215,6 @@
 			loader.status = 'abort';
 
 			assert.isTrue( loader.isFinished() );
-		},
-
-		'test custom XHR headers': function() {
-			var loader = new FileLoader( editorMock, pngBase64 );
-
-			createXMLHttpRequestMock( [ 'load' ] );
-			loader.loadAndUpload( 'http://example.com' );
-
-			resumeAfter( loader, 'uploaded', function( evt ) {
-				var setRequestHeaderStub = evt.sender.xhr.setRequestHeader;
-
-				sinon.assert.calledWithExactly( setRequestHeaderStub, 'foo', 'bar' );
-				sinon.assert.calledWithExactly( setRequestHeaderStub, 'hello', 'world' );
-
-				assert.areSame( 2, setRequestHeaderStub.callCount, 'setRequestHeader call count' );
-			} );
-			wait();
 		}
 	} );
 } )();

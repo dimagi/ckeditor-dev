@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.plugins.setLang( 'a11yhelp', 'sk', {
@@ -12,7 +12,7 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'sk', {
 		items: [
 			{
 			name: 'Lišta nástrojov editora',
-			legend: 'Stlačením ${toolbarFocus} prejdete na panel nástrojov. Medzi ďalšou a predchádzajúcou skupinou sa pohybujete s TAB a SHIFT+TAB. Medzi ďalším a predchádzajúcim tlačidlom na panelu nástrojov sa pohybujete s ŠÍPKA VPRAVO a ŠÍPKA VĽAVO. Stlačte medzerník alebo ENTER pre aktiváciu tlačidla lišty nástrojov. Po aktivácii tlačidla sa fókus presunie späť do editačnej oblasti.'
+			legend: 'Stlačte ${toolbarFocus} pre navigáciu na lištu nástrojov. Medzi ďalšou a predchádzajúcou lištou nástrojov sa pohybujete s TAB a SHIFT+TAB. Medzi ďalším a predchádzajúcim tlačidlom na lište nástrojov sa pohybujete s pravou šípkou a ľavou šípkou. Stlačte medzerník alebo ENTER pre aktiváciu tlačidla lišty nástrojov.'
 		},
 
 			{
@@ -79,11 +79,6 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'sk', {
 			{
 			name: 'Pomoc prístupnosti',
 			legend: 'Stlačte ${a11yHelp}'
-		},
-			{
-			name: 'Vložiť ako čistý text',
-			legend: 'Stlačte ${pastetext}',
-			legendEdge: 'Stlačte ${pastetext} a potom ${paste}'
 		}
 		]
 	}

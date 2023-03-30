@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /*
@@ -35,7 +35,7 @@ CKEDITOR.skin.name = 'moono';
 
 // 2. Register browser specific skin files
 // -----------------------------------------
-// (https://ckeditor.com/docs/ckeditor4/latest/guide/skin_sdk_browser_hacks.html)
+// (http://docs.cksource.com/CKEditor_4.x/Skin_SDK/Browser_Hacks)
 //
 // To help implementing browser specific "hacks" to the skin files and have it
 // easy to maintain, it is possible to have dedicated files for such browsers,
@@ -47,7 +47,7 @@ CKEDITOR.skin.name = 'moono';
 // The accepted browser names must match the CKEDITOR.env properties. The most
 // common names are: ie, webkit and gecko. Check the documentation for the complete
 // list:
-// https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_env.html
+// http://docs.ckeditor.com/#!/api/CKEDITOR.env
 //
 // Internet explorer is an expection and the browser version is also accepted
 // (ie7, ie8, ie9, ie10), as well as a special name for IE in Quirks mode (iequirks).
@@ -59,7 +59,7 @@ CKEDITOR.skin.ua_dialog = 'ie,iequirks,ie7,ie8';
 
 // 3. Define the "Chameleon" feature
 // -----------------------------------
-// (https://ckeditor.com/docs/ckeditor4/latest/guide/skin_sdk_chameleon.html)
+// (http://docs.cksource.com/CKEditor_4.x/Skin_SDK/Chameleon)
 //
 // "Chameleon" is a unique feature available in CKEditor. It makes it possible
 // to end users to specify which color to use as the basis for the editor UI.
@@ -274,7 +274,7 @@ CKEDITOR.skin.chameleon = ( function() {
 
 // 4. Register the skin icons for development purposes only
 // ----------------------------------------------------------
-// (https://ckeditor.com/docs/ckeditor4/latest/guide/skin_sdk_icons.html)
+// (http://docs.cksource.com/CKEditor_4.x/Skin_SDK/Icons)
 //
 // This code is here just to make the skin work fully when using its "source"
 // version. Without this, the skin will still work, but its icons will not be
@@ -294,7 +294,7 @@ CKEDITOR.skin.chameleon = ( function() {
 	// extension) available inside the "icons" folder.
 	var icons = ( 'about,anchor-rtl,anchor,bgcolor,bidiltr,bidirtl,blockquote,' +
 		'bold,bulletedlist-rtl,bulletedlist,button,checkbox,copy-rtl,copy,copyformatting,' +
-		'creatediv,cut-rtl,cut,docprops-rtl,docprops,find-rtl,find,form,' +
+		'creatediv,cut-rtl,cut,docprops-rtl,docprops,find-rtl,find,flash,form,' +
 		'hiddenfield,horizontalrule,icons,iframe,image,imagebutton,indent-rtl,' +
 		'indent,italic,justifyblock,justifycenter,justifyleft,justifyright,' +
 		'link,maximize,newpage-rtl,newpage,numberedlist-rtl,numberedlist,' +

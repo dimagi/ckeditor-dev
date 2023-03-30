@@ -1,4 +1,4 @@
-/* bender-tags: editor,jquery */
+/* bender-tags: editor,unit,jquery */
 /* bender-ckeditor-plugins: wysiwygarea */
 /* global $ */
 
@@ -20,9 +20,7 @@ $( window ).on( 'load', function() {
 			if ( CKEDITOR.env.ie && ( document.documentMode || CKEDITOR.env.version ) < 9 )
 				assert.ignore();
 
-			wait( function() {
-				assert.isTrue( passed );
-			}, 200 );
+			assert.isTrue( passed );
 		}
 	} );
 } );

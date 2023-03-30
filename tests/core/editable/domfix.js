@@ -1,4 +1,4 @@
-/* bender-tags: editor,autoparagraphing */
+/* bender-tags: editor,unit,autoparagraphing */
 
 var doc = CKEDITOR.document;
 

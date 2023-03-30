@@ -1,22 +1,22 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'toolbar', 'sq', {
 	toolbarCollapse: 'Zvogëlo Shiritin',
 	toolbarExpand: 'Zgjero Shiritin',
 	toolbarGroups: {
-		document: 'Dokumenti',
+		document: 'Dokument',
 		clipboard: 'Tabela Punës/Ribëje',
 		editing: 'Duke Redaktuar',
-		forms: 'Formularët',
-		basicstyles: 'Stilet Bazë',
-		paragraph: 'Paragrafi',
-		links: 'Nyjat',
+		forms: 'Formular',
+		basicstyles: 'Stili Bazë',
+		paragraph: 'Paragraf',
+		links: 'Nyjet',
 		insert: 'Shto',
-		styles: 'Stilet',
+		styles: 'Stil',
 		colors: 'Ngjyrat',
 		tools: 'Mjetet'
 	},
-	toolbars: 'Shiritat e Redaktuesit'
+	toolbars: 'Shiritet e Redaktuesit'
 } );

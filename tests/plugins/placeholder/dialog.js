@@ -1,14 +1,9 @@
-/* bender-tags: editor,widget */
+/* bender-tags: editor,unit,widget */
 /* bender-ckeditor-plugins: placeholder */
 /* global widgetTestsTools */
 
 ( function() {
 	'use strict';
-
-	// (#3768)
-	if ( CKEDITOR.env.ie && CKEDITOR.env.version === 8 ) {
-		return bender.ignore();
-	}
 
 	var assertWidgetDialog = widgetTestsTools.assertWidgetDialog;
 
@@ -57,7 +52,7 @@
 				dialogAssertConfig = {},
 				editedWidgetOffset = 0,
 				onResume = function( dialog ) {
-					var widget = bender.tools.objToArray( editorBot.editor.widgets.instances )[ editedWidgetOffset ];
+					var widget = widgetTestsTools.obj2Array( editorBot.editor.widgets.instances )[ editedWidgetOffset ];
 					assert.areSame( 'bar', widget.data.name, 'Invalid name' );
 					// Changes value of input in dialog, and clicks ok.
 					dialog.setValueOf( 'info', 'name', 'boo_faa' );

@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'forms', 'hu', {
 	button: {
@@ -16,7 +16,7 @@ CKEDITOR.plugins.setLang( 'forms', 'hu', {
 		radioTitle: 'Választógomb tulajdonságai',
 		value: 'Érték',
 		selected: 'Kiválasztott',
-		required: 'Kötelező'
+		required: 'Required' // MISSING
 	},
 	form: {
 		title: 'Űrlap tulajdonságai',
@@ -38,7 +38,7 @@ CKEDITOR.plugins.setLang( 'forms', 'hu', {
 		size: 'Méret',
 		lines: 'sor',
 		chkMulti: 'több sor is kiválasztható',
-		required: 'Kötelező',
+		required: 'Required', // MISSING
 		opText: 'Szöveg',
 		opValue: 'Érték',
 		btnAdd: 'Hozzáad',
@@ -59,7 +59,7 @@ CKEDITOR.plugins.setLang( 'forms', 'hu', {
 		value: 'Érték',
 		charWidth: 'Megjelenített karakterek száma',
 		maxChars: 'Maximális karakterszám',
-		required: 'Kötelező',
+		required: 'Required', // MISSING
 		type: 'Típus',
 		typeText: 'Szöveg',
 		typePass: 'Jelszó',

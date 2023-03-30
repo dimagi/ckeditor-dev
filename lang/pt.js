@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
@@ -19,7 +19,6 @@
  */
 CKEDITOR.lang[ 'pt' ] = {
 	// ARIA description.
-	application: 'Rich Text Editor', // MISSING
 	editor: 'Editor de texto enriquecido',
 	editorPanel: 'Painel do editor de texto enriquecido',
 
@@ -35,6 +34,7 @@ CKEDITOR.lang[ 'pt' ] = {
 		upload: 'Carregar',
 		uploadSubmit: 'Enviar para o servidor',
 		image: 'Imagem',
+		flash: 'Flash',
 		form: 'Formulário',
 		checkbox: 'Caixa de verificação',
 		radio: 'Botão',
@@ -78,25 +78,21 @@ CKEDITOR.lang[ 'pt' ] = {
 		width: 'Largura',
 		height: 'Altura',
 		align: 'Alinhamento',
-		left: 'Esquerda',
-		right: 'Direita',
-		center: 'Centrado',
-		justify: 'Justificado',
-		alignLeft: 'Alinhar à esquerda',
-		alignRight: 'Alinhar à direita',
+		alignLeft: 'Esquerda',
+		alignRight: 'Direita',
 		alignCenter: 'Centrado',
+		alignJustify: 'Justificado',
 		alignTop: 'Topo',
-		alignMiddle: 'Meio',
+		alignMiddle: 'Centro',
 		alignBottom: 'Base',
 		alignNone: 'Nenhum',
 		invalidValue: 'Valor inválido.',
 		invalidHeight: 'A altura deve ser um número.',
 		invalidWidth: 'A largura deve ser um número. ',
-		invalidLength: 'Value specified for the "%1" field must be a positive number with or without a valid measurement unit (%2).', // MISSING
 		invalidCssLength: 'O valor especificado para o campo "1%" deve ser um número positivo, com ou sem uma unidade de medida CSS válida (px, %, in, cm, mm, em, ex, pt, ou pc).',
 		invalidHtmlLength: 'O valor especificado para o campo "1%" deve ser um número positivo, com ou sem uma unidade de medida HTML válida (px ou %).',
 		invalidInlineStyle: 'O valor especificado para o estilo em linha deve constituir um ou mais conjuntos de valores com o formato de "nome : valor", separados por ponto e vírgula.',
-		cssLengthTooltip: 'Insira um número para um valor em píxeis ou um número com uma unidade CSS válida (px, %, in, cm, mm, em, ex, pt, ou pc).',
+		cssLengthTooltip: 'Insira um número para um valor em pontos ou um número com uma unidade CSS válida (px, %, in, cm, mm, em, ex, pt, ou pc).',
 
 		// Put the voice-only part of the label in the span.
 		unavailable: '%1<span class="cke_accessibility">, indisponível</span>',
@@ -104,44 +100,18 @@ CKEDITOR.lang[ 'pt' ] = {
 		// Keyboard keys translations used for creating shortcuts descriptions in tooltips, context menus and ARIA labels.
 		keyboard: {
 			8: 'Backspace', // MISSING
-			13: 'Enter',
+			13: 'Enter', // MISSING
 			16: 'Shift',
 			17: 'Ctrl',
 			18: 'Alt',
-			32: 'Espaço',
+			32: 'Space', // MISSING
 			35: 'Fim',
 			36: 'Entrada',
 			46: 'Eliminar',
-			112: 'F1', // MISSING
-			113: 'F2', // MISSING
-			114: 'F3', // MISSING
-			115: 'F4', // MISSING
-			116: 'F5', // MISSING
-			117: 'F6', // MISSING
-			118: 'F7', // MISSING
-			119: 'F8', // MISSING
-			120: 'F9', // MISSING
-			121: 'F10', // MISSING
-			122: 'F11', // MISSING
-			123: 'F12', // MISSING
-			124: 'F13', // MISSING
-			125: 'F14', // MISSING
-			126: 'F15', // MISSING
-			127: 'F16', // MISSING
-			128: 'F17', // MISSING
-			129: 'F18', // MISSING
-			130: 'F19', // MISSING
-			131: 'F20', // MISSING
-			132: 'F21', // MISSING
-			133: 'F22', // MISSING
-			134: 'F23', // MISSING
-			135: 'F24', // MISSING
-			224: 'Comando'
+			224: 'Command' // MISSING
 		},
 
 		// Prepended to ARIA labels with shortcuts.
-		keyboardShortcut: 'Atalho de teclado',
-
-		optionDefault: 'Padrão'
+		keyboardShortcut: 'Keyboard shortcut' // MISSING
 	}
 };

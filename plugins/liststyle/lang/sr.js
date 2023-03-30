@@ -1,21 +1,25 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'liststyle', 'sr', {
-	bulletedTitle: 'Карактеристике листе са тачкама.',
-	circle: 'Круг',
-	decimal: 'Арабски бројеви (1, 2, 3, etc.)',
-	disc: 'Диск',
-	lowerAlpha: 'Мала слова (a, b, c, d, e, etc.)',
-	lowerRoman: 'Римска мала слова (i, ii, iii, iv, v, etc.)',
-	none: 'Нема',
+	armenian: 'Armenian numbering',
+	bulletedTitle: 'Bulleted List Properties',
+	circle: 'Circle',
+	decimal: 'Decimal (1, 2, 3, etc.)',
+	decimalLeadingZero: 'Decimal leading zero (01, 02, 03, etc.)',
+	disc: 'Disc',
+	georgian: 'Georgian numbering (an, ban, gan, etc.)',
+	lowerAlpha: 'Lower Alpha (a, b, c, d, e, etc.)',
+	lowerGreek: 'Lower Greek (alpha, beta, gamma, etc.)',
+	lowerRoman: 'Lower Roman (i, ii, iii, iv, v, etc.)',
+	none: 'None',
 	notset: '<not set>',
-	numberedTitle: 'Карактеристике листе са бројевима',
-	square: 'Квадрат',
-	start: 'Поћетни број',
-	type: 'Tип',
-	upperAlpha: 'Велика слова (A, B, C, D, E, etc.)',
-	upperRoman: 'Велика римска слова (I, II, III, IV, V, etc.)',
-	validateStartNumber: 'Почетни број листе мора бити цели број.'
+	numberedTitle: 'Numbered List Properties',
+	square: 'Square',
+	start: 'Start',
+	type: 'Type',
+	upperAlpha: 'Upper Alpha (A, B, C, D, E, etc.)',
+	upperRoman: 'Upper Roman (I, II, III, IV, V, etc.)',
+	validateStartNumber: 'List start number must be a whole number.'
 } );

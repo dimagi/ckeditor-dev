@@ -1,4 +1,4 @@
-/* bender-tags: editor */
+/* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: dialog */
 
 ( function() {
@@ -21,7 +21,7 @@
 
 	bender.editor = {};
 
-	// https://dev.ckeditor.com/ticket/9958
+	// #9958
 	bender.test( {
 		'test ok button': function() {
 			window.onbeforeunload = sinon.spy();

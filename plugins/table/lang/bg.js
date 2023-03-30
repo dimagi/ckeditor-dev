@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'table', 'bg', {
 	border: 'Размер на рамката',
@@ -11,14 +11,14 @@ CKEDITOR.plugins.setLang( 'table', 'bg', {
 		insertAfter: 'Вмъкване на клетка след',
 		deleteCell: 'Изтриване на клетки',
 		merge: 'Сливане на клетки',
-		mergeRight: 'Сливане надясно',
-		mergeDown: 'Сливане надолу',
-		splitHorizontal: 'Разделяне клетката хоризонтално',
-		splitVertical: 'Разделяне клетката вертикално',
+		mergeRight: 'Сливане в дясно',
+		mergeDown: 'Merge Down',
+		splitHorizontal: 'Split Cell Horizontally',
+		splitVertical: 'Split Cell Vertically',
 		title: 'Настройки на клетката',
 		cellType: 'Тип на клетката',
-		rowSpan: 'Редове обединени',
-		colSpan: 'Колони обединени',
+		rowSpan: 'Rows Span',
+		colSpan: 'Columns Span',
 		wordWrap: 'Авто. пренос',
 		hAlign: 'Хоризонтално подравняване',
 		vAlign: 'Вертикално подравняване',
@@ -26,19 +26,17 @@ CKEDITOR.plugins.setLang( 'table', 'bg', {
 		bgColor: 'Фон',
 		borderColor: 'Цвят на рамката',
 		data: 'Данни',
-		header: 'Заглавие',
-		columnHeader: 'Column Header', // MISSING
-		rowHeader: 'Row Header', // MISSING
+		header: 'Хедър',
 		yes: 'Да',
 		no: 'Не',
-		invalidWidth: 'Ширината на клетката трябва да е число.',
-		invalidHeight: 'Височината на клетката трябва да е число.',
-		invalidRowSpan: 'Редове обединени трябва да е цяло число.',
-		invalidColSpan: 'Колони обединени трябва да е цяло число.',
+		invalidWidth: 'Cell width must be a number.',
+		invalidHeight: 'Cell height must be a number.',
+		invalidRowSpan: 'Rows span must be a whole number.',
+		invalidColSpan: 'Columns span must be a whole number.',
 		chooseColor: 'Изберете'
 	},
 	cellPad: 'Отделяне на клетките',
-	cellSpace: 'Разстояние между клетките',
+	cellSpace: 'Разтояние между клетките',
 	column: {
 		menu: 'Колона',
 		insertBefore: 'Вмъкване на колона преди',
@@ -47,15 +45,14 @@ CKEDITOR.plugins.setLang( 'table', 'bg', {
 	},
 	columns: 'Колони',
 	deleteTable: 'Изтриване на таблица',
-	headers: 'Заглавия',
-	headersBoth: 'И двете',
+	headers: 'Хедъри',
+	headersBoth: 'Заедно',
 	headersColumn: 'Първа колона',
 	headersNone: 'Няма',
 	headersRow: 'Първи ред',
-	heightUnit: 'height unit', // MISSING
 	invalidBorder: 'Размерът на рамката трябва да е число.',
-	invalidCellPadding: 'Отстоянието на клетките трябва да е положително число.',
-	invalidCellSpacing: 'Интервалът в клетките трябва да е положително число.',
+	invalidCellPadding: 'Отстоянието на клетките трябва да е позитивно число.',
+	invalidCellSpacing: 'Интервала в клетките трябва да е позитивно число.',
 	invalidCols: 'Броят колони трябва да е по-голям от 0.',
 	invalidHeight: 'Височината на таблицата трябва да е число.',
 	invalidRows: 'Броят редове трябва да е по-голям от 0.',

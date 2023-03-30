@@ -1,8 +1,3 @@
-/**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
- */
-
 /* jshint node: true, es3: false */
 
 'use strict';
@@ -101,15 +96,14 @@ module.exports = {
 	/**
 	 * Gets the list of files that are supposed to be included in the next Git commit.
 	 *
-	 * @param cachedOnly {Boolean} List only files which are staged.
 	 * @returns {String[]} A list of file paths.
 	 */
-	getGitDirtyFiles: function( cachedOnly ) {
+	getGitDirtyFiles: function() {
 		// Cache it, so it is executed only once when running multiple tasks.
 		if ( !dirtyFiles ) {
 			dirtyFiles = this
 				// Compare the state of index with HEAD.
-				.shExec( 'git diff-index --name-only ' + ( cachedOnly ? '--cached HEAD' : 'HEAD' ) )
+				.shExec( 'git diff-index --name-only HEAD' )
 				// Remove trailing /n to avoid an empty entry.
 				.replace( /\s*$/, '' )
 				// Transform into array.
@@ -131,15 +125,18 @@ module.exports = {
 	 * @returns {String} The command output.
 	 */
 	shExec: function( command ) {
-		var sh = require( 'shelljs' ),
-			ret = sh.exec( command, { silent: true } );
+		var sh = require( 'shelljs' );
+		sh.config.silent = true;
+
+		var ret = sh.exec( command );
 
 		if ( ret.code ) {
 			throw new Error(
 				'Error while executing `' + command + '`:\n\n' +
-				ret.stdout
+				ret.output
 			);
 		}
-		return ret.stdout;
+
+		return ret.output;
 	}
 };

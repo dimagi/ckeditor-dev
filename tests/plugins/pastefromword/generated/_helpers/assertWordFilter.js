@@ -2,19 +2,7 @@
 /* exported assertWordFilter */
 function assertWordFilter( editor, compareRawData ) {
 	return function( input, output ) {
-		var nativeDataTransfer = bender.tools.mockNativeDataTransfer(),
-			dataTransfer;
-
-		if ( CKEDITOR.plugins.clipboard.isCustomDataTypesSupported ) {
-			nativeDataTransfer.setData( 'text/html', input[ 'text/html' ] );
-			if ( input[ 'text/rtf' ] ) {
-				nativeDataTransfer.setData( 'text/rtf', input[ 'text/rtf' ] );
-			}
-		}
-
-		dataTransfer = new CKEDITOR.plugins.clipboard.dataTransfer( nativeDataTransfer );
-
-		return promisePasteEvent( editor, { dataValue: input[ 'text/html' ], dataTransfer: dataTransfer } )
+		return promisePasteEvent( editor, { dataValue: input } )
 			.then( function( data ) {
 				return [
 					// Lowercase, since old IE versions paste the HTML tags in uppercase.

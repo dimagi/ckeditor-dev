@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'table', 'ca', {
 	border: 'Mida vora',
@@ -27,8 +27,6 @@ CKEDITOR.plugins.setLang( 'table', 'ca', {
 		borderColor: 'Color de la vora',
 		data: 'Dades',
 		header: 'Capçalera',
-		columnHeader: 'Column Header', // MISSING
-		rowHeader: 'Row Header', // MISSING
 		yes: 'Sí',
 		no: 'No',
 		invalidWidth: 'L\'amplada de cel·la ha de ser un nombre.',
@@ -52,7 +50,6 @@ CKEDITOR.plugins.setLang( 'table', 'ca', {
 	headersColumn: 'Primera columna',
 	headersNone: 'Cap',
 	headersRow: 'Primera fila',
-	heightUnit: 'height unit', // MISSING
 	invalidBorder: 'El gruix de la vora ha de ser un nombre.',
 	invalidCellPadding: 'L\'encoixinament de cel·la  ha de ser un nombre.',
 	invalidCellSpacing: 'L\'espaiat de cel·la  ha de ser un nombre.',

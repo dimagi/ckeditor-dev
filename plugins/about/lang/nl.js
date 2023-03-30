@@ -1,9 +1,12 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'about', 'nl', {
 	copy: 'Copyright &copy; $1. Alle rechten voorbehouden.',
-	dlgTitle: 'Over CKEditor 4',
-	moreInfo: 'Bezoek onze website voor licentieinformatie:'
+	dlgTitle: 'Over CKEditor',
+	help: 'Bekijk de $1 voor hulp.',
+	moreInfo: 'Bezoek onze website voor licentieinformatie:',
+	title: 'Over CKEditor',
+	userGuide: 'CKEditor gebruiksaanwijzing'
 } );

@@ -1,21 +1,21 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'image2', 'lv', {
 	alt: 'Alternatīvais teksts',
 	btnUpload: 'Nosūtīt serverim',
-	captioned: 'Attēls ar parakstu',
-	captionPlaceholder: 'Paraksts',
+	captioned: 'Captioned image', // MISSING
+	captionPlaceholder: 'Caption', // MISSING
 	infoTab: 'Informācija par attēlu',
 	lockRatio: 'Nemainīga Augstuma/Platuma attiecība',
 	menu: 'Attēla īpašības',
-	pathName: 'Attēls',
-	pathNameCaption: 'paraksts',
+	pathName: 'image', // MISSING
+	pathNameCaption: 'caption', // MISSING
 	resetSize: 'Atjaunot sākotnējo izmēru',
-	resizer: 'Noklikšķini un pavelc lai mērogotu',
+	resizer: 'Click and drag to resize', // MISSING
 	title: 'Attēla īpašības',
 	uploadTab: 'Augšupielādēt',
 	urlMissing: 'Trūkst attēla atrašanās adrese.',
-	altMissing: 'Trūkst alternatīvais teksts'
+	altMissing: 'Alternative text is missing.' // MISSING
 } );

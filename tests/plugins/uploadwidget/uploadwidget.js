@@ -1,4 +1,4 @@
-/* bender-tags: editor,clipboard,widget,filetools */
+/* bender-tags: editor,unit,clipboard,widget,filetools */
 /* bender-ckeditor-plugins: uploadwidget,toolbar,undo,basicstyles */
 /* bender-include: %BASE_PATH%/plugins/clipboard/_helpers/pasting.js */
 /* global pasteFiles */
@@ -11,8 +11,7 @@
 		htmlMatchingOpts = {
 			compareSelection: true,
 			normalizeSelection: true
-		},
-		UPLOADED_MARKER = 'uploaded';
+		};
 
 	bender.editor = {
 		config: {
@@ -35,7 +34,7 @@
 			},
 
 			onUploaded: function() {
-				this.replaceWith( UPLOADED_MARKER );
+				this.replaceWith( 'uploaded' );
 			}
 		} );
 
@@ -62,19 +61,10 @@
 	function mockEditorForPaste() {
 		var editor = {
 			widgets: {
-				add: function( name, def ) {
-					// Note that widget system makes a duplicate of a definition.
-					this.registered[ name ] = CKEDITOR.tools.prototypedCopy( def );
-				},
-				registered: {}
+				add: function() {}
 			},
 			lang: {},
-			config: {},
-			plugins: {
-				clipboard: {
-					_supportedFileMatchers: []
-				}
-			}
+			config: {}
 		};
 
 		editor.uploadRepository = new CKEDITOR.fileTools.uploadRepository( editor );
@@ -99,7 +89,9 @@
 		},
 
 		setUp: function() {
-			bender.tools.ignoreUnsupportedEnvironment( 'uploadwidget' );
+			if ( !CKEDITOR.plugins.clipboard.isFileApiSupported ) {
+				assert.ignore();
+			}
 
 			fileTools = CKEDITOR.fileTools;
 			resumeAfter = bender.tools.resumeAfter;
@@ -160,71 +152,10 @@
 			} );
 		},
 
-		// (#1454)
-		'test calling widget onAbort function when widget is destroyed': function() {
-			var bot = this.editorBot,
-				editor = bot.editor,
-				stub = sinon.stub().returns( true );
-
-			addTestUploadWidget( editor, 'testuploadwidget', {
-				onAbort: stub
-			} );
-
-			bot.setData( '', function() {
-				pasteFiles( editor, [ bender.tools.getTestPngFile() ] );
-
-				var loader = editor.uploadRepository.loaders[ 0 ];
-
-				bender.tools.objToArray( editor.widgets.instances )[ 0 ].wrapper = null;
-				editor.editable().findOne( '[data-cke-upload-id="' + loader.id + '"]' ).remove();
-
-				loader.fire( 'update' );
-
-				assert.isTrue( stub.calledOnce );
-			} );
-		},
-
-		// (#1454)
-		'test onAbort can be called only once': function() {
-			var bot = this.editorBot,
-				editor = bot.editor,
-				stub = sinon.stub().returns( true );
-
-			addTestUploadWidget( editor, 'testuploadwidget', {
-				onAbort: stub
-			} );
-
-			bot.setData( '', function() {
-				pasteFiles( editor, [ bender.tools.getTestPngFile() ] );
-
-				var loader = editor.uploadRepository.loaders[ 0 ];
-
-				loader.abort();
-				loader.abort();
-
-				assert.isTrue( stub.calledOnce );
-			} );
-		},
-
 		'test markElement': function() {
 			var element = new CKEDITOR.dom.element( 'p' );
 			CKEDITOR.fileTools.markElement( element, 'widgetName', 1 );
 			assert.sameData( '<p data-cke-upload-id="1" data-widget="widgetName"></p>', element.getOuterHtml() );
-		},
-
-		'test _getLoader': function() {
-			var bot = this.editorBot,
-				editor = bot.editor,
-				uploads = editor.uploadRepository,
-				loader = uploads.create( bender.tools.getTestPngFile() );
-
-			addTestUploadWidget( editor, 'testGetLoader' );
-
-			bot.setData( '<p>x<span data-cke-upload-id="' + loader.id + '" data-widget="testGetLoader">uploading...</span>x</p>', function() {
-				var widget = editor.widgets.getByElement( editor.editable().findOne( 'span[data-widget="testGetLoader"]' ) );
-
-				assert.areSame( loader, widget._getLoader(), '_getLoader return value' );
-			} );
 		},
 
 		'test replaceWith 1 element': function() {
@@ -576,54 +507,6 @@
 			wait();
 		},
 
-		// (#1068).
-		'test supports definition changes at a runtime': function() {
-			var editor = mockEditorForPaste();
-
-			addTestUploadWidget( editor, 'runtimeDefChanges', {
-				supportedTypes: /image\/png/,
-
-				loadMethod: 'upload',
-
-				fileToElement: function() {
-					return new CKEDITOR.dom.element( 'span' );
-				}
-			} );
-
-			// Change supported type, so that paste does not match.
-			editor.widgets.registered.runtimeDefChanges.supportedTypes = /text\/plain/;
-
-			resumeAfter( editor, 'paste', function() {
-				assert.areSame( 0, uploadCount, 'Upload call count' );
-			} );
-
-			pasteFiles( editor, [ bender.tools.getTestPngFile( 'test1.png' ) ] );
-
-			wait();
-		},
-
-		'test custom def.loaderType': function() {
-			var editor = mockEditorForPaste(),
-				uploadStub = sinon.stub();
-
-			function CustomLoaderType() {
-				this.upload = uploadStub;
-			}
-
-			addTestUploadWidget( editor, 'customLoaderType', {
-				loaderType: CustomLoaderType,
-				loadMethod: 'upload'
-			} );
-
-			resumeAfter( editor, 'paste', function() {
-				assert.areSame( 1, uploadStub.callCount, 'CustomLoaderType.upload call count' );
-			} );
-
-			pasteFiles( editor, [ bender.tools.getTestPngFile( 'test1.png' ) ] );
-
-			wait();
-		},
-
 		'test paste multiple files': function() {
 			var editor = mockEditorForPaste();
 
@@ -732,24 +615,6 @@
 				assert.areSame( 1, spy.callCount );
 				assert.isTrue( spy.calledWith( editor ) );
 				assert.areSame( bender.tools.getTestPngFile().name, spy.firstCall.args[ 1 ].fileName );
-			} );
-
-			pasteFiles( editor, [ bender.tools.getTestPngFile() ] );
-
-			wait();
-		},
-
-		// (#1145).
-		'test uploadWidgetDefinition.skipNotifications': function() {
-			var editor = mockEditorForPaste();
-
-			addTestUploadWidget( editor, 'bindNotificationsWidget', {
-				skipNotifications: true
-			} );
-
-			resumeAfter( editor, 'paste', function() {
-				var spy = CKEDITOR.fileTools.bindNotifications;
-				assert.areSame( 0, spy.callCount, 'CKEDITOR.fileTools.bindNotifications call count' );
 			} );
 
 			pasteFiles( editor, [ bender.tools.getTestPngFile() ] );
@@ -1133,33 +998,6 @@
 				loader.changeStatus( 'uploaded' );
 
 				assert.areSame( '<p><u>xxx</u></p>', editor.getData() );
-			} );
-		},
-
-		// (#5414)
-		'test firing change after calling replaceWith() method': function() {
-			var bot = this.editorBot,
-				editor = bot.editor,
-				uploads = editor.uploadRepository,
-				loader = uploads.create( bender.tools.getTestPngFile() );
-
-			loader.loadAndUpload( 'uploadUrl' );
-
-			addTestUploadWidget( editor, 'testChange' );
-
-			bot.setData( '<span data-cke-upload-id="' + loader.id + '" data-widget="testChange">...</span>', function() {
-				editor.once( 'change', function() {
-					resume( function() {
-						var editorContent = editor.getData(),
-							containsUploadedContent = editorContent.indexOf( UPLOADED_MARKER ) !== -1;
-
-						assert.isTrue( containsUploadedContent, 'The editor contains the marker of the uploaded widget' );
-					} );
-				} );
-
-				loader.changeStatus( 'uploaded' );
-
-				wait();
 			} );
 		}
 	} );

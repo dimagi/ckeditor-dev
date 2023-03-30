@@ -10,7 +10,6 @@ bender.editors = {
 		name: 'editor_classic',
 		creator: 'replace',
 		config: {
-			embed_keepOriginalContent: true,
 			extraAllowedContent: 'div(a,b,c)',
 			removePlugins: 'div',
 			stylesSet: [
@@ -21,7 +20,7 @@ bender.editors = {
 	}
 };
 
-var objToArray = bender.tools.objToArray;
+var obj2Array = widgetTestsTools.obj2Array;
 var classes2Array = widgetTestsTools.classes2Array;
 
 embedTools.mockJsonp();
@@ -37,7 +36,7 @@ var tcs = {
 		bot.setData( data, function() {
 			wait( function() {
 				arrayAssert.itemsAreSame( [ 'a', 'b', 'c' ],
-					classes2Array( objToArray( editor.widgets.instances )[ 0 ].getClasses() ).sort(), 'classes transfered from data to widget.element' );
+					classes2Array( obj2Array( editor.widgets.instances )[ 0 ].getClasses() ).sort(), 'classes transfered from data to widget.element' );
 
 				assert.areSame( data, bot.getData( 1, 1 ), 'classes transfered from widget.element back to data' );
 			}, 100 );
@@ -57,7 +56,7 @@ var tcs = {
 
 		bot.setData( data, function() {
 			arrayAssert.itemsAreSame( [ 'bar', 'foo' ],
-				classes2Array( objToArray( editor.widgets.instances )[ 0 ].getClasses() ).sort(), 'classes transfered from data to widget.element' );
+				classes2Array( obj2Array( editor.widgets.instances )[ 0 ].getClasses() ).sort(), 'classes transfered from data to widget.element' );
 
 			assert.areSame( data, bot.getData( 1, 1 ), 'classes transfered from widget.element back to data' );
 		} );
@@ -69,39 +68,10 @@ widgetTestsTools.addTests( tcs, {
 	widgetName: 'embed',
 	extraPlugins: 'embed',
 	initialInstancesNumber: 1,
-	editorConfig: {
-		embed_keepOriginalContent: true
-	},
 	newData: [
 		[ 'info', 'url', 'http://xxx' ]
 	],
 	newWidgetPattern: '<div data-oembed-url="http://xxx"><p>url:http%3A%2F%2Fxxx</p></div>'
-} );
-
-widgetTestsTools.addTests( tcs, {
-	name: 'regenerated',
-	widgetName: 'embed',
-	extraPlugins: 'embed',
-	initialInstancesNumber: 1,
-	newData: [
-		[ 'info', 'url', 'http://xxx' ]
-	],
-	newWidgetPattern: '<div data-oembed-url="http://xxx"><p>url:http%3A%2F%2Fxxx</p></div>',
-	checkData: false,
-	assertWidgets: function( editor ) {
-		var widgets = bender.tools.objToArray( editor.widgets.instances ),
-			fancyHtmlRegex = /<(strong|em)>/g,
-			widget;
-
-		while ( widget = widgets.pop() ) {
-			if ( widget.name !== 'embed' ) {
-				continue;
-			}
-
-			assert.areSame( 'http://xxx', widget.data.url, 'Widget has correct URL' );
-			assert.isFalse( fancyHtmlRegex.test( widget.element.getHtml() ), 'Widget content is filtered' );
-		}
-	}
 } );
 
 bender.test( tcs );

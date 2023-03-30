@@ -1,3 +1,4 @@
+/* bender-tags: unit */
 /* bender-ckeditor-plugins: notificationaggregator */
 
 ( function() {

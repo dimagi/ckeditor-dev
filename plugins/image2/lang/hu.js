@@ -1,9 +1,9 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'image2', 'hu', {
-	alt: 'Alternatív szöveg',
+	alt: 'Buborék szöveg',
 	btnUpload: 'Küldés a szerverre',
 	captioned: 'Feliratozott kép',
 	captionPlaceholder: 'Képfelirat',
@@ -13,9 +13,9 @@ CKEDITOR.plugins.setLang( 'image2', 'hu', {
 	pathName: 'kép',
 	pathNameCaption: 'felirat',
 	resetSize: 'Eredeti méret',
-	resizer: 'Kattintson és húzza az átméretezéshez',
+	resizer: 'Kattints és húzz az átméretezéshez',
 	title: 'Kép tulajdonságai',
 	uploadTab: 'Feltöltés',
 	urlMissing: 'Hiányzik a kép URL-je',
-	altMissing: 'Az alternatív szöveg hiányzik.'
+	altMissing: 'Alternative text is missing.' // MISSING
 } );

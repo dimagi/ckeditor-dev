@@ -1,13 +1,11 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.plugins.setLang( 'uicolor', 'vi', {
 	title: 'Giao diện người dùng Color Picker',
-	options: 'Color Options', // MISSING
-	highlight: 'Highlight', // MISSING
-	selected: 'Selected Color', // MISSING
-	predefined: 'Tập màu định nghĩa sẵn',
-	config: 'Dán chuỗi này vào tập tin config.js của bạn'
+	preview: 'Xem trước trực tiếp',
+	config: 'Dán chuỗi này vào tập tin config.js của bạn',
+	predefined: 'Tập màu định nghĩa sẵn'
 } );

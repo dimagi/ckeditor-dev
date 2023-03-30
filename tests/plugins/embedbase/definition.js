@@ -7,10 +7,7 @@
 bender.editors = {
 	inline: {
 		name: 'editor_inline',
-		creator: 'inline',
-		config: {
-			embed_keepOriginalContent: true
-		}
+		creator: 'inline'
 	}
 };
 

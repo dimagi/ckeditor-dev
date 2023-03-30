@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 ( function() {
@@ -151,11 +151,11 @@
 					var panel = ui._.panel._.panel,
 						holder;
 
-					( function waitForPanel() {
+					( function() {
 						// Adding dom event listeners off-line are not supported in AIR,
 						// waiting for panel iframe loaded.
 						if ( !panel.isLoaded ) {
-							setTimeout( waitForPanel, 30 );
+							setTimeout( arguments.callee, 30 );
 							return;
 						}
 						holder = panel._.holder;

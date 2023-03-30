@@ -1,13 +1,11 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.plugins.setLang( 'uicolor', 'nl', {
 	title: 'UI Kleurenkiezer',
-	options: 'Kleurinstellingen',
-	highlight: 'Highlight', // MISSING
-	selected: 'Geselecteerde kleur',
-	predefined: 'Voorgedefinieerde kleurensets',
-	config: 'Plak deze tekst in jouw config.js bestand'
+	preview: 'Live voorbeeld',
+	config: 'Plak deze tekst in jouw config.js bestand',
+	predefined: 'Voorgedefinieerde kleurensets'
 } );

@@ -1,22 +1,22 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'toolbar', 'sr-latn', {
-	toolbarCollapse: 'Zatvori alatnu traku',
-	toolbarExpand: 'Otvori alatnu traku',
+	toolbarCollapse: 'Suzi alatnu traku',
+	toolbarExpand: 'Proširi alatnu traku',
 	toolbarGroups: {
-		document: 'Dokument',
-		clipboard: 'Clipboard/Vrati',
-		editing: 'Uredi',
-		forms: 'Obrasci',
-		basicstyles: 'Osnovni stilovi',
-		paragraph: 'Pasus',
-		links: 'Linkovi',
-		insert: 'Dodaj',
-		styles: 'Stilovi',
-		colors: 'Boje',
-		tools: 'Alatke'
+		document: 'Document',
+		clipboard: 'Clipboard/Undo',
+		editing: 'Editing',
+		forms: 'Forms',
+		basicstyles: 'Basic Styles',
+		paragraph: 'Paragraph',
+		links: 'Links',
+		insert: 'Insert',
+		styles: 'Styles',
+		colors: 'Colors',
+		tools: 'Tools'
 	},
-	toolbars: 'Uredjivač alatne trake'
+	toolbars: 'Alatne trake'
 } );

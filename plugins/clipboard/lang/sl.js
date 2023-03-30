@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'clipboard', 'sl', {
 	copy: 'Kopiraj',
@@ -8,9 +8,8 @@ CKEDITOR.plugins.setLang( 'clipboard', 'sl', {
 	cut: 'Izreži',
 	cutError: 'Varnostne nastavitve brskalnika ne dopuščajo samodejnega izrezovanja. Uporabite kombinacijo tipk na tipkovnici (Ctrl/Cmd+X).',
 	paste: 'Prilepi',
-	pasteNotification: 'Press %1 to paste. Your browser doesn‘t support pasting with the toolbar button or context menu option.', // MISSING
 	pasteArea: 'Prilepi območje',
-	pasteMsg: 'Paste your content inside the area below and press OK.', // MISSING
-	fileFormatNotSupportedNotification: 'The ${formats} file format(s) are not supported.', // MISSING
-	fileWithoutFormatNotSupportedNotification: 'The file format is not supported.' // MISSING
+	pasteMsg: 'Prosimo, prilepite v sleči okvir s pomočjo tipkovnice (<strong>Ctrl/Cmd+V</strong>) in pritisnite V redu.',
+	securityMsg: 'Zaradi varnostnih nastavitev vašega brskalnika urejevalnik ne more neposredno dostopati do odložišča. Vsebino odložišča ponovno prilepite v to okno.',
+	title: 'Prilepi'
 } );

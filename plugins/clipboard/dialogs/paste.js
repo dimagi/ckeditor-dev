@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.dialog.add( 'paste', function( editor ) {
@@ -72,18 +72,17 @@ CKEDITOR.dialog.add( 'paste', function( editor ) {
 	// then fire paste event.
 	// Do not use editor#paste, because it would start from beforePaste event.
 	editor.on( 'pasteDialogCommit', function( evt ) {
-		if ( evt.data ) {
+		if ( evt.data )
 			editor.fire( 'paste', {
 				type: 'auto',
 				dataValue: evt.data.dataValue,
 				method: 'paste',
 				dataTransfer: evt.data.dataTransfer || clipboard.initPasteDataTransfer()
 			} );
-		}
 	}, null, null, 1000 );
 
 	return {
-		title: lang.paste,
+		title: lang.title,
 
 		minWidth: CKEDITOR.env.ie && CKEDITOR.env.quirks ? 370 : 350,
 		minHeight: CKEDITOR.env.quirks ? 250 : 245,
@@ -94,8 +93,10 @@ CKEDITOR.dialog.add( 'paste', function( editor ) {
 
 			this.setupContent();
 
-			// Reset committed indicator.
-			this._.committed = false;
+			// Set dialog title to the custom value (set e.g. in editor.openDialog callback) and reset this value.
+			// If custom title not set, use default one.
+			this.parts.title.setHtml( this.customTitle || lang.title );
+			this.customTitle = null;
 		},
 
 		onLoad: function() {
@@ -111,6 +112,11 @@ CKEDITOR.dialog.add( 'paste', function( editor ) {
 			id: 'general',
 			label: editor.lang.common.generalTab,
 			elements: [
+				{
+					type: 'html',
+					id: 'securityMsg',
+					html: '<div style="white-space:normal;width:340px">' + lang.securityMsg + '</div>'
+				},
 				{
 					type: 'html',
 					id: 'pasteMsg',
@@ -223,13 +229,14 @@ CKEDITOR.dialog.add( 'paste', function( editor ) {
 						// Saving the contents so changes until paste is complete will not take place (#7500)
 						html = body.getHtml();
 
-						this.getDialog()._.committed = true;
-
-						editor.fire( 'pasteDialogCommit', {
-							dataValue: html,
-							// Avoid error if there was no paste so lastDataTransfer is null.
-							dataTransfer: lastDataTransfer || clipboard.initPasteDataTransfer()
-						} );
+						// Opera needs some time to think about what has happened and what it should do now.
+						setTimeout( function() {
+							editor.fire( 'pasteDialogCommit', {
+								dataValue: html,
+								// Avoid error if there was no paste so lastDataTransfer is null.
+								dataTransfer: lastDataTransfer || clipboard.initPasteDataTransfer()
+							} );
+						}, 0 );
 					}
 				}
 			]
@@ -238,9 +245,7 @@ CKEDITOR.dialog.add( 'paste', function( editor ) {
 } );
 
 /**
- * Internal event to pass the paste dialog data to the listeners.
- *
- * This event was not available in versions 4.7.0-4.8.0.
+ * Internal event to pass paste dialog's data to the listeners.
  *
  * @private
  * @event pasteDialogCommit

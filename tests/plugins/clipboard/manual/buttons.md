@@ -1,4 +1,3 @@
-@bender-tags: feature, generic
 @bender-ui: collapsed
 @bender-ckeditor-plugins: wysiwygarea, toolbar, clipboard, floatingspace, htmlwriter, blockquote, notification
 
@@ -9,7 +8,7 @@
 
 #### Expected result:
 
-**Chrome, Edge, Opera, Firefox, Safari (desktop):** Selected text should be copied into clipboard and pasted into editor. Notifications should be opened for copy and paste.
+**Chrome, Edge, Opera:** Selected text should be copied into clipboard and pasted into editor. Notifications should be opened for copy and paste.
 
 **IE:** A security alert may be displayed &ndash; confirm it. After confirming it everything should be the same as in Chrome.
 
@@ -32,4 +31,4 @@ The same as above.
 
 **IE (not Edge):** A security alert may be displayed &ndash; confirm it. After confirming the content should be pasted.
 
-**Other browsers:** Notification is shown, with instructions on how to paste.
+**Other browsers:** The paste dialog should be displyed.

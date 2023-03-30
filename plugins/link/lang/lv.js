@@ -1,6 +1,6 @@
 ﻿/*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'link', 'lv', {
 	acccessKey: 'Pieejas taustiņš',
@@ -13,32 +13,29 @@ CKEDITOR.plugins.setLang( 'link', 'lv', {
 		title: 'Iezīmes uzstādījumi',
 		name: 'Iezīmes nosaukums',
 		errorName: 'Lūdzu norādiet iezīmes nosaukumu',
-		errorWhitespace: 'Anchor name cannot contain space characters', // MISSING
 		remove: 'Noņemt iezīmi'
 	},
 	anchorId: 'Pēc elementa ID',
 	anchorName: 'Pēc iezīmes nosaukuma',
 	charset: 'Pievienotā resursa kodējums',
 	cssClasses: 'Stilu saraksta klases',
-	download: 'Piespiedu ielāde',
-	displayText: 'Attēlot tekstu',
+	download: 'Force Download', // MISSING
+	displayText: 'Display Text', // MISSING
 	emailAddress: 'E-pasta adrese',
-	emailBody: 'Ziņojuma pamatteksts',
-	emailSubject: 'Ziņojuma tēma',
+	emailBody: 'Ziņas saturs',
+	emailSubject: 'Ziņas tēma',
 	id: 'ID',
-	info: 'Saites informācija',
+	info: 'Hipersaites informācija',
 	langCode: 'Valodas kods',
 	langDir: 'Valodas lasīšanas virziens',
 	langDirLTR: 'No kreisās uz labo (LTR)',
 	langDirRTL: 'No labās uz kreiso (RTL)',
-	menu: 'Rediģēt saiti',
+	menu: 'Labot hipersaiti',
 	name: 'Nosaukums',
 	noAnchors: '(Šajā dokumentā nav iezīmju)',
-	noEmail: 'Lūdzu, ievadiet e-pasta adresi',
-	noUrl: 'Lūdzu, ievadiet saites URL',
-	noTel: 'Lūdzu, ievadiet tālruņa numuru',
+	noEmail: 'Lūdzu norādi e-pasta adresi',
+	noUrl: 'Lūdzu norādi hipersaiti',
 	other: '<cits>',
-	phoneNumber: 'Tālruņa numurs',
 	popupDependent: 'Atkarīgs (Netscape)',
 	popupFeatures: 'Uznirstošā loga nosaukums īpašības',
 	popupFullScreen: 'Pilnā ekrānā (IE)',
@@ -59,13 +56,12 @@ CKEDITOR.plugins.setLang( 'link', 'lv', {
 	targetFrameName: 'Mērķa ietvara nosaukums',
 	targetPopup: '<uznirstošā logā>',
 	targetPopupName: 'Uznirstošā loga nosaukums',
-	title: 'Saite',
+	title: 'Hipersaite',
 	toAnchor: 'Iezīme šajā lapā',
 	toEmail: 'E-pasts',
 	toUrl: 'Adrese',
-	toPhone: 'Tālrunis',
-	toolbar: 'Saite',
-	type: 'Saites tips',
-	unlink: 'Atsaistīt',
+	toolbar: 'Ievietot/Labot hipersaiti',
+	type: 'Hipersaites tips',
+	unlink: 'Noņemt hipersaiti',
 	upload: 'Augšupielādēt'
 } );

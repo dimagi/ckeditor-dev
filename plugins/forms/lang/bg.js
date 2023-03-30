@@ -1,10 +1,10 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'forms', 'bg', {
 	button: {
-		title: 'Настройки на бутон',
+		title: 'Настройки на бутона',
 		text: 'Текст (стойност)',
 		type: 'Тип',
 		typeBtn: 'Бутон',
@@ -12,58 +12,58 @@ CKEDITOR.plugins.setLang( 'forms', 'bg', {
 		typeRst: 'Нулиране'
 	},
 	checkboxAndRadio: {
-		checkboxTitle: 'Настройки на чекбокс',
+		checkboxTitle: 'Checkbox Properties',
 		radioTitle: 'Настройки на радиобутон',
 		value: 'Стойност',
 		selected: 'Избрано',
-		required: 'Задължително'
+		required: 'Required' // MISSING
 	},
 	form: {
-		title: 'Настройки на форма',
-		menu: 'Настройки на форма',
+		title: 'Настройки на формата',
+		menu: 'Настройки на формата',
 		action: 'Действие',
 		method: 'Метод',
 		encoding: 'Кодиране'
 	},
 	hidden: {
-		title: 'Настройки на скрито поле',
+		title: 'Настройки за скрито поле',
 		name: 'Име',
 		value: 'Стойност'
 	},
 	select: {
-		title: 'Настройки на поле за избор',
-		selectInfo: 'Селект инфо',
+		title: 'Selection Field Properties',
+		selectInfo: 'Select Info',
 		opAvail: 'Налични опции',
 		value: 'Стойност',
 		size: 'Размер',
 		lines: 'линии',
-		chkMulti: 'Разрешаване на няколко избора',
-		required: 'Задължително',
+		chkMulti: 'Allow multiple selections',
+		required: 'Required', // MISSING
 		opText: 'Текст',
 		opValue: 'Стойност',
 		btnAdd: 'Добави',
 		btnModify: 'Промени',
-		btnUp: 'Нагоре',
-		btnDown: 'Надолу',
-		btnSetValue: 'Задай като избрана стойност',
+		btnUp: 'На горе',
+		btnDown: 'На долу',
+		btnSetValue: 'Set as selected value',
 		btnDelete: 'Изтриване'
 	},
 	textarea: {
-		title: 'Настройки на текстова зона',
+		title: 'Опции за текстовата зона',
 		cols: 'Колони',
 		rows: 'Редове'
 	},
 	textfield: {
-		title: 'Настройки на текстово поле',
+		title: 'Настройки за текстово поле',
 		name: 'Име',
 		value: 'Стойност',
 		charWidth: 'Ширина на знаците',
 		maxChars: 'Макс. знаци',
-		required: 'Задължително',
+		required: 'Required', // MISSING
 		type: 'Тип',
 		typeText: 'Текст',
 		typePass: 'Парола',
-		typeEmail: 'Имейл',
+		typeEmail: 'Email',
 		typeSearch: 'Търсене',
 		typeTel: 'Телефонен номер',
 		typeUrl: 'Уеб адрес'

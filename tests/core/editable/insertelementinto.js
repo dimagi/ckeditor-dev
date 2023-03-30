@@ -1,4 +1,4 @@
-/* bender-tags: editor,insertion */
+/* bender-tags: editor,unit,insertion */
 
 ( function() {
 	'use strict';
@@ -79,7 +79,7 @@
 			} );
 		},
 
-		// https://dev.ckeditor.com/ticket/11848
+		// #11848
 		'test insertElementIntoSelection with no selection': function() {
 			var bot = this.editorBot,
 				editor = bot.editor,

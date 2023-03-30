@@ -1,12 +1,12 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'templates', 'bg', {
 	button: 'Шаблони',
 	emptyListMsg: '(Няма дефинирани шаблони)',
-	insertOption: 'Замяна на актуалното съдържание',
+	insertOption: 'Препокрива актуалното съдържание',
 	options: 'Опции за шаблона',
-	selectPromptMsg: 'Моля изберете шаблон за отваряне в редактора',
+	selectPromptMsg: 'Изберете шаблон <br>(текущото съдържание на редактора ще бъде загубено):',
 	title: 'Шаблони'
 } );

@@ -1,4 +1,4 @@
-/* bender-tags: editor */
+/* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: enterkey,entities,table,toolbar */
 
 bender.editor = true;

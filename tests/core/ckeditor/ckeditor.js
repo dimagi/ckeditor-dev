@@ -1,4 +1,4 @@
-/* bender-tags: editor */
+/* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: wysiwygarea */
 
 // Clean up all instances been created on the page.
@@ -33,6 +33,13 @@ bender.test( {
 		assert.isObject( CKEDITOR.instances.editor5, 'editor instance not found' );
 		assert.areSame( 'editor5', CKEDITOR.instances.editor5.name, 'instance name doesn\'t match' );
 		assert.areSame( document.getElementById( 'editor5' ), CKEDITOR.instances.editor5.element.$, 'instance element doesn\'t match' );
+	},
+
+
+	test_replaceError: function() {
+		assert.throwsError( Error, function() {
+			CKEDITOR.replace( 'error' );
+		} );
 	},
 
 	test_replaceAll_Class: function() {

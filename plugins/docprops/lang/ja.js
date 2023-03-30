@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'docprops', 'ja', {
 	bgColor: '背景色',
@@ -11,13 +11,13 @@ CKEDITOR.plugins.setLang( 'docprops', 'ja', {
 	charsetCE: 'Central European',
 	charsetCR: 'Cyrillic',
 	charsetCT: 'Chinese Traditional (Big5)',
-	charsetGR: 'ギリシャ語',
+	charsetGR: 'Greek',
 	charsetJP: '日本語',
-	charsetKR: '韓国語',
+	charsetKR: 'Korean',
 	charsetOther: '他の文字セット符号化',
-	charsetTR: 'トルコ語',
+	charsetTR: 'Turkish',
 	charsetUN: 'Unicode (UTF-8)',
-	charsetWE: '西欧',
+	charsetWE: 'Western European',
 	chooseColor: '色の選択',
 	design: 'デザイン',
 	docTitle: 'ページタイトル',

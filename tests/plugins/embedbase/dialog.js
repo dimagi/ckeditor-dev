@@ -1,4 +1,3 @@
-/* bender-tags: dialog */
 /* bender-ckeditor-plugins: embedbase,toolbar */
 
 'use strict';
@@ -93,7 +92,7 @@ bender.test( {
 					callback( dialog );
 				} );
 			} );
-		}, widget );
+		} );
 
 		wait();
 	},

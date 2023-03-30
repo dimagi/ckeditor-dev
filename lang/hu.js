@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
@@ -19,15 +19,14 @@
  */
 CKEDITOR.lang[ 'hu' ] = {
 	// ARIA description.
-	application: 'Rich Text Editor', // MISSING
 	editor: 'HTML szerkesztő',
-	editorPanel: 'HTML szerkesztő panel',
+	editorPanel: 'Rich Text szerkesztő panel',
 
 	// Common messages and labels.
 	common: {
 		// Screenreader titles. Please note that screenreaders are not always capable
 		// of reading non-English words. So be careful while translating it.
-		editorHelp: 'Segítségért nyomjon ALT 0-t',
+		editorHelp: 'Segítségért nyomjon ALT 0',
 
 		browseServer: 'Böngészés a szerveren',
 		url: 'Hivatkozás',
@@ -35,12 +34,13 @@ CKEDITOR.lang[ 'hu' ] = {
 		upload: 'Feltöltés',
 		uploadSubmit: 'Küldés a szerverre',
 		image: 'Kép',
+		flash: 'Flash',
 		form: 'Űrlap',
 		checkbox: 'Jelölőnégyzet',
 		radio: 'Választógomb',
 		textField: 'Szövegmező',
 		textarea: 'Szövegterület',
-		hiddenField: 'Rejtett mező',
+		hiddenField: 'Rejtettmező',
 		button: 'Gomb',
 		select: 'Legördülő lista',
 		imageButton: 'Képgomb',
@@ -52,7 +52,7 @@ CKEDITOR.lang[ 'hu' ] = {
 		langDirRtl: 'Jobbról balra',
 		langCode: 'Nyelv kódja',
 		longDescr: 'Részletes leírás webcíme',
-		cssClass: 'CSS osztályok',
+		cssClass: 'Stíluskészlet',
 		advisoryTitle: 'Súgócimke',
 		cssStyle: 'Stílus',
 		ok: 'Rendben',
@@ -61,10 +61,10 @@ CKEDITOR.lang[ 'hu' ] = {
 		preview: 'Előnézet',
 		resize: 'Húzza az átméretezéshez',
 		generalTab: 'Általános',
-		advancedTab: 'Speciális',
+		advancedTab: 'További opciók',
 		validateNumberFailed: 'A mezőbe csak számokat írhat.',
 		confirmNewPage: 'Minden nem mentett változás el fog veszni! Biztosan be szeretné tölteni az oldalt?',
-		confirmCancel: 'Pár beállítást megváltoztatott. Biztosan be szeretné zárni az ablakot?',
+		confirmCancel: 'Az űrlap tartalma megváltozott, ám a változásokat nem rögzítette. Biztosan be szeretné zárni az űrlapot?',
 		options: 'Beállítások',
 		target: 'Cél',
 		targetNew: 'Új ablak (_blank)',
@@ -78,21 +78,17 @@ CKEDITOR.lang[ 'hu' ] = {
 		width: 'Szélesség',
 		height: 'Magasság',
 		align: 'Igazítás',
-		left: 'Bal',
-		right: 'Jobbra',
-		center: 'Középre',
-		justify: 'Sorkizárt',
-		alignLeft: 'Balra',
+		alignLeft: 'Bal',
 		alignRight: 'Jobbra',
-		alignCenter: 'Középre igazítás',
+		alignCenter: 'Középre',
+		alignJustify: 'Sorkizárt',
 		alignTop: 'Tetejére',
 		alignMiddle: 'Középre',
 		alignBottom: 'Aljára',
-		alignNone: 'Semmi',
+		alignNone: 'None', // MISSING
 		invalidValue: 'Érvénytelen érték.',
 		invalidHeight: 'A magasság mezőbe csak számokat írhat.',
 		invalidWidth: 'A szélesség mezőbe csak számokat írhat.',
-		invalidLength: 'A megadott értéknek a "%1" mezőben pozitív számnak kell lennie, egy érvényes mértékegységgel vagy anélkül (%2).',
 		invalidCssLength: '"%1"-hez megadott érték csakis egy pozitív szám lehet, esetleg egy érvényes CSS egységgel megjelölve(px, %, in, cm, mm, em, ex, pt vagy pc).',
 		invalidHtmlLength: '"%1"-hez megadott érték csakis egy pozitív szám lehet, esetleg egy érvényes HTML egységgel megjelölve(px vagy %).',
 		invalidInlineStyle: 'Az inline stílusnak megadott értéknek tartalmaznia kell egy vagy több rekordot a "name : value" formátumban, pontosvesszővel elválasztva.',
@@ -103,45 +99,19 @@ CKEDITOR.lang[ 'hu' ] = {
 
 		// Keyboard keys translations used for creating shortcuts descriptions in tooltips, context menus and ARIA labels.
 		keyboard: {
-			8: 'Backspace',
-			13: 'Enter',
-			16: 'Shift',
-			17: 'Ctrl',
-			18: 'Alt',
-			32: 'Space',
-			35: 'End',
-			36: 'Home',
-			46: 'Delete',
-			112: 'F1',
-			113: 'F2',
-			114: 'F3',
-			115: 'F4',
-			116: 'F5',
-			117: 'F6',
-			118: 'F7',
-			119: 'F8',
-			120: 'F9',
-			121: 'F10',
-			122: 'F11',
-			123: 'F12',
-			124: 'F13',
-			125: 'F14',
-			126: 'F15',
-			127: 'F16',
-			128: 'F17',
-			129: 'F18',
-			130: 'F19',
-			131: 'F20',
-			132: 'F21',
-			133: 'F22',
-			134: 'F23',
-			135: 'F24',
-			224: 'Command'
+			8: 'Backspace', // MISSING
+			13: 'Enter', // MISSING
+			16: 'Shift', // MISSING
+			17: 'Ctrl', // MISSING
+			18: 'Alt', // MISSING
+			32: 'Space', // MISSING
+			35: 'End', // MISSING
+			36: 'Home', // MISSING
+			46: 'Delete', // MISSING
+			224: 'Command' // MISSING
 		},
 
 		// Prepended to ARIA labels with shortcuts.
-		keyboardShortcut: 'Gyorsbillentyű',
-
-		optionDefault: 'Alapértelmezett'
+		keyboardShortcut: 'Keyboard shortcut' // MISSING
 	}
 };

@@ -1,4 +1,3 @@
-@bender-tags: feature, generic
 @bender-ui: collapsed
 @bender-include: ../../embedbase/_helpers/tools.js
 @bender-ckeditor-plugins: wysiwygarea,sourcearea,htmlwriter,entities,toolbar,elementspath,undo,clipboard,format,basicstyles,autolink,autoembed,link

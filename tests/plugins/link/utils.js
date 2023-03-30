@@ -1,4 +1,4 @@
-/* bender-tags: editor,link */
+/* bender-tags: editor,unit,link */
 /* bender-ckeditor-plugins: toolbar,link,dialogadvtab */
 
 ( function() {
@@ -187,12 +187,12 @@
 
 			assertLink( this.editorBot, html,
 				{
+					type: 'email',
 					email: {
 						address: 'foo',
 						subject: 'bar',
 						body: 'bam'
-					},
-					type: 'email'
+					}
 				}, {
 					'data-cke-saved-href': 'mailto:foo?subject=bar&body=bam',
 					href: 'mailto:foo?subject=bar&body=bam'

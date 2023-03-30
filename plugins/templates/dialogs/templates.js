@@ -1,9 +1,10 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 ( function() {
+
 	CKEDITOR.dialog.add( 'templates', function( editor ) {
 		// Constructs the HTML view of the specified templates data.
 		function renderTemplatesList( container, templatesDefinitions ) {
@@ -50,19 +51,7 @@
 			item.getFirst().setHtml( html );
 
 			item.on( 'click', function() {
-				if( template.htmlFile ) {
-					var templatesDialog = CKEDITOR.dialog.getCurrent();
-
-					templatesDialog.setState( CKEDITOR.DIALOG_STATE_BUSY );
-
-					// Load HTML of the file before inserting it.
-					CKEDITOR.ajax.loadText( template.htmlFile, function( html ) {
-						insertTemplate( html );
-						templatesDialog.setState( CKEDITOR.DIALOG_STATE_IDLE );
-					} );
-				} else {
-					insertTemplate( template.html );
-				}
+				insertTemplate( template.html );
 			} );
 
 			return item;
@@ -76,7 +65,7 @@
 
 			if ( isReplace ) {
 				editor.fire( 'saveSnapshot' );
-				// Everything should happen after the document is loaded (https://dev.ckeditor.com/ticket/4073).
+				// Everything should happen after the document is loaded (#4073).
 				editor.setData( html, function() {
 					dialog.hide();
 
@@ -156,12 +145,6 @@
 					type: 'vbox',
 					padding: 5,
 					children: [ {
-						id: 'chkInsertOpt',
-						type: 'checkbox',
-						label: lang.insertOption,
-						'default': config.templates_replaceContent
-					},
-					{
 						id: 'selectTplText',
 						type: 'html',
 						html: '<span>' +
@@ -176,6 +159,12 @@
 								'<div class="cke_tpl_loading"><span></span></div>' +
 							'</div>' +
 							'<span class="cke_voice_label" id="' + templateListLabelId + '">' + lang.options + '</span>'
+					},
+					{
+						id: 'chkInsertOpt',
+						type: 'checkbox',
+						label: lang.insertOption,
+						'default': config.templates_replaceContent
 					} ]
 				} ]
 			} ],

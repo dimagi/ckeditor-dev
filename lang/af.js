@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
@@ -19,7 +19,6 @@
  */
 CKEDITOR.lang[ 'af' ] = {
 	// ARIA description.
-	application: 'Rich Text Editor', // MISSING
 	editor: 'Woordverwerker',
 	editorPanel: 'Woordverwerkerpaneel',
 
@@ -35,6 +34,7 @@ CKEDITOR.lang[ 'af' ] = {
 		upload: 'Oplaai',
 		uploadSubmit: 'Stuur aan die bediener',
 		image: 'Beeld',
+		flash: 'Flash',
 		form: 'Vorm',
 		checkbox: 'Merkhokkie',
 		radio: 'Radioknoppie',
@@ -78,13 +78,10 @@ CKEDITOR.lang[ 'af' ] = {
 		width: 'Breedte',
 		height: 'Hoogte',
 		align: 'Orienteerung',
-		left: 'Links',
-		right: 'Regs',
-		center: 'Middel',
-		justify: 'Eweredig',
-		alignLeft: 'Links oplyn',
-		alignRight: 'Regs oplyn',
-		alignCenter: 'Middel oplyn',
+		alignLeft: 'Links',
+		alignRight: 'Regs',
+		alignCenter: 'Middel',
+		alignJustify: 'Eweredig',
 		alignTop: 'Bo',
 		alignMiddle: 'Middel',
 		alignBottom: 'Onder',
@@ -92,7 +89,6 @@ CKEDITOR.lang[ 'af' ] = {
 		invalidValue: 'Ongeldige waarde',
 		invalidHeight: 'Hoogte moet \'n getal wees',
 		invalidWidth: 'Breedte moet \'n getal wees.',
-		invalidLength: 'Die waarde vir die veld "%1" moet \'n  posetiewe nommer wees met of sonder die meeteenheid (%2).',
 		invalidCssLength: 'Die waarde vir die "%1" veld moet \'n posetiewe getal wees met of sonder \'n geldige CSS eenheid (px, %, in, cm, mm, em, ex, pt, of pc).',
 		invalidHtmlLength: 'Die waarde vir die  "%1" veld moet \'n posetiewe getal wees met of sonder \'n geldige HTML eenheid (px of %).',
 		invalidInlineStyle: 'Ongeldige CSS. Formaat is een of meer sleutel-wert paare, "naam : wert" met kommapunte gesky.',
@@ -103,45 +99,19 @@ CKEDITOR.lang[ 'af' ] = {
 
 		// Keyboard keys translations used for creating shortcuts descriptions in tooltips, context menus and ARIA labels.
 		keyboard: {
-			8: 'Backspace',
-			13: 'Enter',
-			16: 'Skuif',
+			8: 'Backspace', // MISSING
+			13: 'Enter', // MISSING
+			16: 'Shift', // MISSING
 			17: 'Ctrl',
 			18: 'Alt',
-			32: 'Spasie',
+			32: 'Space', // MISSING
 			35: 'Einde',
 			36: 'Tuis',
 			46: 'Verwyder',
-			112: 'F1',
-			113: 'F2',
-			114: 'F3',
-			115: 'F4',
-			116: 'F5',
-			117: 'F6',
-			118: 'F7',
-			119: 'F8',
-			120: 'F9',
-			121: 'F10',
-			122: 'F11',
-			123: 'F12',
-			124: 'F13',
-			125: 'F14',
-			126: 'F15',
-			127: 'F16',
-			128: 'F17',
-			129: 'F18',
-			130: 'F19',
-			131: 'F20',
-			132: 'F21',
-			133: 'F22',
-			134: 'F23',
-			135: 'F24',
-			224: 'Bevel'
+			224: 'Command' // MISSING
 		},
 
 		// Prepended to ARIA labels with shortcuts.
-		keyboardShortcut: 'Sleutel kombenasie',
-
-		optionDefault: 'Verstek'
+		keyboardShortcut: 'Keyboard shortcut' // MISSING
 	}
 };

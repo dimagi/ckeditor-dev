@@ -1,7 +1,7 @@
-/* bender-tags: editor */
-/* bender-ckeditor-plugins: toolbar,wysiwygarea,entities,clipboard,pastetext */
+/* bender-tags: editor,unit */
+/* bender-ckeditor-plugins: entities,clipboard,pastetext */
 /* bender-include: _helpers/pasting.js */
-/* global assertPasteEvent, simulatePasteCommand */
+/* global assertPasteEvent */
 
 /*
  * TOP TIP for all tests - DO NOT use editor.setData() or editor.editable().setHtml()
@@ -25,12 +25,9 @@
 		// Disable pasteFilter on Webkits (pasteFilter defaults semantic-text on Webkits).
 		config.pasteFilter = null;
 
-		var ta = document.createElement( 'textarea' );
-		document.body.appendChild( ta );
+		var editor = new CKEDITOR.editor( config );
 
-		var editor = CKEDITOR.replace( ta, config );
-
-		editor.on( 'instanceReady', function() {
+		editor.on( 'loaded', function() {
 			tc.resume( function() {
 				callback( editor );
 			} );
@@ -48,8 +45,6 @@
 			} );
 		} );
 	}
-
-	var trustyEdge = CKEDITOR.env.edge && CKEDITOR.env.version >= 16;
 
 	bender.test( {
 		setUp: function() {
@@ -212,29 +207,33 @@
 		},
 
 		'editor#paste command': function() {
-			var editor = this.editor,
+			var tc = this,
+				editor = this.editor,
 				order = [];
-
-			function onPaste( evt ) {
-				order.push( 'b-' + evt.data.type + '-' + evt.data.dataValue );
-				wait();
-			}
 
 			editor.on( 'beforePaste', function( evt ) {
 				evt.removeListener();
 				order.push( 'a-' + evt.data.type );
 			} );
 
+			editor.on( 'paste', function( evt ) {
+				evt.removeListener();
+				order.push( 'b-' + evt.data.type + '-' + evt.data.dataValue );
+			} );
+
 			editor.on( 'afterPaste', function( evt ) {
-				resume( function() {
-					evt.removeListener();
+				evt.removeListener();
+				tc.resume( function() {
 					assert.areEqual( 'a-auto', order[ 0 ], 'proper order and data for beforePaste' );
 					assert.areEqual( 'b-html-<b>foo</b>bar', order[ 1 ], 'proper order and data for paste' );
 				} );
 			} );
 
 			bender.tools.setHtmlWithSelection( editor, '<p>[abc]</p>' );
-			simulatePasteCommand( editor, { name: 'paste' }, { dataValue: '<b>foo</b>bar' }, onPaste );
+			setTimeout( function() {
+				editor.execCommand( 'paste', '<b>foo</b>bar' );
+			} );
+			tc.wait();
 		},
 
 		'pasting empty string with editor#paste command': function() {
@@ -242,12 +241,6 @@
 				editor = this.editor,
 				wasPaste = false,
 				wasAfterPaste = false;
-
-			function callback() {
-				assert.isFalse( wasPaste, 'paste callback shouldn\'t be called' );
-				assert.isFalse( wasAfterPaste, 'afterPaste callback shouldn\'t be called' );
-				assert.areEqual( editor.getData(), '<p>abc</p>' );
-			}
 
 			editor.once( 'paste', function() {
 				wasPaste = true;
@@ -257,15 +250,12 @@
 			} );
 
 			bender.tools.setHtmlWithSelection( editor, '<p>[abc]</p>' );
-
-			if ( CKEDITOR.env.ie && !CKEDITOR.env.edge ) {
-				// Calling editor.execCommand( 'paste' ) directly in IE triggers the security dialog.
-				// The simulatePasteCommand wrapper should be used.
-				simulatePasteCommand( editor, { name: 'paste' }, { dataValue: '' }, callback, 50 );
-			} else {
-				editor.execCommand( 'paste', '' );
-				tc.wait( callback, 50 );
-			}
+			editor.execCommand( 'paste', '' );
+			tc.wait( function() {
+				assert.isFalse( wasPaste, 'paste callback shouldn\'t be called' );
+				assert.isFalse( wasAfterPaste, 'afterPaste callback shouldn\'t be called' );
+				assert.areEqual( editor.getData(), '<p>abc</p>' );
+			}, 50 );
 		},
 
 		'pasting empty string (native version)': function() {
@@ -299,16 +289,17 @@
 					beforeType = evt.data.type;
 				} );
 
-				function onPaste( evt ) {
+				editor.on( 'paste', function( evt ) {
+					evt.removeListener();
 					assert.areEqual( 'text', beforeType, 'beforePaste.data.type' );
 					assert.areEqual( 'text', evt.data.type, 'paste.data.type' );
 					assert.areEqual( '<p>foo bar</p>', evt.data.dataValue, 'paste.data.data' );
-				}
+				} );
 
 				// We need to enable this command manually, because this listener is executed before event#mode
 				// which refreshes commands automatically.
 				editor.getCommand( 'paste' ).enable();
-				simulatePasteCommand( editor, { name: 'paste' }, { dataValue: '<p><b>foo</b> bar</p>' }, onPaste );
+				editor.execCommand( 'paste', '<p><b>foo</b> bar</p>' );
 			} );
 		},
 
@@ -807,14 +798,6 @@
 			} );
 		},
 
-		// (#1321)
-		'htmlified text unification 7 - IDEOGRAPHIC space': function() {
-			assertPasteEvent( this.editor,
-				{ dataValue: 'a\u3000a\u3000\u3000' },
-				{ type: 'text', dataValue: 'a\u3000a\u3000\u3000' },
-				'htmlified text - IDEOGRAPHIC space' );
-		},
-
 		'html textification <p class="test" style="color:red">a<br style="display:none">b</p>': function() {
 			assertPasteEvent( this.editor, {
 					type: 'text',
@@ -909,18 +892,18 @@
 				}, { type: 'text', dataValue: 'A<p>B</p><p>C</p><p>D</p><p>E</p>F' }, 'transparent divs' );
 		},
 
-		'html textification 3 - ticket https://dev.ckeditor.com/ticket/8834': function() {
+		'html textification 3 - ticket #8834': function() {
 			// Mso classes will be stripped by pastefromword filters, and we need some styling element,
 			// because otherwise this will be handled as htmlified text.
 			assertPasteEvent( this.editor,
 				{ type: 'text', dataValue: '<p><strong>Line</strong> 1<br>Line 2</p><p>Line 3</p><p>Line 4</p>' },
 				{ type: 'text', dataValue: '<p>Line 1<br />Line 2</p><p>Line 3</p><p>Line 4</p>' },
-				'tt https://dev.ckeditor.com/ticket/8834' );
+				'tt #8834' );
 
 			assertPasteEvent( this.editor,
 				{ type: 'text', dataValue: '<p><strong>Line</strong> 1<br>Line 2</p><p>Line 3</p><p>Line 4</p>' },
 				{ type: 'text', dataValue: '<p>Line 1<br />Line 2</p><p>Line 3</p><p>Line 4</p>' },
-				'tt https://dev.ckeditor.com/ticket/8834' );
+				'tt #8834' );
 		},
 
 		'html textification 4': function() {
@@ -1080,11 +1063,143 @@
 				evt.data.type = 'html';
 			} );
 
-			function onPaste( evt ) {
+			tc.on( 'paste', function( evt ) {
 				assert.areEqual( 'html', evt.data.type );
+			}, null, null, 900 );
+
+			editor.execCommand( 'paste', 'abc' );
+		},
+
+		'editor.getClipboardData - successful': function() {
+			// We cannot test them in IE because this tcs will open security alert which will stop tests.
+			if ( !CKEDITOR.plugins.clipboard.isCustomCopyCutSupported )
+				assert.ignore();
+
+			var tc = this,
+				editor = this.editor,
+				pasteFired = false,
+				beforePasteFired = false;
+
+			editor.once( 'beforePaste', function( evt ) {
+				assert.areEqual( 'auto', evt.data.type );
+				beforePasteFired = true;
+				evt.data.type = 'test';
+			} );
+
+			editor.once( 'paste', function() {
+				pasteFired = true;
+			} );
+
+			editor.once( 'dialogShow', function() {
+				var dialog = editor._.storedDialogs.paste;
+				assert.isTrue( !!dialog );
+
+				// Fx is sooo buggy - don't try to get frameDoc in scope above,
+				// because it will return different object than here.
+				var frameDoc = dialog.getContentElement( 'general', 'editing_area' )
+					.getInputElement().getFrameDocument();
+
+				frameDoc.getBody().setHtml( 'abc<b>def</b>' );
+				dialog.fire( 'ok' );
+				dialog.hide();
+			} );
+
+			editor.getClipboardData( function( data ) {
+				tc.resume( function() {
+					assert.isFalse( pasteFired );
+					assert.isTrue( beforePasteFired );
+					assert.areEqual( 'test', data.type );
+					assert.areEqual( 'abc<b>def</b>', data.dataValue );
+				} );
+			} );
+
+			tc.wait();
+		},
+
+		'editor.getClipboardData - unsuccessful': function() {
+			// We cannot test them in IE because this tcs will open security alert which will stop tests.
+			if ( !CKEDITOR.plugins.clipboard.isCustomCopyCutSupported )
+				assert.ignore();
+
+			var tc = this,
+				editor = this.editor,
+				dialogOpened = false;
+
+			editor.on( 'dialogShow', function( evt ) {
+				evt.removeListener();
+
+				tc.resume( function() {
+					var dialog = editor._.storedDialogs.paste;
+					assert.isTrue( !!dialog );
+
+					dialogOpened = true;
+
+					// Make sure it's async.
+					setTimeout( function() {
+						dialog.fire( 'cancel' );
+						dialog.hide();
+					} );
+
+					tc.wait();
+				} );
+			} );
+
+			// It's easier to have this asynchronous, becasuse then we don't have to think
+			// if tc.wait() & tc.resume() will execute properly.
+			setTimeout( function() {
+				editor.getClipboardData( function( data ) {
+					tc.resume( function() {
+						assert.isNull( data );
+						assert.isTrue( dialogOpened );
+					} );
+				} );
+			} );
+
+			tc.wait();
+		},
+
+		'editor.getClipboardData - canceled beforePaste': function() {
+			// We cannot test them in IE because this tcs will open security alert which will stop tests.
+			if ( !CKEDITOR.plugins.clipboard.isCustomCopyCutSupported )
+				assert.ignore();
+
+			var tc = this,
+				editor = this.editor,
+				dialogOpened = false,
+				pasteFired = false;
+
+			function onDialogShow() {
+				dialogOpened = true;
 			}
 
-			simulatePasteCommand( editor, { name: 'paste' }, { dataValue: 'abc' }, onPaste );
+			function onPaste() {
+				pasteFired = true;
+			}
+
+			editor.on( 'beforePaste', function( evt ) {
+				evt.removeListener();
+				evt.cancel();
+			} );
+
+			editor.on( 'dialogShow', onDialogShow );
+			editor.on( 'paste', onPaste );
+
+			// It's easier to have this asynchronous, becasuse then we don't have to think
+			// if tc.wait() & tc.resume() will execute properly.
+			setTimeout( function() {
+				editor.getClipboardData( function( data ) {
+					tc.resume( function() {
+						assert.isNull( data );
+						assert.isFalse( dialogOpened );
+						assert.isFalse( pasteFired );
+
+						editor.removeListener( 'dialogShow', onDialogShow );
+						editor.removeListener( 'paste', onPaste );
+					} );
+				} );
+			} );
+
+			tc.wait();
 		},
 
 		'dataTranfer and method in paste - emulatePaste': function() {
@@ -1114,13 +1229,17 @@
 		'dataTranfer and method in paste - execCommand': function() {
 			var editor = this.editor;
 
-			function onPaste( evt ) {
-				assert.isInstanceOf( CKEDITOR.plugins.clipboard.dataTransfer, evt.data.dataTransfer );
-				assert.areSame( 'paste', evt.data.method, 'Method should be paste' );
-			}
+			editor.once( 'paste', function( evt ) {
+				resume( function() {
+					assert.isInstanceOf( CKEDITOR.plugins.clipboard.dataTransfer, evt.data.dataTransfer );
+					assert.areSame( 'paste', evt.data.method, 'Method should be paste' );
+				} );
+			} );
 
 			bender.tools.setHtmlWithSelection( editor, '<p>foo^bar</p>' );
-			simulatePasteCommand( editor, 'xxx', {}, onPaste );
+			editor.execCommand( 'paste', 'xxx' );
+
+			this.wait();
 		},
 
 		'paste with HTML in clipboardData': function() {
@@ -1194,14 +1313,7 @@
 
 			editable.fire( 'cut', pasteEventMock );
 
-			// As Edge stores custom data in text/html it needs to be asserted differently - we need to extract content part (#962).
-			if ( CKEDITOR.env.edge ) {
-				var dataTransfer = new CKEDITOR.plugins.clipboard.dataTransfer( {}, editor );
-				assert.areSame( 'b<b>a</b>r', dataTransfer._.fallbackDataTransfer._extractDataComment( pasteEventMock.$.clipboardData.getData( 'text/html' ) ).content, 'HTML text' );
-			} else {
-				assert.areSame( 'b<b>a</b>r', pasteEventMock.$.clipboardData.getData( 'text/html' ), 'HTML text' );
-			}
-
+			assert.areSame( 'b<b>a</b>r', pasteEventMock.$.clipboardData.getData( 'text/html' ), 'HTML text' );
 			assert.areSame( 'bar', pasteEventMock.$.clipboardData.getData( 'Text' ), 'Plain text' );
 			assert.isInnerHtmlMatching( '<p>x^x@</p>', bender.tools.selection.getWithHtml( editor ), { compareSelection: true, normalizeSelection: true }, 'Editor content' );
 			assert.areSame( pasteEventMock.$.clipboardData, CKEDITOR.plugins.clipboard.copyCutData.$, 'copyCutData should be initialized' );
@@ -1219,14 +1331,7 @@
 
 			editable.fire( 'copy', pasteEventMock );
 
-			// As Edge stores custom data in text/html it needs to be asserted differently - we need to extract content part (#962).
-			if ( CKEDITOR.env.edge ) {
-				var dataTransfer = new CKEDITOR.plugins.clipboard.dataTransfer( {}, editor );
-				assert.areSame( 'b<b>a</b>r', dataTransfer._.fallbackDataTransfer._extractDataComment( pasteEventMock.$.clipboardData.getData( 'text/html' ) ).content, 'HTML text' );
-			} else {
-				assert.areSame( 'b<b>a</b>r', pasteEventMock.$.clipboardData.getData( 'text/html' ), 'HTML text' );
-			}
-
+			assert.areSame( 'b<b>a</b>r', pasteEventMock.$.clipboardData.getData( 'text/html' ), 'HTML data' );
 			assert.areSame( 'bar', pasteEventMock.$.clipboardData.getData( 'Text' ), 'Plain text data' );
 			assert.isInnerHtmlMatching( '<p>x[b<b>a</b>r]x@</p>', bender.tools.selection.getWithHtml( editor ), { compareSelection: true, normalizeSelection: true }, 'Editor content' );
 			assert.areSame( pasteEventMock.$.clipboardData, CKEDITOR.plugins.clipboard.copyCutData.$, 'copyCutData should be initialized' );
@@ -1310,23 +1415,17 @@
 			if ( !CKEDITOR.plugins.clipboard.isCustomCopyCutSupported )
 				assert.ignore();
 
-			var editor = this.editor,
-				// As dataTransfer mock is used in `bender.tools.emulatePaste` we need to pass a type which is acceptable in Edge
-				// as it does not support custom types (#962).
-				customType = CKEDITOR.env.edge ? 'application/xml' : 'cke/custom',
-				initialData = {};
-
-			initialData[ customType ] = 'foo';
+			var editor = this.editor;
 
 			this.on( 'paste', function( evt ) {
 				resume( function() {
 					assert.areSame( 'paste', evt.data.method, 'Paste method.' );
-					assert.areSame( 'foo', evt.data.dataTransfer.getData( customType ), 'cke/custom data' );
+					assert.areSame( 'foo', evt.data.dataTransfer.getData( 'cke/custom' ), 'cke/custom data' );
 					assert.areSame( '', evt.data.dataValue, 'dataValue' );
 				} );
 			} );
 
-			bender.tools.emulatePaste( editor, '', initialData );
+			bender.tools.emulatePaste( editor, '', { 'cke/custom': 'foo' } );
 
 			this.wait();
 		},
@@ -1344,30 +1443,6 @@
 			this.wait( function() {
 				assert.areSame( 0, pasteCount, 'Paste should not be fired.' );
 			}, 0 );
-		},
-
-		// (#3415)
-		'test paste list with whitespace on boundaries': function() {
-			if ( !CKEDITOR.plugins.clipboard.isCustomCopyCutSupported ) {
-				assert.ignore();
-			}
-
-			var editor = this.editor;
-
-			this.on( 'afterPaste', function() {
-				resume( function() {
-					// If we got here, it means that the list was pasted successfully.
-					assert.pass();
-				} );
-			} );
-
-			bender.tools.emulatePaste( editor, '<html>' +
-				'<body>\n' +
-				'<!--StartFragment--><li>foo</li><!--EndFragment-->\n' +
-				'</body>' +
-				'</html>' );
-
-			this.wait();
 		},
 
 		'test canClipboardApiBeTrusted internal': function() {
@@ -1396,39 +1471,6 @@
 				dataTransfer = CKEDITOR.plugins.clipboard.initPasteDataTransfer( evt );
 
 			assert.isTrue( canClipboardApiBeTrusted( dataTransfer ), 'Clipboard API should be used in Chrome.' );
-		},
-
-		'test canClipboardApiBeTrusted in Safari': function() {
-			if ( !CKEDITOR.env.safari ) {
-				assert.ignore();
-			}
-
-			var canClipboardApiBeTrusted = CKEDITOR.plugins.clipboard.canClipboardApiBeTrusted,
-				nativeData = bender.tools.mockNativeDataTransfer();
-
-			nativeData.setData( 'text/html', '<b>foo</b>' );
-
-			var evt = { data: { $: { clipboardData: nativeData } } },
-				dataTransfer = CKEDITOR.plugins.clipboard.initPasteDataTransfer( evt );
-
-			assert.isTrue( canClipboardApiBeTrusted( dataTransfer ), 'Clipboard API should be marked as trusted.' );
-		},
-
-		// #468
-		'test canClipboardApiBeTrusted in Edge 16+': function() {
-			if ( !trustyEdge ) {
-				assert.ignore();
-			}
-
-			var canClipboardApiBeTrusted = CKEDITOR.plugins.clipboard.canClipboardApiBeTrusted,
-				nativeData = bender.tools.mockNativeDataTransfer();
-
-			nativeData.setData( 'text/html', '<b>foo</b>' );
-
-			var evt = { data: { $: { clipboardData: nativeData } } },
-				dataTransfer = CKEDITOR.plugins.clipboard.initPasteDataTransfer( evt );
-
-			assert.isTrue( canClipboardApiBeTrusted( dataTransfer ), 'Clipboard API should be marked as trusted.' );
 		},
 
 		'test canClipboardApiBeTrusted in Android Chrome (no dataTransfer support)': function() {
@@ -1494,7 +1536,7 @@
 		},
 
 		'test canClipboardApiBeTrusted on other browser': function() {
-			if ( CKEDITOR.env.chrome || CKEDITOR.env.gecko || CKEDITOR.env.safari || trustyEdge ) {
+			if ( CKEDITOR.env.chrome || CKEDITOR.env.gecko ) {
 				assert.ignore();
 			}
 
@@ -1527,16 +1569,16 @@
 				} );
 		},
 
-		// https://dev.ckeditor.com/ticket/9675 and https://dev.ckeditor.com/ticket/9534.
+		// #9675 and #9534.
 		'strip editable when about to paste the entire inline editor': function() {
-			// https://dev.ckeditor.com/ticket/9534: FF and Webkits in inline editor based on header element.
+			// #9534: FF and Webkits in inline editor based on header element.
 			assertPasteEvent( this.editor, { dataValue: '<h1 class="cke_editable">Foo<br>Bar</h1>' },
 				{ dataValue: 'Foo<br>Bar' }, 'stripped .cke_editable' );
 
 			assertPasteEvent( this.editor, { dataValue: '<div class="cke_contents">Bar<br></div>' },
 				{ dataValue: 'Bar' }, 'stripped .cke_contents & bogus br removed' );
 
-			// https://dev.ckeditor.com/ticket/9675: FF36 copies divarea.
+			// #9675: FF36 copies divarea.
 			assertPasteEvent( this.editor,
 				{ dataValue: '<div id="cke_1_contents" class="cke_contents"><div class="cke_editable" contenteditable="true"><p>aaa</p></div></div>' },
 				{ dataValue: '<p>aaa</p>' }, 'stripped .cke_editable > .cke_contents' );

@@ -1,11 +1,11 @@
-/* bender-tags: editor */
+/* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: showblocks */
 
 bender.editor = true;
 
 bender.test(
 {
-	// https://dev.ckeditor.com/ticket/4355
+	// #4355
 	'test command exec not require editor focus': function() {
 		var bot = this.editorBot, editor = this.editor;
 

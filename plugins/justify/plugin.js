@@ -1,6 +1,6 @@
 ﻿/**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
@@ -9,6 +9,7 @@
 
 ( function() {
 	function getAlignment( element, useComputedState ) {
+		useComputedState = useComputedState === undefined || useComputedState;
 
 		var align;
 		if ( useComputedState )
@@ -36,6 +37,7 @@
 		this.name = name;
 		this.value = value;
 		this.context = 'p';
+
 		var classes = editor.config.justifyClasses,
 			blockTag = editor.config.enterMode == CKEDITOR.ENTER_P ? 'p' : 'div';
 
@@ -138,6 +140,7 @@
 				iterator, block;
 
 			var useComputedState = editor.config.useComputedState;
+			useComputedState = useComputedState === undefined || useComputedState;
 
 			for ( var i = ranges.length - 1; i >= 0; i-- ) {
 				iterator = ranges[ i ].createIterator();
@@ -147,17 +150,6 @@
 					if ( block.isReadOnly() )
 						continue;
 
-					// Check if style or class might be applied to currently processed element (#455).
-					var tag = block.getName(),
-						isAllowedTextAlign, isAllowedCssClass;
-
-					isAllowedTextAlign = editor.activeFilter.check( tag + '{text-align}' );
-					isAllowedCssClass = editor.activeFilter.check( tag + '(' + cssClassName + ')' );
-
-					if ( !isAllowedCssClass && !isAllowedTextAlign ) {
-						continue;
-					}
-
 					block.removeAttribute( 'align' );
 					block.removeStyle( 'text-align' );
 
@@ -166,13 +158,13 @@
 
 					var apply = ( this.state == CKEDITOR.TRISTATE_OFF ) && ( !useComputedState || ( getAlignment( block, true ) != this.value ) );
 
-					if ( cssClassName && isAllowedCssClass ) {
+					if ( cssClassName ) {
 						// Append the desired class name.
 						if ( apply )
 							block.addClass( cssClassName );
 						else if ( !className )
 							block.removeAttribute( 'class' );
-					} else if ( apply && isAllowedTextAlign ) {
+					} else if ( apply ) {
 						block.setStyle( 'text-align', this.value );
 					}
 				}
@@ -185,29 +177,16 @@
 		},
 
 		refresh: function( editor, path ) {
-			var firstBlock = path.block || path.blockLimit,
-				name = firstBlock.getName(),
-				isEditable = firstBlock.equals( editor.editable() ),
-				isStylable = this.cssClassName ? editor.activeFilter.check( name + '(' + this.cssClassName + ')' ) :
-					editor.activeFilter.check( name + '{text-align}' );
+			var firstBlock = path.block || path.blockLimit;
 
-			// #455
-			// 1. Check if we are directly in editbale. Justification should be always allowed, and not highlighted.
-			//    Checking situation `body > ul` where ul is selected and path.blockLimit returns editable.
-			// 2. Check if current element can have applied specific class.
-			// 3. Check if current element can have applied text-align style.
-			if ( isEditable && !CKEDITOR.dtd.$list[ path.lastElement.getName() ] ) {
-				this.setState( CKEDITOR.TRISTATE_OFF );
-			} else if ( !isEditable && isStylable ) {
-				// 2 & 3 in one condition.
-				this.setState( getAlignment( firstBlock, this.editor.config.useComputedState ) == this.value ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF );
-			} else {
-				this.setState( CKEDITOR.TRISTATE_DISABLED );
-			}
+			this.setState( firstBlock.getName() != 'body' && getAlignment( firstBlock, this.editor.config.useComputedState ) == this.value ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF );
 		}
 	};
 
 	CKEDITOR.plugins.add( 'justify', {
+		// jscs:disable maximumLineLength
+		lang: 'af,ar,bg,bn,bs,ca,cs,cy,da,de,de-ch,el,en,en-au,en-ca,en-gb,eo,es,et,eu,fa,fi,fo,fr,fr-ca,gl,gu,he,hi,hr,hu,id,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,oc,pl,pt,pt-br,ro,ru,si,sk,sl,sq,sr,sr-latn,sv,th,tr,tt,ug,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
+		// jscs:enable maximumLineLength
 		icons: 'justifyblock,justifycenter,justifyleft,justifyright', // %REMOVE_LINE_CORE%
 		hidpi: true, // %REMOVE_LINE_CORE%
 		init: function( editor ) {
@@ -226,30 +205,27 @@
 
 			if ( editor.ui.addButton ) {
 				editor.ui.addButton( 'JustifyLeft', {
-					isToggle: true,
-					label: editor.lang.common.alignLeft,
+					label: editor.lang.justify.left,
 					command: 'justifyleft',
 					toolbar: 'align,10'
 				} );
 				editor.ui.addButton( 'JustifyCenter', {
-					isToggle: true,
-					label: editor.lang.common.center,
+					label: editor.lang.justify.center,
 					command: 'justifycenter',
 					toolbar: 'align,20'
 				} );
 				editor.ui.addButton( 'JustifyRight', {
-					isToggle: true,
-					label: editor.lang.common.alignRight,
+					label: editor.lang.justify.right,
 					command: 'justifyright',
 					toolbar: 'align,30'
 				} );
 				editor.ui.addButton( 'JustifyBlock', {
-					isToggle: true,
-					label: editor.lang.common.justify,
+					label: editor.lang.justify.block,
 					command: 'justifyblock',
 					toolbar: 'align,40'
 				} );
 			}
+
 			editor.on( 'dirChanged', onDirChanged );
 		}
 	} );

@@ -1,4 +1,4 @@
-/* bender-tags: editor */
+/* bender-tags: editor,unit */
 
 ( function() {
 	'use strict';
@@ -10,7 +10,7 @@
 		folderPath = path + testDir.slice( 0, testDir.lastIndexOf( '/' ) ),
 		expectedEditorPath = '/apps/ckeditor/',
 		query = CKEDITOR.timestamp ? '?t=' + CKEDITOR.timestamp : '',
-		secondDomainName = 'sub.ckeditor.example',
+		secondDomainName = 'sub.ckeditor.dev',
 		port = window.location.port;
 
 

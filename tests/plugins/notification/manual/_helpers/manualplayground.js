@@ -5,9 +5,15 @@
 
 var manualPlayground = {
 	init: function() {
-		editor.on( 'notificationShow', logEvent );
-		editor.on( 'notificationUpdate', logEvent );
-		editor.on( 'notificationHide',  logEvent );
+		editor.on( 'notificationShow', function( evt ) {
+			console.log( evt );
+		} );
+		editor.on( 'notificationUpdate', function( evt ) {
+			console.log( evt );
+		} );
+		editor.on( 'notificationHide', function( evt ) {
+			console.log( evt );
+		} );
 	},
 
 	emulateProgress: function() {
@@ -56,8 +62,3 @@ var manualPlayground = {
 		editor.showNotification( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae risus eget ante mae convallis.', 'info' );
 	}
 };
-
-function logEvent( evt ) {
-	// `console` may be unavailable on older IEs when browser dev tools closed.
-	console && console.log( evt );
-}

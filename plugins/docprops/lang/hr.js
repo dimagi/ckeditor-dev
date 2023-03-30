@@ -1,10 +1,10 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'docprops', 'hr', {
 	bgColor: 'Boja pozadine',
-	bgFixed: 'Statična pozadina',
+	bgFixed: 'Pozadine se ne pomiče',
 	bgImage: 'URL slike pozadine',
 	charset: 'Enkodiranje znakova',
 	charsetASCII: 'ASCII',
@@ -29,7 +29,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'hr', {
 	marginLeft: 'Lijevo',
 	marginRight: 'Desno',
 	marginTop: 'Vrh',
-	meta: 'Meta tagovi',
+	meta: 'Meta Data',
 	metaAuthor: 'Autor',
 	metaCopyright: 'Autorska prava',
 	metaDescription: 'Opis dokumenta',

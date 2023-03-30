@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'table', 'pt', {
 	border: 'Tamanho do contorno',
@@ -22,18 +22,16 @@ CKEDITOR.plugins.setLang( 'table', 'pt', {
 		wordWrap: 'Moldar texto',
 		hAlign: 'Alinhamento horizontal',
 		vAlign: 'Alinhamento vertical',
-		alignBaseline: 'Linha base',
+		alignBaseline: 'Base',
 		bgColor: 'Cor de fundo',
 		borderColor: 'Cor da margem',
 		data: 'Dados',
 		header: 'Cabeçalho',
-		columnHeader: 'Column Header', // MISSING
-		rowHeader: 'Row Header', // MISSING
 		yes: 'Sim',
 		no: 'Não',
 		invalidWidth: 'A largura da célula deve ser um número.',
 		invalidHeight: 'A altura da célula deve ser um número.',
-		invalidRowSpan: 'As linhas da célula devem ser um número inteiro.',
+		invalidRowSpan: 'As filas da célula deve ter um número inteiro.',
 		invalidColSpan: 'As colunas da célula devem ter um número inteiro.',
 		chooseColor: 'Escolher'
 	},
@@ -52,7 +50,6 @@ CKEDITOR.plugins.setLang( 'table', 'pt', {
 	headersColumn: 'Primeira coluna',
 	headersNone: 'Nenhum',
 	headersRow: 'Primeira linha',
-	heightUnit: 'height unit', // MISSING
 	invalidBorder: 'O tamanho da margem tem de ser um número.',
 	invalidCellPadding: 'A criação do espaço na célula deve ser um número positivo.',
 	invalidCellSpacing: 'O espaçamento da célula deve ser um número positivo.',
@@ -72,6 +69,6 @@ CKEDITOR.plugins.setLang( 'table', 'pt', {
 	title: 'Propriedades da tabela',
 	toolbar: 'Tabela',
 	widthPc: 'percentagem',
-	widthPx: 'píxeis',
+	widthPx: 'pixéis',
 	widthUnit: 'unidade da largura'
 } );

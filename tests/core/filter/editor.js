@@ -1,4 +1,4 @@
-/* bender-tags: editor */
+/* bender-tags: editor,unit */
 
 ( function() {
 	'use strict';
@@ -270,8 +270,7 @@
 			bender.editorBot.create( {
 				name: 'test_editor_processing_active_filter',
 				config: {
-					allowedContent: 'u(!main); p',
-					plugins: 'wysiwygarea,toolbar,basicstyles'
+					allowedContent: 'u(!main); p'
 				}
 			}, function( bot ) {
 				var editor = bot.editor;
@@ -303,8 +302,7 @@
 				name: 'test_editor_processing_active_filter_inline',
 				creator: 'inline',
 				config: {
-					allowedContent: 'u(!main); p',
-					plugins: 'wysiwygarea,toolbar,basicstyles'
+					allowedContent: 'u(!main); p'
 				}
 			}, function( bot ) {
 				var editor = bot.editor;

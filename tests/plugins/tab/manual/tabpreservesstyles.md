@@ -1,4 +1,4 @@
-@bender-tags: 4.4.7, bug
+@bender-tags: 4.4.7, tc
 @bender-ui: collapsed
 @bender-ckeditor-plugins: wysiwygarea, tab, basicstyles, toolbar
 

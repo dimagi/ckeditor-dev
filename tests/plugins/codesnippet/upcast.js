@@ -1,10 +1,11 @@
-/* bender-tags: editor,widget */
+/* bender-tags: editor,unit,widget */
 /* bender-ckeditor-plugins: codesnippet,toolbar */
+/* global widgetTestsTools */
 
 ( function() {
 	'use strict';
 
-	var objToArray = bender.tools.objToArray,
+	var obj2Array = widgetTestsTools.obj2Array,
 		htmlEncode = CKEDITOR.tools.htmlEncode;
 
 	bender.editor = {
@@ -38,7 +39,7 @@
 				markup = CKEDITOR.document.getById( 'upcastables' ).getHtml();
 
 			this.editorBot.setData( markup, function() {
-				assert.areSame( 6, objToArray( editor.widgets.instances ).length, 'A number of instances created' );
+				assert.areSame( 6, obj2Array( editor.widgets.instances ).length, 'A number of instances created' );
 
 				for ( var i in editor.widgets.instances )
 					assertInternalStructure( editor.widgets.instances[ i ] );
@@ -56,7 +57,7 @@
 					'</code></pre>';
 
 			this.editorBot.setData( data, function() {
-				var instances = objToArray( editor.widgets.instances );
+				var instances = obj2Array( editor.widgets.instances );
 
 				assert.areSame( 0, instances.length, 'Code with elements inside should not be upcasted at all' );
 				assert.areSame( data, editor.getData(), 'Data has not been changed' );
@@ -68,7 +69,7 @@
 				markup = CKEDITOR.document.getById( 'non-upcastables' ).getHtml();
 
 			this.editorBot.setData( markup, function() {
-				assert.areSame( 0, objToArray( editor.widgets.instances ).length, 'No widgets created' );
+				assert.areSame( 0, obj2Array( editor.widgets.instances ).length, 'No widgets created' );
 			} );
 		},
 
@@ -78,7 +79,7 @@
 				inputCode = '<pre><code class="language-javascript">' + htmlEncode( code ) + '</code></pre>';
 
 			this.editorBot.setData( inputCode, function() {
-				var instances = objToArray( editor.widgets.instances );
+				var instances = obj2Array( editor.widgets.instances );
 
 				assert.areSame( 1, instances.length, 'A single widget should be created' );
 
@@ -94,7 +95,7 @@
 			var editor = this.editor;
 
 			this.editorBot.setData( '<pre><code class="language-foo">c</code></pre>', function() {
-				var instances = objToArray( editor.widgets.instances );
+				var instances = obj2Array( editor.widgets.instances );
 
 				assert.areSame( 1, instances.length, 'A single widget should be created' );
 
@@ -110,7 +111,7 @@
 			var editor = this.editor;
 
 			this.editorBot.setData( '<pre><code class="language-python">c</code></pre>', function() {
-				var instances = objToArray( editor.widgets.instances );
+				var instances = obj2Array( editor.widgets.instances );
 
 				assert.areSame( 1, instances.length, 'A single widget should be created' );
 
@@ -127,7 +128,7 @@
 				bot = this.editorBot;
 
 			bot.setData( '<pre><code class="hljs wrongClass language-python">c</code></pre>', function() {
-				var instances = objToArray( editor.widgets.instances );
+				var instances = obj2Array( editor.widgets.instances );
 
 				assert.areSame( 1, instances.length, 'A single widget should be created' );
 

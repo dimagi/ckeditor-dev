@@ -1,11 +1,11 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'stylescombo', 'pt', {
 	label: 'Estilos',
-	panelTitle: 'Estilos de formatação',
+	panelTitle: 'Estilos de Formatação',
 	panelTitle1: 'Estilos de bloco',
-	panelTitle2: 'Estilos nas etiquetas',
-	panelTitle3: 'Estilos em objeto'
+	panelTitle2: 'Estilos de Linha',
+	panelTitle3: 'Estilos de Objeto'
 } );

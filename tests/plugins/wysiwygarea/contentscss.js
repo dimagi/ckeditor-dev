@@ -1,5 +1,5 @@
-/* bender-tags: editor */
-/* bender-ckeditor-remove-plugins: copyformatting,tableselection */
+/* bender-tags: editor,unit */
+/* bender-ckeditor-remove-plugins: copyformatting */
 
 ( function() {
 	'use strict';
@@ -17,32 +17,28 @@
 		},
 
 		'test string value': function() {
-			var assetName = '%TEST_DIR%/_assets/contents.css';
-
 			bender.editorBot.create( {
 				name: 'test_string',
 				config: {
-					contentsCss: assetName
+					contentsCss: '_assets/contents.css'
 				}
 			}, function( bot ) {
 				var hrefs = getStylesheets( bot.editor.document );
 
-				assert.areSame( assetName, hrefs.join() );
+				assert.areSame( '_assets/contents.css', hrefs.join() );
 			} );
 		},
 
 		'test array value': function() {
-			var additionalCssFiles = [ '%TEST_DIR%/_assets/contents.css', '%TEST_DIR%/_assets/contents2.css' ];
-
 			bender.editorBot.create( {
 				name: 'test_array',
 				config: {
-					contentsCss: additionalCssFiles
+					contentsCss: [ '_assets/contents.css', '_assets/contents2.css' ]
 				}
 			}, function( bot ) {
 				var hrefs = getStylesheets( bot.editor.document );
 
-				assert.areSame( additionalCssFiles.join( ',' ), hrefs.sort().join() );
+				assert.areSame( '_assets/contents.css,_assets/contents2.css', hrefs.sort().join() );
 			} );
 		},
 
@@ -96,5 +92,4 @@
 
 		return hrefs;
 	}
-
 } )();

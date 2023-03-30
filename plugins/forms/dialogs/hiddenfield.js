@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.dialog.add( 'hiddenfield', function( editor ) {
@@ -9,23 +9,18 @@ CKEDITOR.dialog.add( 'hiddenfield', function( editor ) {
 		hiddenField: null,
 		minWidth: 350,
 		minHeight: 110,
-		getModel: function( editor ) {
-			var selection = editor.getSelection(),
+		onShow: function() {
+			delete this.hiddenField;
+
+			var editor = this.getParentEditor(),
+				selection = editor.getSelection(),
 				element = selection.getSelectedElement();
 
 			if ( element && element.data( 'cke-real-element-type' ) && element.data( 'cke-real-element-type' ) == 'hiddenfield' ) {
-				return element;
-			}
-
-			return null;
-		},
-		onShow: function() {
-			var editor = this.getParentEditor(),
-				element = this.getModel( editor );
-
-			if ( element ) {
-				this.setupContent( editor.restoreRealElement( element ) );
-				editor.getSelection().selectElement( element );
+				this.hiddenField = element;
+				element = editor.restoreRealElement( this.hiddenField );
+				this.setupContent( element );
+				selection.selectElement( this.hiddenField );
 			}
 		},
 		onOk: function() {
@@ -37,13 +32,11 @@ CKEDITOR.dialog.add( 'hiddenfield', function( editor ) {
 
 			element.setAttribute( 'type', 'hidden' );
 			this.commitContent( element );
-			var fakeElement = editor.createFakeElement( element, 'cke_hidden', 'hiddenfield' ),
-				hiddenField = this.getModel( editor );
-
-			if ( !hiddenField )
+			var fakeElement = editor.createFakeElement( element, 'cke_hidden', 'hiddenfield' );
+			if ( !this.hiddenField )
 				editor.insertElement( fakeElement );
 			else {
-				fakeElement.replace( hiddenField );
+				fakeElement.replace( this.hiddenField );
 				editor.getSelection().selectElement( fakeElement );
 			}
 			return true;

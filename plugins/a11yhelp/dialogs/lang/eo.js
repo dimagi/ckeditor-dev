@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.plugins.setLang( 'a11yhelp', 'eo', {
@@ -79,11 +79,6 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'eo', {
 			{
 			name: 'Helpilo pri atingeblo',
 			legend: 'Premu ${a11yHelp}'
-		},
-			{
-			name: 'Algluu kiel platan tekston',
-			legend: 'Presu ${pastetext}',
-			legendEdge: 'Presu ${pastetext}, sekvatan de ${paste}'
 		}
 		]
 	}

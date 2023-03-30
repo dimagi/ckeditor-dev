@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 CKEDITOR.dialog.add( 'textfield', function( editor ) {
 
@@ -22,26 +22,19 @@ CKEDITOR.dialog.add( 'textfield', function( editor ) {
 		title: editor.lang.forms.textfield.title,
 		minWidth: 350,
 		minHeight: 150,
-		getModel: function( editor ) {
-			var element = editor.getSelection().getSelectedElement();
-
-			if ( element && element.getName() == 'input' &&
-				( acceptedTypes[ element.getAttribute( 'type' ) ] || !element.getAttribute( 'type' ) ) ) {
-				return element;
-			}
-
-			return null;
-		},
 		onShow: function() {
-			var element = this.getModel( this.getParentEditor() );
-			if ( element ) {
+			delete this.textField;
+
+			var element = this.getParentEditor().getSelection().getSelectedElement();
+			if ( element && element.getName() == 'input' && ( acceptedTypes[ element.getAttribute( 'type' ) ] || !element.getAttribute( 'type' ) ) ) {
+				this.textField = element;
 				this.setupContent( element );
 			}
 		},
 		onOk: function() {
 			var editor = this.getParentEditor(),
-				element = this.getModel( editor ),
-				isInsertMode = this.getMode( editor ) == CKEDITOR.dialog.CREATION_MODE;
+				element = this.textField,
+				isInsertMode = !element;
 
 			if ( isInsertMode ) {
 				element = editor.document.createElement( 'input' );
@@ -50,9 +43,8 @@ CKEDITOR.dialog.add( 'textfield', function( editor ) {
 
 			var data = { element: element };
 
-			if ( isInsertMode ) {
+			if ( isInsertMode )
 				editor.insertElement( data.element );
-			}
 
 			this.commitContent( data );
 
@@ -138,7 +130,7 @@ CKEDITOR.dialog.add( 'textfield', function( editor ) {
 					validate: CKEDITOR.dialog.validate.integer( editor.lang.common.validateNumberFailed )
 				} ],
 				onLoad: function() {
-					// Repaint the style for IE7 (https://dev.ckeditor.com/ticket/6068)
+					// Repaint the style for IE7 (#6068)
 					if ( CKEDITOR.env.ie7Compat )
 						this.getElement().setStyle( 'zoom', '100%' );
 				}
@@ -185,7 +177,9 @@ CKEDITOR.dialog.add( 'textfield', function( editor ) {
 				'default': '',
 				accessKey: 'Q',
 				value: 'required',
-				setup: CKEDITOR.plugins.forms._setupRequiredAttribute,
+				setup: function( element ) {
+					this.setValue( element.getAttribute( 'required' ) );
+				},
 				commit: function( data ) {
 					var element = data.element;
 					if ( this.getValue() )

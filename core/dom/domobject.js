@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
@@ -41,7 +41,7 @@ CKEDITOR.dom.domObject.prototype = ( function() {
 			return function( domEvent ) {
 				// In FF, when reloading the page with the editor focused, it may
 				// throw an error because the CKEDITOR global is not anymore
-				// available. So, we check it here first. (https://dev.ckeditor.com/ticket/2923)
+				// available. So, we check it here first. (#2923)
 				if ( typeof CKEDITOR != 'undefined' )
 					domObject.fire( eventName, new CKEDITOR.dom.event( domEvent ) );
 			};
@@ -126,28 +126,19 @@ CKEDITOR.dom.domObject.prototype = ( function() {
 		 * references left after the object is no longer needed.
 		 */
 		removeAllListeners: function() {
-			try {
-				var nativeListeners = this.getCustomData( '_cke_nativeListeners' );
-				for ( var eventName in nativeListeners ) {
-					var listener = nativeListeners[ eventName ];
-					if ( this.$.detachEvent ) {
-						this.$.detachEvent( 'on' + eventName, listener );
-					} else if ( this.$.removeEventListener ) {
-						this.$.removeEventListener( eventName, listener, false );
-					}
+			var nativeListeners = this.getCustomData( '_cke_nativeListeners' );
+			for ( var eventName in nativeListeners ) {
+				var listener = nativeListeners[ eventName ];
+				if ( this.$.detachEvent )
+					this.$.detachEvent( 'on' + eventName, listener );
+				else if ( this.$.removeEventListener )
+					this.$.removeEventListener( eventName, listener, false );
 
-					delete nativeListeners[ eventName ];
-				}
-			// Catch Edge `Permission denied` error which occurs randomly. Since the error is quite
-			// random, catching allows to continue the code execution and cleanup (#3419).
-			} catch ( error ) {
-				if ( !CKEDITOR.env.edge || error.number !== -2146828218 ) {
-					throw( error );
-				}
+				delete nativeListeners[ eventName ];
 			}
 
 			// Remove events from events object so fire() method will not call
-			// listeners (https://dev.ckeditor.com/ticket/11400).
+			// listeners (#11400).
 			CKEDITOR.event.prototype.removeAllListeners.call( this );
 		}
 	};
@@ -253,7 +244,7 @@ CKEDITOR.dom.domObject.prototype = ( function() {
 		// Clear all event listeners
 		this.removeAllListeners();
 
-		var expandoNumber = this.getUniqueId();
+		var expandoNumber = this.$[ 'data-cke-expando' ];
 		expandoNumber && delete customData[ expandoNumber ];
 	};
 

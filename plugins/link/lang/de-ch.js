@@ -1,6 +1,6 @@
 ﻿/*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'link', 'de-ch', {
 	acccessKey: 'Zugriffstaste',
@@ -13,15 +13,14 @@ CKEDITOR.plugins.setLang( 'link', 'de-ch', {
 		title: 'Ankereigenschaften',
 		name: 'Ankername',
 		errorName: 'Bitte geben Sie den Namen des Ankers ein',
-		errorWhitespace: 'Anchor name cannot contain space characters', // MISSING
 		remove: 'Anker entfernen'
 	},
 	anchorId: 'Nach Elementkennung',
 	anchorName: 'Nach Ankername',
 	charset: 'Verknüpfter Ressourcenzeichensatz',
 	cssClasses: 'Formatvorlagenklasse',
-	download: 'Herunterladen erzwingen',
-	displayText: 'Anzeigetext',
+	download: 'Force Download', // MISSING
+	displayText: 'Display Text', // MISSING
 	emailAddress: 'E-Mail-Adresse',
 	emailBody: 'Nachrichtentext',
 	emailSubject: 'Betreffzeile',
@@ -36,9 +35,7 @@ CKEDITOR.plugins.setLang( 'link', 'de-ch', {
 	noAnchors: '(Keine Anker im Dokument vorhanden)',
 	noEmail: 'Bitte geben Sie E-Mail-Adresse an',
 	noUrl: 'Bitte geben Sie die Link-URL an',
-	noTel: 'Bitte geben Sie die Telefonnummer ein',
 	other: '<andere>',
-	phoneNumber: 'Telefonnummer',
 	popupDependent: 'Abhängig (Netscape)',
 	popupFeatures: 'Pop-up Fenstereigenschaften',
 	popupFullScreen: 'Vollbild (IE)',
@@ -63,7 +60,6 @@ CKEDITOR.plugins.setLang( 'link', 'de-ch', {
 	toAnchor: 'Anker in dieser Seite',
 	toEmail: 'E-Mail',
 	toUrl: 'URL',
-	toPhone: 'Telefon',
 	toolbar: 'Link einfügen/editieren',
 	type: 'Link-Typ',
 	unlink: 'Link entfernen',

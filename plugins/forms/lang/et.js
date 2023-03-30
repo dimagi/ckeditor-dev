@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'forms', 'et', {
 	button: {
@@ -16,7 +16,7 @@ CKEDITOR.plugins.setLang( 'forms', 'et', {
 		radioTitle: 'Raadionupu omadused',
 		value: 'Väärtus',
 		selected: 'Märgitud',
-		required: 'Nõutud'
+		required: 'Required' // MISSING
 	},
 	form: {
 		title: 'Vormi omadused',
@@ -38,7 +38,7 @@ CKEDITOR.plugins.setLang( 'forms', 'et', {
 		size: 'Suurus',
 		lines: 'ridu',
 		chkMulti: 'Võimalik mitu valikut',
-		required: 'Nõutud',
+		required: 'Required', // MISSING
 		opText: 'Tekst',
 		opValue: 'Väärtus',
 		btnAdd: 'Lisa',
@@ -59,7 +59,7 @@ CKEDITOR.plugins.setLang( 'forms', 'et', {
 		value: 'Väärtus',
 		charWidth: 'Laius (tähemärkides)',
 		maxChars: 'Maksimaalselt tähemärke',
-		required: 'õutud',
+		required: 'Required', // MISSING
 		type: 'Liik',
 		typeText: 'Tekst',
 		typePass: 'Parool',

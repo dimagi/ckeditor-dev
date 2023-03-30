@@ -1,10 +1,11 @@
 /* exported promisePasteEvent, pasteFiles */
+/* global Q */
 
 'use strict';
 
 function promisePasteEvent( editor, eventData ) {
-	var priority = 999;
-
+	var priority = 999,
+		deferred = Q.defer();
 	// Type doesn't have to be specified.
 	if ( !eventData.type )
 		eventData.type = 'auto';
@@ -15,19 +16,19 @@ function promisePasteEvent( editor, eventData ) {
 		eventData.dataTransfer = new CKEDITOR.plugins.clipboard.dataTransfer();
 	}
 
-	return new CKEDITOR.tools.promise( function( resolve ) {
-		editor.once( 'paste', function( evt ) {
-			var data = evt.data;
+	editor.once( 'paste', onPaste, null, null, priority );
+	// WARNING: this code is synchronously called and it resolves the promise.
+	editor.fire( 'paste', eventData );
 
-			evt.removeListener();
-			evt.cancel(); // Cancel for performance reason - we don't need insertion happen.
+	function onPaste( evt ) {
+		var data = evt.data;
+		evt.removeListener();
+		evt.cancel(); // Cancel for performance reason - we don't need insertion happen.
 
-			resolve( data );
-		}, null, null, priority );
+		deferred.resolve( data );
+	}
 
-		// WARNING: this code is synchronously called and it resolves the promise.
-		editor.fire( 'paste', eventData );
-	} );
+	return deferred.promise;
 }
 
 function pasteFiles( editor, files, dataValue ) {

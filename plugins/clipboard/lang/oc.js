@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'clipboard', 'oc', {
 	copy: 'Copiar',
@@ -8,9 +8,8 @@ CKEDITOR.plugins.setLang( 'clipboard', 'oc', {
 	cut: 'Talhar',
 	cutError: 'Los paramètres de seguretat de vòstre navigador autorizan pas l\'editor a executar automaticament l\'operacion « Talhar ». Utilizatz l\'acorchi de clavièr a aqueste efièit (Ctrl/Cmd+X).',
 	paste: 'Pegar',
-	pasteNotification: 'Press %1 to paste. Your browser doesn‘t support pasting with the toolbar button or context menu option.', // MISSING
-	pasteArea: 'Paste Area', // MISSING
-	pasteMsg: 'Paste your content inside the area below and press OK.', // MISSING
-	fileFormatNotSupportedNotification: 'The ${formats} file format(s) are not supported.', // MISSING
-	fileWithoutFormatNotSupportedNotification: 'The file format is not supported.' // MISSING
+	pasteArea: 'Pegar la zòna',
+	pasteMsg: 'Pegatz lo tèxte dins la zòna seguenta en utilizant l\'acorchi de clavièr (<strong>Ctrl/Cmd+V</strong>) e clicatz sus D\'acòrdi.',
+	securityMsg: 'Los paramètres de seguretat de vòstre navigador empach l\'editor d\'accedir dirèctament a las donadas del quichapapièr. Las vos cal pegar tornamai dins aquesta fenèstra.',
+	title: 'Pegar'
 } );

@@ -1,4 +1,4 @@
-/* bender-tags: editor,utils */
+/* bender-tags: editor,unit,utils */
 
 ( function() {
 	'use strict';
@@ -100,7 +100,7 @@
 			} );
 		},
 
-		// https://dev.ckeditor.com/ticket/12690
+		// #12690
 		'test setSelection - in empty inline element': function() {
 			var editor = this.editor;
 

@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
@@ -12,7 +12,7 @@
  * @singleton
  *
  * The jQuery Adapter allows for easy use of basic CKEditor functions and access to the internal API.
- * To find more information about the jQuery Adapter, go to the {@glink guide/dev_jquery jQuery Adapter section}
+ * To find more information about the jQuery Adapter, go to the [jQuery Adapter section](#!/guide/dev_jquery)
  * of the Developer's Guide or see the "Create Editors with jQuery" sample.
  *
  * @aside guide dev_jquery
@@ -34,7 +34,7 @@
 	 * This configuration option is global and is executed during the loading of the jQuery Adapter.
 	 * It cannot be customized across editor instances.
 	 *
-	 * Read more in the {@glink guide/dev_jquery documentation}.
+	 * Read more in the [documentation](#!/guide/dev_jquery).
 	 *
 	 *		<script>
 	 *			CKEDITOR.config.jqueryOverrideVal = true;
@@ -107,7 +107,7 @@
 				throw new Error( 'The environment is incompatible.' );
 
 			// Reverse the order of arguments if the first one isn't a function.
-			if ( typeof callback !== 'function' ) {
+			if ( !$.isFunction( callback ) ) {
 				var tmp = config;
 				config = callback;
 				callback = tmp;
@@ -157,10 +157,10 @@
 					editor.on( 'instanceReady', function( evt ) {
 						var editor = evt.editor;
 
-						setTimeout( function waitForEditor() {
+						setTimeout( function() {
 							// Delay bit more if editor is still not ready.
 							if ( !editor.element ) {
-								setTimeout( waitForEditor, 100 );
+								setTimeout( arguments.callee, 100 );
 								return;
 							}
 
@@ -214,7 +214,7 @@
 							// Overwrite save button to call jQuery submit instead of javascript submit.
 							// Otherwise jQuery.forms does not work properly
 							editor.on( 'save', function() {
-								$( element.form ).trigger('submit');
+								$( element.form ).submit();
 								return false;
 							}, null, null, 20 );
 
@@ -227,15 +227,15 @@
 								};
 
 								// Bind to submit event.
-								$( element.form ).on( 'submit', onSubmit );
+								$( element.form ).submit( onSubmit );
 
 								// Bind to form-pre-serialize from jQuery Forms plugin.
-								$( element.form ).on( 'form-pre-serialize', onSubmit );
+								$( element.form ).bind( 'form-pre-serialize', onSubmit );
 
 								// Unbind when editor destroyed.
-								$element.on( 'destroy.ckeditor', function() {
-									$( element.form ).off( 'submit', onSubmit );
-									$( element.form ).off( 'form-pre-serialize', onSubmit );
+								$element.bind( 'destroy.ckeditor', function() {
+									$( element.form ).unbind( 'submit', onSubmit );
+									$( element.form ).unbind( 'form-pre-serialize', onSubmit );
 								} );
 							}
 
@@ -265,10 +265,10 @@
 				} else {
 					// Editor is already during creation process, bind our code to the event.
 					editor.once( 'instanceReady', function() {
-						setTimeout( function waitForEditor() {
+						setTimeout( function() {
 							// Delay bit more if editor is still not ready.
 							if ( !editor.element ) {
-								setTimeout( waitForEditor, 100 );
+								setTimeout( arguments.callee, 100 );
 								return;
 							}
 
@@ -283,7 +283,7 @@
 			} );
 
 			/**
-			 * The [jQuery Promise object](http://api.jquery.com/promise/) that handles the asynchronous constructor.
+			 * The [jQuery Promise object]((http://api.jquery.com/promise/)) that handles the asynchronous constructor.
 			 * This promise will be resolved after **all** of the constructors.
 			 *
 			 * @property {Function} promise

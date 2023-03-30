@@ -1,8 +1,7 @@
-/* bender-tags: editor,clipboard,widget */
+/* bender-tags: editor,unit,clipboard,widget */
 /* bender-ckeditor-plugins: uploadwidget,uploadimage,toolbar,image */
 /* bender-include: %BASE_PATH%/plugins/clipboard/_helpers/pasting.js */
-/* bender-include: _helpers/waitForImage.js */
-/* global pasteFiles, waitForImage */
+/* global pasteFiles */
 
 'use strict';
 
@@ -30,22 +29,6 @@ bender.editors = {
 			uploadUrl: 'http://foo/upload',
 			// Disable pasteFilter on Webkits (pasteFilter defaults semantic-text on Webkits).
 			pasteFilter: null
-		}
-	},
-	disposableEditor: {
-		name: 'disposableEditor',
-		creator: 'inline',
-		config: {
-			extraPlugins: 'uploadfile',
-			uploadUrl: 'http://foo/upload'
-		}
-	},
-	notificationDisposableEditor: {
-		name: 'notificationDisposableEditor',
-		creator: 'inline',
-		config: {
-			extraPlugins: 'uploadfile',
-			uploadUrl: 'http://foo/upload'
 		}
 	}
 };
@@ -75,7 +58,9 @@ bender.test( {
 	},
 
 	setUp: function() {
-		bender.tools.ignoreUnsupportedEnvironment( 'uploadfile' );
+		if ( !CKEDITOR.plugins.clipboard.isFileApiSupported ) {
+			assert.ignore();
+		}
 
 		var editorName;
 
@@ -101,12 +86,7 @@ bender.test( {
 	},
 
 	'test with uploadfile plugin': function() {
-		var editor = this.editors.uploadfile,
-			rng = editor.createRange();
-
-		// Fix possible case, when there might be no ranges in Firefox 66 (#2971).
-		rng.setStartAt( editor.editable().getFirst(), CKEDITOR.POSITION_AFTER_START );
-		rng.select();
+		var editor = this.editors.uploadfile;
 
 		pasteFiles( editor, [ bender.tools.getTestTxtFile() ] );
 
@@ -125,7 +105,7 @@ bender.test( {
 		loader.url = '%BASE_PATH%_assets/sample.txt';
 		loader.changeStatus( 'uploaded' );
 
-		assert.sameData( '<p><a href="%BASE_PATH%_assets/sample.txt" target="_blank">name.txt</a></p>', editor.getData() );
+		assert.sameData( '<p><a href="/tests/_assets/sample.txt" target="_blank">name.txt</a></p>', editor.getData() );
 		assert.areSame( 0, editor.editable().find( 'a[data-widget="uploadfile"]' ).count() );
 
 		assert.areSame( 1, loadAndUploadCount );
@@ -153,7 +133,7 @@ bender.test( {
 		loader.url = '%BASE_PATH%_assets/sample.txt';
 		loader.changeStatus( 'uploaded' );
 
-		assert.sameData( '<p><a href="%BASE_PATH%_assets/sample.txt" target="_blank">name.txt</a></p>', editor.getData() );
+		assert.sameData( '<p><a href="/tests/_assets/sample.txt" target="_blank">name.txt</a></p>', editor.getData() );
 		assert.areSame( 0, editor.editable().find( 'a[data-widget="uploadfile"]' ).count() );
 
 		assert.areSame( 1, loadAndUploadCount );
@@ -178,9 +158,8 @@ bender.test( {
 		assert.areSame( 1, editor.editable().find( 'img[data-widget="uploadimage"]' ).count() );
 		assert.areSame( '', editor.getData(), 'getData on uploading.' );
 
-		var image = editor.editable().find( 'img[data-widget="uploadimage"]' ).getItem( 0 );
-
-		waitForImage( image, function() {
+		// IE needs to wait for image to be loaded so it can read width and height of the image.
+		wait( function() {
 			loader.url = IMG_URL;
 			loader.changeStatus( 'uploaded' );
 
@@ -190,66 +169,6 @@ bender.test( {
 			assert.areSame( 1, loadAndUploadCount );
 			assert.areSame( 0, uploadCount );
 			assert.areSame( 'http://foo/upload', lastUploadUrl );
-		} );
-	},
-
-	'test removing editor during upload wont break it': function() {
-		var editor = this.editors.disposableEditor;
-
-		pasteFiles( editor, [ bender.tools.getTestPngFile() ] );
-
-		assert.areSame( 1, editor.editable().find( 'img[data-widget="uploadimage"]' ).count() );
-		assert.areSame( '', editor.getData(), 'getData on loading.' );
-
-		var loader = editor.uploadRepository.loaders[ 0 ];
-
-		loader.data = bender.tools.pngBase64;
-		loader.uploadTotal = 10;
-
-		loader.uplaoded = 5;
-		loader.update();
-
-		editor.destroy();
-
-		loader.uplaoded = 10;
-		loader.update();
-
-		assert.areSame( 'abort', loader.status, 'Loader status' );
-	},
-
-	'test aborting the upload after editor was removed wont break it': function() {
-		var editor = this.editors.notificationDisposableEditor;
-
-		pasteFiles( editor, [ bender.tools.getTestPngFile() ] );
-
-		var loader = editor.uploadRepository.loaders[ 0 ];
-
-		editor.destroy();
-
-		loader.abort();
-
-		assert.areSame( 'abort', loader.status, 'Loader status' );
-	},
-
-	// (#5414)
-	'test firing change event after the upload finishes': function() {
-		var editor = this.editors.uploadfile,
-			uploads = editor.uploadRepository,
-			loader = uploads.create( bender.tools.getTestTxtFile() );
-
-		this.editorBots.uploadfile.setData( '<span data-cke-upload-id="' + loader.id +
-			'" data-widget="uploadfile">...</span>', function() {
-			editor.once( 'change', function() {
-				resume( function() {
-					assert.sameData( '<p><a href="%BASE_PATH%_assets/sample.txt" target="_blank">name.txt</a></p>',
-						editor.getData() );
-				} );
-			} );
-
-			loader.url = '%BASE_PATH%_assets/sample.txt';
-			loader.changeStatus( 'uploaded' );
-
-			wait();
-		} );
+		}, 10 );
 	}
 } );

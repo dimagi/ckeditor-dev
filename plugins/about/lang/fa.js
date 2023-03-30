@@ -1,9 +1,12 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'about', 'fa', {
 	copy: 'حق نشر &copy; $1. کلیه حقوق محفوظ است.',
 	dlgTitle: 'درباره CKEditor',
-	moreInfo: 'برای کسب اطلاعات مجوز لطفا به وب سایت ما مراجعه کنید:'
+	help: ' برای راهنمایی $1 را ملاحظه کنید.',
+	moreInfo: 'برای کسب اطلاعات مجوز لطفا به وب سایت ما مراجعه کنید:',
+	title: 'درباره CKEditor',
+	userGuide: 'راهنمای کاربران CKEditor'
 } );

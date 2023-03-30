@@ -1,4 +1,4 @@
-/* bender-tags: editor,insertion */
+/* bender-tags: editor,unit,insertion */
 /* global insertionDT */
 
 ( function() {

@@ -1,21 +1,21 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'image2', 'sq', {
 	alt: 'Tekst Alternativ',
 	btnUpload: 'Dërgo në server',
-	captioned: 'Foto e titulluar',
-	captionPlaceholder: 'Titulli',
+	captioned: 'Captioned image', // MISSING
+	captionPlaceholder: 'Caption', // MISSING
 	infoTab: 'Informacione mbi Fotografinë',
 	lockRatio: 'Mbyll Racionin',
 	menu: 'Karakteristikat e Fotografisë',
 	pathName: 'foto',
-	pathNameCaption: 'titull',
+	pathNameCaption: 'caption', // MISSING
 	resetSize: 'Rikthe Madhësinë',
-	resizer: 'Kliko dhe tërhiqe për ndryshim të madhësisë',
+	resizer: 'Click and drag to resize', // MISSING
 	title: 'Karakteristikat e Fotografisë',
 	uploadTab: 'Ngarko',
 	urlMissing: 'Mungon URL e burimit të fotografisë.',
-	altMissing: 'Teksti alternativ mungon.'
+	altMissing: 'Alternative text is missing.' // MISSING
 } );

@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.dialog.add( 'form', function( editor ) {
@@ -10,26 +10,30 @@ CKEDITOR.dialog.add( 'form', function( editor ) {
 		title: editor.lang.forms.form.title,
 		minWidth: 350,
 		minHeight: 200,
-		getModel: function( editor ) {
-			return editor.elementPath().contains( 'form', 1 ) || null;
-		},
 		onShow: function() {
-			var form = this.getModel( this.getParentEditor() );
+			delete this.form;
+
+			var path = this.getParentEditor().elementPath(),
+				form = path.contains( 'form', 1 );
 
 			if ( form ) {
+				this.form = form;
 				this.setupContent( form );
 			}
 		},
 		onOk: function() {
-			var editor = this.getParentEditor(),
-				element = this.getModel( editor );
+			var editor,
+				element = this.form,
+				isInsertMode = !element;
 
-			if ( !element ) {
+			if ( isInsertMode ) {
+				editor = this.getParentEditor();
 				element = editor.document.createElement( 'form' );
 				element.appendBogus();
-				editor.insertElement( element );
 			}
 
+			if ( isInsertMode )
+				editor.insertElement( element );
 			this.commitContent( element );
 		},
 		onLoad: function() {

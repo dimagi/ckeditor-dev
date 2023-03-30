@@ -1,12 +1,12 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.plugins.setLang( 'placeholder', 'sq', {
 	title: 'Karakteristikat e Mbajtësit të Vendit',
 	toolbar: 'Krijo Mabjtës Vendi',
-	name: 'Emri i Hapësirës',
-	invalidName: 'Hapësira nuk mund të jetë e zbrazët dhe nuk mund të përmbajë asnjë nga karakteret: [, ], <, >',
-	pathName: 'hapësira'
+	name: 'Placeholder Name', // MISSING
+	invalidName: 'The placeholder can not be empty and can not contain any of following characters: [, ], <, >', // MISSING
+	pathName: 'placeholder' // MISSING
 } );

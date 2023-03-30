@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 ( function( bender ) {
@@ -60,59 +60,6 @@
 
 	bender.tools = {
 		/**
-		 * Ignores test case when the given plugin is not supported on the testing
-		 * environment. Uses {@link CKEDITOR.pluginDefinition#isSupportedEnvironment} to
-		 * verify if plugin is supported.
-		 *
-		 * Works for both manual and unit tests.
-		 *
-		 * @param pluginName pluginName Plugin name to check.
-		 * @param CKEDITOR.editor [editor] Editor instance passsed as an argument
-		 * to the {@link CKEDITOR.pluginDefinition#isSupportedEnvironment} method.
-		 */
-		ignoreUnsupportedEnvironment: function( pluginName, editor ) {
-			if ( editor ) {
-				if ( editor.status === 'ready' ) {
-					ignoreUnsupportedEnvironment();
-				} else {
-					editor.once( 'instanceReady', ignoreUnsupportedEnvironment );
-				}
-				return;
-			}
-
-			if ( CKEDITOR.plugins.registered[ pluginName ] ) {
-				ignoreUnsupportedEnvironment();
-			} else {
-				CKEDITOR.once( pluginName + 'PluginReady', ignoreUnsupportedEnvironment );
-			}
-
-			function ignoreUnsupportedEnvironment() {
-				var plugin = editor ? editor.plugins[ pluginName ] : CKEDITOR.plugins.registered[ pluginName ];
-
-				if ( !plugin.isSupportedEnvironment( editor ) ) {
-					if ( bender.testData.manual ) {
-						bender.ignore();
-					} else {
-						assert.ignore();
-					}
-				}
-			}
-		},
-
-		/**
-		 * Creates an array from an object.
-		 *
-		 * @param  {Object} obj
-		 * @return {Array} object values.
-		 */
-		objToArray: function( obj ) {
-			var tools = CKEDITOR.tools;
-			return tools.array.map( tools.object.keys( obj ), function( key ) {
-				return obj[ key ];
-			} );
-		},
-
-		/**
 		 * Gets the inner HTML of an element, for testing purposes.
 		 * @param {Boolean} stripLineBreaks Assign 'false' to avoid trimming line-breaks.
 		 */
@@ -129,31 +76,6 @@
 			}
 
 			return bender.tools.fixHtml( html, stripLineBreaks );
-		},
-
-		env: {
-			/**
-			 * Tells whether current environment is running on a mobile browser.
-			 *
-			 * It's different from deprecated {@link CKEDITOR.env.mobile} in a way that we are just
-			 * interested in checking whether this is iOS or most popular Android env.
-			 */
-			mobile: CKEDITOR.env.iOS || navigator.userAgent.toLowerCase().indexOf( 'android' ) !== -1,
-
-			/**
-			 * Whether current OS is a Linux environment.
-			 */
-			linux: navigator.userAgent.toLowerCase().indexOf( 'linux' ) !== -1,
-
-			/**
-			 * Whether current environment is Opera browser.
-			 */
-			opera: navigator.userAgent.toLowerCase().indexOf( ' opr/' ) !== -1,
-
-			/**
-			 * Whether current environment is run as build version of CKEditor.
-			 */
-			isBuild: CKEDITOR.revision !== '%REV%'
 		},
 
 		fixHtml: function( html, stripLineBreaks, toLowerCase ) {
@@ -318,10 +240,8 @@
 		 * @param {Boolean} [fixStyles] Pass inline styles through {@link CKEDITOR.tools#parseCssText}.
 		 * @param {Boolean} [fixNbsp] Encode `\u00a0`.
 		 * @param {Boolean} [noTempElements] Strip elements with `data-cke-temp` attributes (e.g. hidden selection container).
-		 * @param {CKEDITOR.htmlParser.filter[]} [customFilters] Array of filters that will be applied to parsed HTML.
-		 * This parameter was added in 4.7.0.
 		 */
-		compatHtml: function( html, noInterWS, sortAttributes, fixZWS, fixStyles, fixNbsp, noTempElements, customFilters ) {
+		compatHtml: function( html, noInterWS, sortAttributes, fixZWS, fixStyles, fixNbsp, noTempElements ) {
 			// Remove all indeterminate white spaces.
 			if ( noInterWS ) {
 				html = html.replace( /[\t\n\r ]+(?=<)/g, '' ).replace( />[\t\n\r ]+/g, '>' );
@@ -336,12 +256,6 @@
 
 			if ( sortAttributes ) {
 				writer.sortAttributes = true;
-			}
-
-			if ( customFilters ) {
-				CKEDITOR.tools.array.forEach( customFilters, function( filter ) {
-					fragment.filterChildren( filter );
-				} );
 			}
 
 			fragment.writeHtml( writer );
@@ -531,7 +445,7 @@
 				element = isEditor ? editorOrElement.editable() : editorOrElement;
 
 			if ( isEditor ) {
-				// (https://dev.ckeditor.com/ticket/9848) Prevent additional selectionChange due to editor.focus().
+				// (#9848) Prevent additional selectionChange due to editor.focus().
 				// This fix isn't required by IE < 9.
 				if ( CKEDITOR.env.ie ? CKEDITOR.env.version > 8 : 1 ) {
 					editorOrElement.once( 'selectionChange', function( event ) {
@@ -666,8 +580,6 @@
 		 * @deprecated Use {@link bender.tools.range#setWithHtml} instead.
 		 */
 		setHtmlWithRange: function( element, html, root ) {
-			var ranges = [];
-
 			root = root instanceof CKEDITOR.dom.document ?
 				root.getBody() : root || CKEDITOR.document.getBody();
 
@@ -689,7 +601,7 @@
 			// has been replace, which will otherwise bother parser.
 			html = bender.tools.compatHtml( html );
 
-			// Avoid having IE drop the comment nodes before any actual text. (https://dev.ckeditor.com/ticket/3801)
+			// Avoid having IE drop the comment nodes before any actual text. (#3801)
 			if ( CKEDITOR.env.ie && ( document.documentMode || CKEDITOR.env.version ) < 9 ) {
 				element.setHtml( '<span>a</span>' + html );
 				element.getFirst().remove();
@@ -697,8 +609,9 @@
 				element.setHtml( html );
 			}
 
-			// Walk prepared to traverse the inner dom tree of this element.
-			var walkerRange = new CKEDITOR.dom.range( root );
+			var ranges = [],
+				// Walk prepared to traverse the inner dom tree of this element.
+				walkerRange = new CKEDITOR.dom.range( root );
 
 			walkerRange.selectNodeContents( element );
 			var wallker = new CKEDITOR.dom.walker( walkerRange ),
@@ -879,26 +792,13 @@
 				types: [],
 				files: CKEDITOR.env.ie && CKEDITOR.env.version < 10 ? undefined : [],
 				_data: {},
-				// Emulate browsers native behavior for getData/setData.
+				// Emulate browsers native behavior for getDeta/setData.
 				setData: function( type, data ) {
-					if ( CKEDITOR.env.ie && CKEDITOR.env.version < 16 && type != 'Text' && type != 'URL' ) {
+					if ( CKEDITOR.env.ie && type != 'Text' && type != 'URL' )
 						throw 'Unexpected call to method or property access.';
-					}
 
-					if ( CKEDITOR.env.ie && CKEDITOR.env.version > 9 && type == 'URL' ) {
+					if ( CKEDITOR.env.ie && CKEDITOR.env.version > 9 && type == 'URL' )
 						return;
-					}
-
-					// While Edge 16+ supports Clipboard API, it does not support custom mime types
-					// in `setData` and throws `Element not found.` if such are used.
-					if ( CKEDITOR.env.edge && CKEDITOR.env.version >= 16 &&
-						CKEDITOR.tools.indexOf( [ 'Text', 'URL', 'text/plain', 'text/html', 'application/xml' ], type ) === -1 ) {
-
-						throw {
-							name: 'Error',
-							message: 'Element not found.'
-						};
-					}
 
 					if ( type == 'text/plain' || type == 'Text' ) {
 						this._data[ 'text/plain' ] = data;
@@ -910,23 +810,13 @@
 					this.types.push( type );
 				},
 				getData: function( type ) {
-					if ( CKEDITOR.env.ie && CKEDITOR.env.version < 16 && type != 'Text' && type != 'URL' ) {
+					if ( CKEDITOR.env.ie && type != 'Text' && type != 'URL' )
 						throw 'Invalid argument.';
-					}
 
-					if ( typeof this._data[ type ] === 'undefined' || this._data[ type ] === null ) {
+					if ( typeof this._data[ type ] === 'undefined' || this._data[ type ] === null )
 						return '';
-					}
 
 					return this._data[ type ];
-				},
-				clearData: function( type ) {
-					var index = CKEDITOR.tools.indexOf( this.types, type );
-
-					if ( index !== -1 ) {
-						delete this._data[ type ];
-						this.types.splice( index, 1 );
-					}
 				}
 			};
 		},
@@ -970,7 +860,7 @@
 			return {
 				$: {
 					ctrlKey: true,
-					clipboardData: ( CKEDITOR.env.ie && CKEDITOR.env.version < 16 ) ? undefined : dataTransfer
+					clipboardData: CKEDITOR.env.ie ? undefined : dataTransfer
 				},
 				preventDefault: function() {
 					// noop
@@ -1125,12 +1015,11 @@
 		/**
 		 * Multiplies inputTests for every editor.
 		 *
-		 * @param {String[]} editorsNames Editors definitions.
-		 * @param {Object.<String, Function>} inputTests Tests to apply on every editor.
-		 * @param {Boolean} [isolateTests=false] If set to `true` each test is run on new editor instance.
-		 * @returns {Object.<String, Function>} Created tests for every editor.
+		 * @param {Object} editorsDefinitions editors definitions.
+		 * @param {Object} inputTests Tests to apply on every editor.
+		 * @returns {Object} Created tests for every editor.
 		 */
-		createTestsForEditors: function( editorsNames, inputTests, isolateTests ) {
+		createTestsForEditors: function( editorsNames, inputTests ) {
 			var outputTests = {},
 				specificTestName,
 				specialMethods = {
@@ -1139,7 +1028,7 @@
 					'setUp': 1,
 					'tearDown': 1
 				},
-				i, editorName, editorCounter;
+				i, editorName;
 
 			for ( var method in specialMethods ) {
 				if ( inputTests[ method ] ) {
@@ -1147,7 +1036,7 @@
 				}
 			}
 
-			for ( i = 0, editorCounter = 0; i < editorsNames.length; i++, editorCounter = 0 ) {
+			for ( i = 0; i < editorsNames.length; i++ ) {
 				editorName = editorsNames[ i ];
 
 				for ( var testName in inputTests ) {
@@ -1162,26 +1051,11 @@
 						throw new Error( 'Test named "' + specificTestName + '" already exists' );
 					}
 
-					// We are creating new editor instance to isolate each test case (#1696).
-					if ( isolateTests && editorCounter++ ) {
-						outputTests[ specificTestName ] = ( function( testName, editorName, editorNum ) {
-							var options = CKEDITOR.tools.object.merge( bender.editors[ editorName ], {
-								name: editorName + editorNum
-							} );
-
-							return function() {
-								bender.editorBot.create( options, function( bot ) {
-									inputTests[ testName ]( bot.editor, bot );
-								} );
-							};
-						} )( testName, editorName, editorCounter );
-					} else {
-						outputTests[ specificTestName ] = ( function( testName, editorName ) {
-							return function() {
-								inputTests[ testName ]( bender.editors[ editorName ], bender.editorBots [ editorName ] );
-							};
-						} )( testName, editorName );
-					}
+					outputTests[ specificTestName ] = ( function( testName, editorName ) {
+						return function() {
+							inputTests[ testName ]( bender.editors[ editorName ], bender.editorBots [ editorName ] );
+						};
+					} )( testName, editorName );
 				}
 			}
 
@@ -1216,68 +1090,6 @@
 
 			// Add random string to be sure that the image will be downloaded, not taken from cache.
 			img.setAttribute( 'src', src + '?' + Math.random().toString( 16 ).substring( 2 ) );
-		},
-
-		/**
-		 * Creates test suite object for `bender.test` method from synchronous and asynchronous test cases.
-		 * Asynchronous test must be a function which returns a promise and cannot poses wait-resume statements.
-		 *
-		 * Please notice that currently this method doesn't support special test methods (`setUp`, `tearDown`, etc.),
-		 * which might be passed to the `bender.test` function.
-		 *
-		 * @param {Object} tests object
-		 */
-		createAsyncTests: function( tests ) {
-			var tmp = {};
-
-			for ( var testName in tests ) {
-				tmp[ testName ] = ( function( test ) {
-					return function() {
-						var promise = test.apply( this );
-
-						if ( promise ) {
-							promise.then( function() {
-									resume();
-								} )
-								[ 'catch' ]( function( err ) {
-									resume( function() {
-										throw err;
-									} );
-								} );
-
-							wait();
-						}
-					};
-				} )( tests[ testName ] );
-			}
-
-			return tmp;
-		},
-
-		/**
-		 * Fires specified mouse event on the given element.
-		 *
-		 * @param {CKEDITOR.dom.element/HTMLElement} element Element with attached event handler attribute.
-		 * @param {String} eventName Event handler attribute name.
-		 * @param {Number} button Mouse button to be used.
-		*/
-		dispatchMouseEvent: function( element, type, button ) {
-			var mouseEvent;
-			button = CKEDITOR.tools.normalizeMouseButton( button, true );
-			element = element.$;
-
-			// Thanks to http://help.dottoro.com/ljhlvomw.php
-			if ( document.createEventObject ) {
-				mouseEvent = element.ownerDocument.createEventObject();
-
-				mouseEvent.button = button;
-				element.fireEvent( 'on' + type, mouseEvent );
-			} else {
-				mouseEvent = document.createEvent( 'MouseEvent' );
-
-				mouseEvent.initMouseEvent( type, true, true, window, 0, 0, 0, 80, 20, false, false, false, false, button, null );
-				element.dispatchEvent( mouseEvent );
-			}
 		}
 	};
 
@@ -1395,7 +1207,7 @@
 				html = html.replace( markerReplaceRegex, '<!--cke-range-marker-$1-->' );
 
 				// Set clean HTML without {, }, [, ] but with adequate comments.
-				// Prevent IE from purging comment nodes before any actual text (https://dev.ckeditor.com/ticket/3801).
+				// Prevent IE from purging comment nodes before any actual text (#3801).
 				if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 ) {
 					element.setHtml( '<span>!</span>' + html );
 					element.getFirst().remove();
@@ -1471,7 +1283,7 @@
 				if ( node.type == CKEDITOR.NODE_TEXT ) {
 					return new CKEDITOR.dom.text( node.getText() );
 				} else {
-					// Make sure ids are cloned (https://dev.ckeditor.com/ticket/12130).
+					// Make sure ids are cloned (#12130).
 					clone = node.clone( 0, 1 );
 				}
 
@@ -1511,7 +1323,7 @@
 				//       It joins adjacent text nodes when using deep clone, which is pretty annoying.
 				// Note: IE9-11 aren't any better. They lose empty text nodes between elements when cloning.
 				// See 'test special #1' in tests.
-				// Make sure ids are cloned (https://dev.ckeditor.com/ticket/12130).
+				// Make sure ids are cloned (#12130).
 				clone = CKEDITOR.env.ie ? cloneNode( element ) : element.clone( 1, 1 );
 
 				startContainer = clone.getChild( startAddress );

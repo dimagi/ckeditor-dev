@@ -1,12 +1,12 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'docprops', 'sq', {
 	bgColor: 'Ngjyra e Prapavijës',
 	bgFixed: 'Prapavijë pa zvarritje (fiks)',
 	bgImage: 'URL e Fotografisë së Prapavijës',
-	charset: 'Kodimi i Setit të Karaktereve',
+	charset: 'Character Set Encoding', // MISSING
 	charsetASCII: 'ASCII',
 	charsetCE: 'Evropës Qendrore',
 	charsetCR: 'Sllave',
@@ -14,14 +14,14 @@ CKEDITOR.plugins.setLang( 'docprops', 'sq', {
 	charsetGR: 'Greke',
 	charsetJP: 'Japoneze',
 	charsetKR: 'Koreane',
-	charsetOther: 'Kodimi i një Seti tjetër Karakteresh',
+	charsetOther: 'Other Character Set Encoding', // MISSING
 	charsetTR: 'Turke',
 	charsetUN: 'Unicode (UTF-8)',
 	charsetWE: 'Evropiano Perëndimor',
 	chooseColor: 'Përzgjidh',
 	design: 'Dizajni',
 	docTitle: 'Titulli i Faqes',
-	docType: 'Kokështrirja e Llojit të Dokumentit',
+	docType: 'Document Type Heading', // MISSING
 	docTypeOther: 'Koka e Llojit Tjetër të Dokumentit',
 	label: 'Karakteristikat e Dokumentit',
 	margin: 'Kufijtë e Faqes',
@@ -29,7 +29,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'sq', {
 	marginLeft: 'Majtas',
 	marginRight: 'Djathtas',
 	marginTop: 'Lart',
-	meta: 'Meta Etiketat',
+	meta: 'Meta Tags', // MISSING
 	metaAuthor: 'Autori',
 	metaCopyright: 'Të drejtat e kopjimit',
 	metaDescription: 'Përshkrimi i Dokumentit',

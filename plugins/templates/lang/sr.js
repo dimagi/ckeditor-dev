@@ -1,12 +1,12 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'templates', 'sr', {
 	button: 'Обрасци',
 	emptyListMsg: '(Нема дефинисаних образаца)',
-	insertOption: 'Замени тренутни садржај',
-	options: 'Опције шаблона',
-	selectPromptMsg: 'Молим вас да одаберете образац који ће се отворити у уређивачу<br />(тренутни саржај ће се изгубити):',
-	title: 'Доступни обрасци'
+	insertOption: 'Replace actual contents', // MISSING
+	options: 'Template Options', // MISSING
+	selectPromptMsg: 'Молимо Вас да одаберете образац који ће бити примењен на страницу (тренутни садржај ће бити обрисан):',
+	title: 'Обрасци за садржај'
 } );

@@ -1,4 +1,4 @@
-/* bender-tags: editor,undo */
+/* bender-tags: editor,unit,undo */
 /* bender-ckeditor-plugins: undo,basicstyles,toolbar,wysiwygarea */
 /* global undoEventDispatchTestsTools */
 

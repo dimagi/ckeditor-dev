@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
@@ -77,7 +77,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 			isValid = !!( match && parseInt( match[ 1 ], 10 ) !== 0 );
 
 		if ( !isValid )
-			alert( commonLang.invalidLength.replace( '%1', commonLang[ this.id ] ).replace( '%2', 'px' ) ); // jshint ignore:line
+			alert( commonLang[ 'invalid' + CKEDITOR.tools.capitalize( this.id ) ] ); // jshint ignore:line
 
 		return isValid;
 	}
@@ -108,7 +108,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 		// @param {Function} callback.
 		return function( src, callback, scope ) {
 			addListener( 'load', function() {
-				// Don't use image.$.(width|height) since it's buggy in IE9-10 (https://dev.ckeditor.com/ticket/11159)
+				// Don't use image.$.(width|height) since it's buggy in IE9-10 (#11159)
 				var dimensions = getNatural( image );
 
 				callback.call( scope, image, dimensions.width, dimensions.height );
@@ -122,10 +122,8 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 				callback( null );
 			} );
 
-			// (#3394)
-			var queryStringSeparator = src.indexOf( '?' ) !== -1 ? '&' : '?';
 			image.setAttribute( 'src',
-				( config.baseHref || '' ) + src + queryStringSeparator + Math.random().toString( 16 ).substring( 2 ) );
+				( config.baseHref || '' ) + src + '?' + Math.random().toString( 16 ).substring( 2 ) );
 		};
 	}
 
@@ -133,9 +131,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 	// "src" field is altered. Along with dimensions, also the
 	// dimensions lock is adjusted.
 	function onChangeSrc() {
-		var value = this.getValue(),
-			lockRatioValue = editor.config.image2_defaultLockRatio,
-			isLockRatioSet = lockRatioValue !== undefined;
+		var value = this.getValue();
 
 		toggleDimensions( false );
 
@@ -148,7 +144,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 
 				// There was problem loading the image. Unlock ratio.
 				if ( !image )
-					return toggleLockRatio( ( isLockRatioSet ? lockRatioValue : false ) );
+					return toggleLockRatio( false );
 
 				// Fill width field with the width of the new image.
 				widthField.setValue( editor.config.image2_prefillDimensions === false ? 0 : width );
@@ -156,14 +152,14 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 				// Fill height field with the height of the new image.
 				heightField.setValue( editor.config.image2_prefillDimensions === false ? 0 : height );
 
-				// Cache the new width and update initial cache (#1348).
-				preLoadedWidth = domWidth = width;
+				// Cache the new width.
+				preLoadedWidth = width;
 
-				// Cache the new height and update initial cache (#1348).
-				preLoadedHeight = domHeight = height;
+				// Cache the new height.
+				preLoadedHeight = height;
 
 				// Check for new lock value if image exist.
-				toggleLockRatio( ( isLockRatioSet ? lockRatioValue : helpers.checkHasNaturalRatio( image ) ) );
+				toggleLockRatio( helpers.checkHasNaturalRatio( image ) );
 			} );
 
 			srcChanged = true;
@@ -393,7 +389,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 		},
 		onShow: function() {
 			// Create a "global" reference to edited widget.
-			widget = this.getModel();
+			widget = this.widget;
 
 			// Create a "global" reference to widget's image.
 			image = widget.parts.image;
@@ -503,9 +499,9 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 								type: 'radio',
 								items: [
 									[ commonLang.alignNone, 'none' ],
-									[ commonLang.left, 'left' ],
-									[ commonLang.center, 'center' ],
-									[ commonLang.right, 'right' ]
+									[ commonLang.alignLeft, 'left' ],
+									[ commonLang.alignCenter, 'center' ],
+									[ commonLang.alignRight, 'right' ]
 								],
 								label: commonLang.align,
 								setup: function( widget ) {

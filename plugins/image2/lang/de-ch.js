@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'image2', 'de-ch', {
 	alt: 'Alternativer Text',
@@ -8,7 +8,7 @@ CKEDITOR.plugins.setLang( 'image2', 'de-ch', {
 	captioned: 'Bild mit Überschrift',
 	captionPlaceholder: 'Überschrift',
 	infoTab: 'Bildinfo',
-	lockRatio: 'Grössenverhältnis beibehalten',
+	lockRatio: 'Größenverhältnis beibehalten',
 	menu: 'Bildeigenschaften',
 	pathName: 'Bild',
 	pathNameCaption: 'Überschrift',
@@ -17,5 +17,5 @@ CKEDITOR.plugins.setLang( 'image2', 'de-ch', {
 	title: 'Bild-Eigenschaften',
 	uploadTab: 'Hochladen',
 	urlMissing: 'Bildquellen-URL fehlt.',
-	altMissing: 'Alternativer Text fehlt.'
+	altMissing: 'Alternative text is missing.' // MISSING
 } );

@@ -21,7 +21,6 @@
 	"disallowSpacesInFunction": {
 		"beforeOpeningRoundBrace": true
 	},
-	"requireSpacesInsideBrackets": true,
 	"disallowSpacesInCallExpression": true,
 	"requireBlocksOnNewline": true,
 	"requireSpacesInsideObjectBrackets": "all",
@@ -54,7 +53,6 @@
 	},
 	"validateIndentation": {
 		"value": "\t",
-		"allExcept": [ "comments", "emptyLines" ]
-	},
-	"requireLineFeedAtFileEnd": true
+		"allExcept": [ "comments" ]
+	}
 }

@@ -10,8 +10,8 @@
 		"mkdirp": ">=0.5.0"
 	},
 	"author": {
-		"name": "CKSource Holding sp. z o.o",
-		"url": "https://cksource.com/"
+		"name": "CKSource - Frederico Knabben",
+		"url": "http://cksource.com"
 	},
 	"licenses": [ "GPL", "LGPL", "MPL" ]
 }

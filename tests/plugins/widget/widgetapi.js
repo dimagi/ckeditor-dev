@@ -24,14 +24,14 @@
 		data2Attr = widgetTestsTools.data2Attribute,
 		getAttrData = widgetTestsTools.getAttributeData,
 		getWidgetById = widgetTestsTools.getWidgetById,
-		objToArray = bender.tools.objToArray,
+		obj2Array = widgetTestsTools.obj2Array,
 		classes2Array = widgetTestsTools.classes2Array,
 		prefix;
 
 	bender.test( {
 
 		setUp: function() {
-			// Class prefix for widget wrapper classes (https://dev.ckeditor.com/ticket/13828).
+			// Class prefix for widget wrapper classes (#13828).
 			prefix = CKEDITOR.plugins.widget.WRAPPER_CLASS_PREFIX;
 		},
 
@@ -206,7 +206,7 @@
 				regWidgetDef = editor.widgets.add( 'testinit5', {} ),
 				widgetRepository, widgetDefinition;
 
-			// https://dev.ckeditor.com/ticket/10864 - at some point we were setting these properties on registered widget definition.
+			// #10864 - at some point we were setting these properties on registered widget definition.
 			assert.isUndefined( regWidgetDef.repository, 'no repository set in definition' );
 			assert.isUndefined( regWidgetDef.definiotion, 'no definition set in definition' );
 
@@ -239,7 +239,7 @@
 
 				assert.isNull( widget, 'widget was not created' );
 				assert.areSame( 'p', el.getParent().getName(), 'widget element is not wrapped' );
-				assert.areSame( 0, objToArray( editor.widgets.instances ).length, 'no instances' );
+				assert.areSame( 0, obj2Array( editor.widgets.instances ).length, 'no instances' );
 			} );
 		},
 
@@ -730,7 +730,7 @@
 			} );
 		},
 
-		// https://dev.ckeditor.com/ticket/11811
+		// #11811
 		'test paste widget with special characters in data': function() {
 			var editor = this.editor;
 
@@ -771,7 +771,7 @@
 			} );
 		},
 
-		// https://dev.ckeditor.com/ticket/11811
+		// #11811
 		'test special characters set in data during upcast': function() {
 			var editor = this.editor;
 
@@ -794,120 +794,6 @@
 				assert.areSame( '<!--Foo-->', widget.data.comment );
 				assert.areSame( '&nbsp;', widget.data.nbsp );
 				assert.areSame( '\u00a0', widget.data.nbspu );
-			} );
-		},
-
-		// #1094
-		'test upcasts methods are invoked only for specified elements': function() {
-			var editor = this.editor,
-				spy = sinon.spy();
-
-			editor.widgets.add( 'upcastelement', {
-				upcasts: {
-					del: spy
-				},
-				upcast: 'del'
-			} );
-
-			this.editorBot.setData( '<p><b>Foo</b><del>Bar</del></p>', function() {
-				assert.areSame( 1, spy.callCount, 'Upcast was called only once' );
-				assert.areSame( 'del', spy.getCall( 0 ).args[ 0 ].name, 'Upcast was called on del element' );
-			} );
-		},
-
-		// #1097
-		'test scope of upcast': function() {
-			var editor = this.editor,
-				widget,
-				scope;
-
-			editor.widgets.add( 'upcastscope', {
-				upcast: function( element ) {
-					if ( element.name === 'b' && element.hasClass( 'upcastscope' ) ) {
-						scope = this;
-
-						return true;
-					}
-
-					return false;
-				}
-			} );
-			widget = editor.widgets.registered.upcastscope;
-
-			this.editorBot.setData( '<p><b class="upcastscope">Foo</b></p>', function() {
-				assert.areSame( widget, scope, 'Upcast is called in the context of widget' );
-			} );
-		},
-
-		// #1097
-		'test scope of upcasts': function() {
-			var editor = this.editor,
-				widget,
-				scope;
-
-			editor.widgets.add( 'upcastscope2', {
-				upcasts:  {
-					b: function( element ) {
-						if ( element.name === 'b' && element.hasClass( 'upcastscope2' ) ) {
-							scope = this;
-
-							return true;
-						}
-
-						return false;
-					}
-				},
-				upcast: 'b'
-			} );
-			widget = editor.widgets.registered.upcastscope2;
-
-			this.editorBot.setData( '<p><b class="upcastscope2">Foo</b></p>', function() {
-				assert.areSame( widget, scope, 'Upcasts are called in the context of widget' );
-			} );
-		},
-
-		// (#3540)
-		'test initialization - startup data is used to populate the widget template': function() {
-			bender.editorBot.create( {
-				name: 'test_editor_startupdata',
-				config: {
-					allowedContent: 'div(test)'
-				}
-			}, function( bot ) {
-				var editor = bot.editor,
-					widgetDef = {
-						requiredContent: 'div(test)',
-						template: '<div class="test">{content}</div>',
-
-						upcast: function( element ) {
-							return element.name == 'div' && element.hasClass( 'test' );
-						},
-
-						defaults: {
-							content: 'default content'
-						}
-					},
-					expectedContent = 'hublabubla';
-
-				editor.widgets.add( 'teststartupdata', widgetDef );
-
-				editor.once( 'afterCommandExec', function() {
-					resume( function() {
-						var widget = editor.widgets.instances[ 0 ],
-							widgetContent = widget.element.getHtml();
-
-						assert.areSame( expectedContent, widgetContent );
-					} );
-				} );
-
-				editor.focus();
-				editor.execCommand( 'teststartupdata', {
-					startupData: {
-						content: expectedContent
-					}
-				} );
-
-				wait();
 			} );
 		}
 	} );

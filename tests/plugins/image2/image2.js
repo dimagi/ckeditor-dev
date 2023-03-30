@@ -1,4 +1,4 @@
-/* bender-tags: editor,widget */
+/* bender-tags: editor,unit,widget */
 /* global widgetTestsTools */
 
 ( function() {

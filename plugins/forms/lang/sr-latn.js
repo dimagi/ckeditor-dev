@@ -1,29 +1,29 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'forms', 'sr-latn', {
 	button: {
-		title: 'Osobine tastera',
+		title: 'Osobine dugmeta',
 		text: 'Tekst (vrednost)',
 		type: 'Tip',
-		typeBtn: 'Taster',
-		typeSbm: 'Poslati',
+		typeBtn: 'Button',
+		typeSbm: 'Submit',
 		typeRst: 'Reset'
 	},
 	checkboxAndRadio: {
 		checkboxTitle: 'Osobine polja za potvrdu',
-		radioTitle: 'Osobine radio-tastera',
+		radioTitle: 'Osobine radio-dugmeta',
 		value: 'Vrednost',
-		selected: 'Odabran',
-		required: 'Obavezno'
+		selected: 'Označeno',
+		required: 'Required' // MISSING
 	},
 	form: {
-		title: 'Osobine obrazca',
-		menu: 'Osobine obrazca',
-		action: 'Referenca obrade podataka',
-		method: 'Metoda slanja podataka',
-		encoding: 'Kodiranje'
+		title: 'Osobine forme',
+		menu: 'Osobine forme',
+		action: 'Akcija',
+		method: 'Metoda',
+		encoding: 'Encoding'
 	},
 	hidden: {
 		title: 'Osobine skrivenog polja',
@@ -31,35 +31,35 @@ CKEDITOR.plugins.setLang( 'forms', 'sr-latn', {
 		value: 'Vrednost'
 	},
 	select: {
-		title: 'Osobine padjuće liste',
-		selectInfo: 'Osnovne karakteristike',
+		title: 'Osobine izbornog polja',
+		selectInfo: 'Info',
 		opAvail: 'Dostupne opcije',
 		value: 'Vrednost',
 		size: 'Veličina',
-		lines: 'red',
-		chkMulti: 'dozvoli višestruku selekciju',
-		required: 'Obavezno',
+		lines: 'linija',
+		chkMulti: 'Dozvoli višestruku selekciju',
+		required: 'Required', // MISSING
 		opText: 'Tekst',
 		opValue: 'Vrednost',
 		btnAdd: 'Dodaj',
 		btnModify: 'Izmeni',
 		btnUp: 'Gore',
 		btnDown: 'Dole',
-		btnSetValue: 'Podesi kao podrazumevanu vrednost',
+		btnSetValue: 'Podesi kao označenu vrednost',
 		btnDelete: 'Obriši'
 	},
 	textarea: {
 		title: 'Osobine zone teksta',
-		cols: 'Broj karaktera u redu',
+		cols: 'Broj kolona',
 		rows: 'Broj redova'
 	},
 	textfield: {
 		title: 'Osobine tekstualnog polja',
 		name: 'Naziv',
 		value: 'Vrednost',
-		charWidth: 'Broj prikazanih karaktera',
+		charWidth: 'Širina (karaktera)',
 		maxChars: 'Maksimalno karaktera',
-		required: 'Obavezno',
+		required: 'Required', // MISSING
 		type: 'Tip',
 		typeText: 'Tekst',
 		typePass: 'Lozinka',

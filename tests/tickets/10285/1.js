@@ -1,4 +1,4 @@
-/* bender-tags: editor,clipboard,pastefromword */
+/* bender-tags: editor,unit,clipboard,pastefromword */
 /* bender-ckeditor-plugins: pastefromword,font */
 
 bender.editor = {

@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 ( function() {
@@ -68,7 +68,7 @@
 				}
 
 				return function( evt ) {
-					// https://dev.ckeditor.com/ticket/10112 Do not fail on editable-less editor.
+					// #10112 Do not fail on editable-less editor.
 					if ( !( editable = editor.editable() ) )
 						return;
 
@@ -159,7 +159,7 @@
 						alignSide = mid - editorRect.left > editorRect.right - mid ? 'left' : 'right';
 					}
 
-					// (https://dev.ckeditor.com/ticket/9769) If viewport width is less than space width,
+					// (#9769) If viewport width is less than space width,
 					// make sure space never cross the left boundary of the viewport.
 					// In other words: top-left corner of the space is always visible.
 					if ( spaceRect.width > viewRect.width ) {
@@ -226,7 +226,7 @@
 								offset = 0;
 						}
 
-						// (https://dev.ckeditor.com/ticket/9769) Finally, stick the space to the opposite side of
+						// (#9769) Finally, stick the space to the opposite side of
 						// the viewport when it's cut off horizontally on the left/right
 						// side like below.
 						//
@@ -258,7 +258,7 @@
 					}
 
 					// Pin mode is fixed, so don't include scroll-x.
-					// (https://dev.ckeditor.com/ticket/9903) For mode is "top" or "bottom", add opposite scroll-x for right-aligned space.
+					// (#9903) For mode is "top" or "bottom", add opposite scroll-x for right-aligned space.
 					var scroll = mode == 'pin' ? 0 : alignSide == 'left' ? pageScrollX : -pageScrollX;
 
 					floatSpace.setStyle( alignSide, pixelate( ( mode == 'pin' ? pinnedOffsetX : dockedOffsetX ) + offset + scroll ) );
@@ -275,9 +275,9 @@
 					' lang="{langCode}"' +
 					' role="application"' +
 					' style="{style}"' +
-					( editor.applicationTitle ? ' aria-labelledby="cke_{name}_arialbl"' : ' ' ) +
+					( editor.title ? ' aria-labelledby="cke_{name}_arialbl"' : ' ' ) +
 					'>' +
-					( editor.applicationTitle ? '<span id="cke_{name}_arialbl" class="cke_voice_label">{voiceLabel}</span>' : ' ' ) +
+					( editor.title ? '<span id="cke_{name}_arialbl" class="cke_voice_label">{voiceLabel}</span>' : ' ' ) +
 					'<div class="cke_inner">' +
 						'<div id="{topId}" class="cke_top" role="presentation">{content}</div>' +
 					'</div>' +
@@ -290,7 +290,7 @@
 					name: editor.name,
 					style: 'display:none;z-index:' + ( config.baseFloatZIndex - 1 ),
 					topId: editor.ui.spaceId( 'top' ),
-					voiceLabel: editor.applicationTitle
+					voiceLabel: editor.title
 				} ) ) ),
 
 				// Use event buffers to reduce CPU load when tons of events are fired.
@@ -388,7 +388,7 @@
  *
  *		config.floatSpacePreferRight = true;
  *
- * @since 4.5.0
+ * @since 4.5
  * @cfg {Boolean} [floatSpacePreferRight=false]
  * @member CKEDITOR.config
  */
@@ -397,7 +397,7 @@
  * Fired when the viewport or editor parameters change and the floating space needs to check and
  * eventually update its position and dimensions.
  *
- * @since 4.5.0
+ * @since 4.5
  * @event floatingSpaceLayout
  * @member CKEDITOR.editor
  * @param {CKEDITOR.editor} editor The editor instance.

@@ -1,5 +1,5 @@
-/* bender-tags: editor */
-/* bender-ckeditor-plugins: toolbar, stylescombo */
+/* bender-tags: editor,unit */
+/* bender-ckeditor-plugins: listblock */
 
 ( function() {
 	'use strict';
@@ -7,8 +7,6 @@
 	function fixHtml( html ) {
 		return bender.tools.compatHtml( html, 0, 1 );
 	}
-
-	bender.editor = {};
 
 	bender.test( {
 		'test double quote': function() {
@@ -39,42 +37,6 @@
 			);
 		},
 
-		// (#2430)
-		'test list block elements not draggable': function() {
-			var bot = this.editorBot;
-
-			bot.combo( 'Styles', function( combo ) {
-				var block = combo._.panel.getBlock( combo.id ).element,
-					items = block.find( 'a' ).toArray().concat( block.find( 'h1' ).toArray() );
-
-				combo._.panel.hide();
-				CKEDITOR.tools.array.forEach( items, function( element ) {
-					assert.areEqual( 'false', element.getAttribute( 'draggable' ), 'Draggable attribute value should be "false".' );
-					assert.areEqual( 'return false;', element.getAttribute( 'ondragstart' ), 'ondragstart value should be "return false;".' );
-				} );
-			} );
-		},
-
-		// (#2857)
-		'test right clicking list block elements': function() {
-			if ( !CKEDITOR.env.ie ) {
-				assert.ignore();
-			}
-
-			var bot = this.editorBot;
-
-			bot.combo( 'Styles', function( combo ) {
-				var block = combo._.panel.getBlock( combo.id ).element,
-					item = block.findOne( 'a' ),
-					spy = sinon.spy( combo, 'onClick' );
-
-				bender.tools.dispatchMouseEvent( item, 'mouseup', CKEDITOR.MOUSE_BUTTON_RIGHT );
-				spy.restore();
-				combo._.panel.hide();
-				assert.areSame( 0, spy.callCount, 'onClick not fired' );
-			} );
-		},
-
 		// Expects both object to have following structure:
 		// { value: 'foo', html: 'bar', title: 'baz' }
 		//
@@ -82,7 +44,7 @@
 		// * html is placed as inner html of anchor,
 		// * title is saved to a[title] attribute.
 		assertListBlockAdd: function( expected, input ) {
-			// Mockup of listBlock object required by add() method.
+				// Mockup of listBlock object required by add() method.
 			var mock = {
 					_: {
 						items: {},
@@ -130,4 +92,5 @@
 			return str.replace( /\'/g, '\\\'' );
 		}
 	} );
+
 } )();

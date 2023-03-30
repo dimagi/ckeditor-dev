@@ -1,4 +1,4 @@
-/* bender-tags: editor,magicline */
+/* bender-tags: editor,unit,magicline */
 /* bender-ckeditor-plugins: undo,magicline,sourcearea */
 
 bender.editor = { creator: 'replace' };

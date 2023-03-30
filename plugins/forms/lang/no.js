@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'forms', 'no', {
 	button: {
@@ -16,7 +16,7 @@ CKEDITOR.plugins.setLang( 'forms', 'no', {
 		radioTitle: 'Egenskaper for alternativknapp',
 		value: 'Verdi',
 		selected: 'Valgt',
-		required: 'Obligatorisk'
+		required: 'Required' // MISSING
 	},
 	form: {
 		title: 'Egenskaper for skjema',
@@ -38,7 +38,7 @@ CKEDITOR.plugins.setLang( 'forms', 'no', {
 		size: 'Størrelse',
 		lines: 'Linjer',
 		chkMulti: 'Tillat flervalg',
-		required: 'Obligatorisk',
+		required: 'Required', // MISSING
 		opText: 'Tekst',
 		opValue: 'Verdi',
 		btnAdd: 'Legg til',
@@ -59,7 +59,7 @@ CKEDITOR.plugins.setLang( 'forms', 'no', {
 		value: 'Verdi',
 		charWidth: 'Tegnbredde',
 		maxChars: 'Maks antall tegn',
-		required: 'Obligatorisk',
+		required: 'Required', // MISSING
 		type: 'Type',
 		typeText: 'Tekst',
 		typePass: 'Passord',

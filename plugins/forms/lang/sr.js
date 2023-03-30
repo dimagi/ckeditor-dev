@@ -1,29 +1,29 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'forms', 'sr', {
 	button: {
-		title: 'Особине тастера',
+		title: 'Особине дугмета',
 		text: 'Текст (вредност)',
 		type: 'Tип',
-		typeBtn: 'Тастер',
-		typeSbm: 'Слање',
-		typeRst: 'Ресет'
+		typeBtn: 'Button',
+		typeSbm: 'Submit',
+		typeRst: 'Reset'
 	},
 	checkboxAndRadio: {
 		checkboxTitle: 'Особине поља за потврду',
-		radioTitle: 'Особине радио-тастера',
+		radioTitle: 'Особине радио-дугмета',
 		value: 'Вредност',
-		selected: 'Одабран',
-		required: 'Обавезно'
+		selected: 'Означено',
+		required: 'Required' // MISSING
 	},
 	form: {
-		title: 'Особине образца',
-		menu: 'Особине образца',
-		action: 'Референца обраде података',
-		method: 'Mетод слања',
-		encoding: 'Кодирање'
+		title: 'Особине форме',
+		menu: 'Особине форме',
+		action: 'Aкција',
+		method: 'Mетода',
+		encoding: 'Encoding'
 	},
 	hidden: {
 		title: 'Особине скривеног поља',
@@ -31,35 +31,35 @@ CKEDITOR.plugins.setLang( 'forms', 'sr', {
 		value: 'Вредност'
 	},
 	select: {
-		title: 'Особине падајућег поља',
-		selectInfo: 'Основне карактеристике',
+		title: 'Особине изборног поља',
+		selectInfo: 'Инфо',
 		opAvail: 'Доступне опције',
 		value: 'Вредност',
 		size: 'Величина',
-		lines: 'ред',
+		lines: 'линија',
 		chkMulti: 'Дозволи вишеструку селекцију',
-		required: 'Обавезно',
+		required: 'Required', // MISSING
 		opText: 'Текст',
 		opValue: 'Вредност',
 		btnAdd: 'Додај',
 		btnModify: 'Измени',
 		btnUp: 'Горе',
 		btnDown: 'Доле',
-		btnSetValue: 'Подеси као подразумевану вредност',
+		btnSetValue: 'Подеси као означену вредност',
 		btnDelete: 'Обриши'
 	},
 	textarea: {
 		title: 'Особине зоне текста',
-		cols: 'Број карактера у реду',
+		cols: 'Број колона',
 		rows: 'Број редова'
 	},
 	textfield: {
 		title: 'Особине текстуалног поља',
 		name: 'Назив',
 		value: 'Вредност',
-		charWidth: 'Број приказаних карактера',
+		charWidth: 'Ширина (карактера)',
 		maxChars: 'Максимално карактера',
-		required: 'Обавезно',
+		required: 'Required', // MISSING
 		type: 'Тип',
 		typeText: 'Текст',
 		typePass: 'Лозинка',

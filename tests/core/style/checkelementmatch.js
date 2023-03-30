@@ -1,4 +1,4 @@
-/* bender-tags: style */
+/* bender-tags: unit,style */
 
 ( function() {
 
@@ -6,7 +6,7 @@
 
 	bender.test( {
 
-		// https://dev.ckeditor.com/ticket/14252
+		// #14252
 		'test styles color attribute normalization': function() {
 			var styleItalic = new CKEDITOR.style( { element: 'h2', attributes: { 'style': 'font-style:italic;' } } ),
 				styleSubtitle = new CKEDITOR.style( { element: 'h3', attributes: { 'style': 'color:#a1a2a3;font-style:italic;' } } ),

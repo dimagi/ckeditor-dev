@@ -1,18 +1,18 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'find', 'sr', {
 	find: 'Претрага',
-	findOptions: 'Подешавања',
+	findOptions: 'Find Options',
 	findWhat: 'Пронађи:',
 	matchCase: 'Разликуј велика и мала слова',
-	matchCyclic: 'Претрага у циклусима',
+	matchCyclic: 'Match cyclic',
 	matchWord: 'Упореди целе речи',
 	notFoundMsg: 'Тражени текст није пронађен.',
 	replace: 'Замена',
 	replaceAll: 'Замени све',
 	replaceSuccessMsg: '%1 occurrence(s) replaced.',
 	replaceWith: 'Замени са:',
-	title: 'Претражи и замени'
+	title: 'Find and Replace'
 } );

@@ -1,4 +1,4 @@
-/* bender-tags: editor,dom */
+/* bender-tags: editor,unit,dom */
 /* global appendDomObjectTests */
 
 var loadCalled,

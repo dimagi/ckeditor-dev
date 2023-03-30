@@ -11,12 +11,6 @@
 	};
 
 	bender.test( {
-		_should: {
-			ignore: {
-				'test paragraph fits into editable width': CKEDITOR.env.safari && CKEDITOR.env.iOS
-			}
-		},
-
 		'test paragraph fits into editable width': function() {
 			var html = CKEDITOR.document.findOne( 'p' ).getOuterHtml(),
 				editor = this.editor,

@@ -1,9 +1,12 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'about', 'ug', {
 	copy: 'Copyright &copy; $1. نەشر ھوقۇقىغا ئىگە',
-	dlgTitle: 'CKEditor تەھرىرلىگۈچى 4 ھەقىدە',
-	moreInfo: 'تور تۇرايىمىزنى زىيارەت قىلىپ كېلىشىمگە ئائىت تېخىمۇ كۆپ ئۇچۇرغا ئېرىشىڭ'
+	dlgTitle: 'CKEditor ھەققىدە',
+	help: '$1 نى زىيارەت قىلىپ ياردەمگە ئېرىشىڭ',
+	moreInfo: 'تور تۇرايىمىزنى زىيارەت قىلىپ كېلىشىمگە ئائىت تېخىمۇ كۆپ ئۇچۇرغا ئېرىشىڭ',
+	title: 'CKEditor ھەققىدە',
+	userGuide: 'CKEditor ئىشلەتكۈچى قوللانمىسى'
 } );

@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /* global alert */
@@ -26,18 +26,17 @@ CKEDITOR.dialog.add( 'embedBase', function( editor ) {
 				// We don't want the widget system to finalize widget insertion (it happens with priority 20).
 				evt.stop();
 
-				// Indicate visually that waiting for the response (https://dev.ckeditor.com/ticket/13213).
+				// Indicate visually that waiting for the response (#13213).
 				that.setState( CKEDITOR.DIALOG_STATE_BUSY );
 
-				var url = that.getValueOf( 'info', 'url' ),
-					widget = that.getModel( editor );
+				var url = that.getValueOf( 'info', 'url' );
 
-				loadContentRequest = widget.loadContent( url, {
+				loadContentRequest = that.widget.loadContent( url, {
 					noNotifications: true,
 
 					callback: function() {
-						if ( !widget.isReady() ) {
-							editor.widgets.finalizeCreation( widget.wrapper.getParent( true ) );
+						if ( !that.widget.isReady() ) {
+							editor.widgets.finalizeCreation( that.widget.wrapper.getParent( true ) );
 						}
 
 						editor.fire( 'saveSnapshot' );
@@ -49,7 +48,7 @@ CKEDITOR.dialog.add( 'embedBase', function( editor ) {
 					errorCallback: function( messageTypeOrMessage ) {
 						that.getContentElement( 'info', 'url' ).select();
 
-						alert( widget.getErrorMessage( messageTypeOrMessage, url, 'Given' ) );
+						alert( that.widget.getErrorMessage( messageTypeOrMessage, url, 'Given' ) );
 
 						unlock();
 					}
@@ -64,7 +63,7 @@ CKEDITOR.dialog.add( 'embedBase', function( editor ) {
 			} );
 
 			function unlock() {
-				// Visual waiting indicator is no longer needed (https://dev.ckeditor.com/ticket/13213).
+				// Visual waiting indicator is no longer needed (#13213).
 				that.setState( CKEDITOR.DIALOG_STATE_IDLE );
 				loadContentRequest = null;
 			}
@@ -86,9 +85,7 @@ CKEDITOR.dialog.add( 'embedBase', function( editor ) {
 						},
 
 						validate: function() {
-							var widget = this.getDialog().getModel( editor );
-
-							if ( !widget.isUrlValid( this.getValue() ) ) {
+							if ( !this.getDialog().widget.isUrlValid( this.getValue() ) ) {
 								return lang.unsupportedUrlGiven;
 							}
 

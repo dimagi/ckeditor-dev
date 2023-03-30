@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
@@ -19,7 +19,6 @@
  */
 CKEDITOR.lang[ 'de' ] = {
 	// ARIA description.
-	application: 'Rich Text Editor', // MISSING
 	editor: 'WYSIWYG-Editor',
 	editorPanel: 'WYSIWYG-Editor-Leiste',
 
@@ -35,6 +34,7 @@ CKEDITOR.lang[ 'de' ] = {
 		upload: 'Hochladen',
 		uploadSubmit: 'Zum Server senden',
 		image: 'Bild',
+		flash: 'Flash',
 		form: 'Formular',
 		checkbox: 'Kontrollbox',
 		radio: 'Optionsfeld',
@@ -63,7 +63,7 @@ CKEDITOR.lang[ 'de' ] = {
 		generalTab: 'Allgemein',
 		advancedTab: 'Erweitert',
 		validateNumberFailed: 'Dieser Wert ist keine Nummer.',
-		confirmNewPage: 'Alle nicht gespeicherten Änderungen gehen verloren. Sind Sie sicher, die neue Seite zu laden?',
+		confirmNewPage: 'Alle nicht gespeicherten Änderungen gehen verlohren. Sind Sie sicher die neue Seite zu laden?',
 		confirmCancel: 'Einige Optionen wurden geändert. Wollen Sie den Dialog dennoch schließen?',
 		options: 'Optionen',
 		target: 'Zielseite',
@@ -78,13 +78,10 @@ CKEDITOR.lang[ 'de' ] = {
 		width: 'Breite',
 		height: 'Höhe',
 		align: 'Ausrichtung',
-		left: 'Links',
-		right: 'Rechts',
-		center: 'Zentriert',
-		justify: 'Blocksatz',
-		alignLeft: 'Linksbündig',
-		alignRight: 'Rechtsbündig',
+		alignLeft: 'Links',
+		alignRight: 'Rechts',
 		alignCenter: 'Zentriert',
+		alignJustify: 'Blocksatz',
 		alignTop: 'Oben',
 		alignMiddle: 'Mitte',
 		alignBottom: 'Unten',
@@ -92,7 +89,6 @@ CKEDITOR.lang[ 'de' ] = {
 		invalidValue: 'Ungültiger Wert.',
 		invalidHeight: 'Höhe muss eine Zahl sein.',
 		invalidWidth: 'Breite muss eine Zahl sein.',
-		invalidLength: 'Der für das Feld "%1" angegebene Wert muss eine positive Zahl mit oder ohne gültige Maßeinheit (%2) sein. ',
 		invalidCssLength: 'Wert spezifiziert für "%1" Feld muss ein positiver numerischer Wert sein mit oder ohne korrekte CSS Messeinheit (px, %, in, cm, mm, em, ex, pt oder pc).',
 		invalidHtmlLength: 'Wert spezifiziert für "%1" Feld muss ein positiver numerischer Wert sein mit oder ohne korrekte HTML Messeinheit (px oder %).',
 		invalidInlineStyle: 'Wert spezifiziert für inline Stilart muss enthalten ein oder mehr Tupels mit dem Format "Name : Wert" getrennt mit Semikolons.',
@@ -112,36 +108,10 @@ CKEDITOR.lang[ 'de' ] = {
 			35: 'Ende',
 			36: 'Pos1',
 			46: 'Entfernen',
-			112: 'F1',
-			113: 'F2',
-			114: 'F3',
-			115: 'F4',
-			116: 'F5',
-			117: 'F6',
-			118: 'F7',
-			119: 'F8',
-			120: 'F9',
-			121: 'F10',
-			122: 'F11',
-			123: 'F12',
-			124: 'F13',
-			125: 'F14',
-			126: 'F15',
-			127: 'F16',
-			128: 'F17',
-			129: 'F18',
-			130: 'F19',
-			131: 'F20',
-			132: 'F21',
-			133: 'F22',
-			134: 'F23',
-			135: 'F24',
 			224: 'Befehl'
 		},
 
 		// Prepended to ARIA labels with shortcuts.
-		keyboardShortcut: 'Tastaturkürzel',
-
-		optionDefault: 'Standard'
+		keyboardShortcut: 'Tastaturkürzel'
 	}
 };

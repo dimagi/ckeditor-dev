@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 ( function() {
@@ -44,7 +44,7 @@
 			var container = editor.elementPath( element ).blockLimit;
 
 			// Never consider read-only (i.e. contenteditable=false) element as
-			// a first div limit (https://dev.ckeditor.com/ticket/11083).
+			// a first div limit (#11083).
 			if ( container.isReadOnly() )
 				container = container.getParent();
 
@@ -131,24 +131,12 @@
 			var ancestor, divElement;
 
 			for ( i = 0; i < blockGroups.length; i++ ) {
-				// Sometimes we could get empty block group if all elements inside it
-				// don't have parent's nodes (https://dev.ckeditor.com/ticket/13585).
-				if ( !blockGroups[ i ].length ) {
-					continue;
-				}
-
 				var currentNode = blockGroups[ i ][ 0 ];
 
 				// Calculate the common parent node of all contained elements.
 				ancestor = currentNode.getParent();
-				for ( j = 1; j < blockGroups[ i ].length; j++ ) {
+				for ( j = 1; j < blockGroups[ i ].length; j++ )
 					ancestor = ancestor.getCommonAncestor( blockGroups[ i ][ j ] );
-				}
-
-				// If there is no ancestor, mark editable as one (https://dev.ckeditor.com/ticket/13585).
-				if ( !ancestor ) {
-					ancestor = editor.editable();
-				}
 
 				divElement = new CKEDITOR.dom.element( 'div', editor.document );
 
@@ -156,10 +144,8 @@
 				for ( j = 0; j < blockGroups[ i ].length; j++ ) {
 					currentNode = blockGroups[ i ][ j ];
 
-					// Check if the currentNode has a parent before attempting to operate on it (https://dev.ckeditor.com/ticket/13585).
-					while ( currentNode.getParent() && !currentNode.getParent().equals( ancestor ) ) {
+					while ( !currentNode.getParent().equals( ancestor ) )
 						currentNode = currentNode.getParent();
-					}
 
 					// This could introduce some duplicated elements in array.
 					blockGroups[ i ][ j ] = currentNode;
@@ -174,9 +160,8 @@
 						currentNode.is && CKEDITOR.dom.element.setMarker( database, currentNode, 'block_processed', true );
 
 						// Establish new container, wrapping all elements in this group.
-						if ( !j ) {
+						if ( !j )
 							divElement.insertBefore( currentNode );
-						}
 
 						divElement.append( currentNode );
 					}
@@ -207,13 +192,8 @@
 					lastDivLimit = limit;
 					groups.push( [] );
 				}
-
-				// Sometimes we got nodes that are not inside the DOM, which causes error (https://dev.ckeditor.com/ticket/13585).
-				if ( block.getParent() ) {
-					groups[ groups.length - 1 ].push( block );
-				}
+				groups[ groups.length - 1 ].push( block );
 			}
-
 			return groups;
 		}
 
@@ -221,8 +201,7 @@
 		// change should also alter inline-style text.
 		function commitInternally( targetFields ) {
 			var dialog = this.getDialog(),
-				model = dialog.getModel( editor ),
-				element = model && model.clone() || new CKEDITOR.dom.element( 'div', editor.document );
+				element = dialog._element && dialog._element.clone() || new CKEDITOR.dom.element( 'div', editor.document );
 
 			// Commit this field and broadcast to target fields.
 			this.commit( element, true );
@@ -357,14 +336,6 @@
 					} ] }
 				]
 			} ],
-
-			getModel: function( editor ) {
-				if ( command === 'editdiv' ) {
-					return CKEDITOR.plugins.div.getSurroundDiv( editor );
-				}
-
-				return null;
-			},
 			onLoad: function() {
 				setupFields.call( this );
 
@@ -397,12 +368,9 @@
 					// it if no options are available at all.
 					stylesField[ stylesField.items.length > 1 ? 'enable' : 'disable' ]();
 
-					// Now setup the field value manually if dialog was opened on element. (https://dev.ckeditor.com/ticket/9689)
+					// Now setup the field value manually if dialog was opened on element. (#9689)
 					setTimeout( function() {
-						var model = dialog.getModel( editor );
-						if ( model ) {
-							stylesField.setup( model );
-						}
+						dialog._element && stylesField.setup( dialog._element );
 					}, 0 );
 				} );
 			},
@@ -413,15 +381,14 @@
 					// Try to discover the containers that already existed in
 					// ranges
 					// update dialog field values
-					this.setupContent( this.getModel( editor ) );
+					this.setupContent( this._element = CKEDITOR.plugins.div.getSurroundDiv( editor ) );
 				}
 			},
 			onOk: function() {
-				if ( command == 'editdiv' ) {
-					containers = [ this.getModel( editor ) ];
-				} else {
+				if ( command == 'editdiv' )
+					containers = [ this._element ];
+				else
 					containers = createDiv( editor, true );
-				}
 
 				// Update elements attributes
 				var size = containers.length;
@@ -435,10 +402,10 @@
 				this.hide();
 			},
 			onHide: function() {
-				// Remove style only when editing existing DIV. (https://dev.ckeditor.com/ticket/6315)
-				if ( this.getMode( editor ) === CKEDITOR.dialog.EDITING_MODE ) {
-					this.getModel( editor ).removeCustomData( 'elementStyle' );
-				}
+				// Remove style only when editing existing DIV. (#6315)
+				if ( command == 'editdiv' )
+					this._element.removeCustomData( 'elementStyle' );
+				delete this._element;
 			}
 		};
 	}

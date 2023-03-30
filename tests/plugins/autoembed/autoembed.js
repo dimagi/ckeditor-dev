@@ -1,11 +1,12 @@
-/* bender-tags: editor */
+/* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: embed,autoembed,enterkey,undo,link */
-/* bender-include: ../embedbase/_helpers/tools.js, ../clipboard/_helpers/pasting.js */
-/* global embedTools, assertPasteEvent */
+/* bender-include: ../embedbase/_helpers/tools.js, ../clipboard/_helpers/pasting.js, ../widget/_helpers/tools.js */
+
+/* global embedTools, assertPasteEvent, widgetTestsTools */
 
 'use strict';
 
-var objToArray = bender.tools.objToArray;
+var obj2Array = widgetTestsTools.obj2Array;
 
 function correctJsonpCallback( urlTemplate, urlParams, callback ) {
 	callback( {
@@ -32,16 +33,10 @@ bender.test( {
 	},
 
 	'test working example': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot;
 
 		this.editor.once( 'paste', function( evt ) {
-			assert.isMatching( /^<a data-cke-autoembed="\d+" href="https:\/\/foo.bar\/g\/200\/300">https:\/\/foo.bar\/g\/200\/300<\/a>$/i, evt.data.dataValue );
+			assert.isMatching( /^<a data-cke-autoembed="\d+" href="https:\/\/foo.bar\/g\/200\/300">https:\/\/foo.bar\/g\/200\/300<\/a>$/, evt.data.dataValue );
 		}, null, null, 900 );
 
 		bot.setData( '<p>This is an embed</p>', function() {
@@ -64,12 +59,6 @@ bender.test( {
 	},
 
 	'test embedding when request failed': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot,
 			instanceDestroyedSpy = sinon.spy();
 
@@ -97,12 +86,6 @@ bender.test( {
 	},
 
 	'test when user splits the link before the request is finished': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot;
 
 		bot.setData( '', function() {
@@ -136,14 +119,8 @@ bender.test( {
 		} );
 	},
 
-	// https://dev.ckeditor.com/ticket/13420.
+	// #13420.
 	'test link with encodable characters': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var links = [
 			// Mind that links differ in a part g/200/3xx so it is easier and faster
 			// to check which link failed the test.
@@ -224,12 +201,6 @@ bender.test( {
 	},
 
 	'test 2 step undo': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot,
 			editor = bot.editor,
 			pastedText = 'https://foo.bar/g/200/382',
@@ -298,7 +269,7 @@ bender.test( {
 		this.editor.execCommand( 'paste', pastedText );
 	},
 
-	// https://dev.ckeditor.com/ticket/13532
+	// #13532
 	'test re–embeddable url': function() {
 		var bot = this.editorBot,
 			editor = bot.editor;
@@ -330,7 +301,7 @@ bender.test( {
 				editor.execCommand( 'paste', 'y' );
 
 				wait( function() {
-					assert.areEqual( 0, objToArray( editor.widgets.instances ).length, 'Link should not be re–embedded.' );
+					assert.areEqual( 0, obj2Array( editor.widgets.instances ).length, 'Link should not be re–embedded.' );
 				}, 400 );
 			} );
 		};
@@ -366,12 +337,6 @@ bender.test( {
 	},
 
 	'check if notifications are showed after unsuccessful embedding': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot,
 			editor = bot.editor,
 			firstRequest = true,
@@ -412,14 +377,8 @@ bender.test( {
 		} );
 	},
 
-	// https://dev.ckeditor.com/ticket/13429.
+	// #13429.
 	'test selection after auto embedding - empty editor': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot,
 			editor = bot.editor,
 			pastedText = 'https://foo.bar/g/200/382';
@@ -442,14 +401,8 @@ bender.test( {
 		} );
 	},
 
-	// https://dev.ckeditor.com/ticket/13429.
+	// #13429.
 	'test selection after auto embedding - inside content': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot,
 			editor = bot.editor,
 			pastedText = 'https://foo.bar/g/200/382';
@@ -483,14 +436,8 @@ bender.test( {
 		} );
 	},
 
-	// https://dev.ckeditor.com/ticket/13429.
+	// #13429.
 	'test selection after auto embedding - content and selection change before insert': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot,
 			editor = bot.editor,
 			editable = editor.editable(),

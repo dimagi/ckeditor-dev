@@ -1,11 +1,11 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'font', 'de-ch', {
 	fontSize: {
 		label: 'Grösse',
-		voiceLabel: 'Schriftgrösse',
+		voiceLabel: 'Schrifgrösse',
 		panelTitle: 'Schriftgrösse'
 	},
 	label: 'Schriftart',

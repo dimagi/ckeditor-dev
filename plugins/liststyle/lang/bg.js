@@ -1,13 +1,17 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'liststyle', 'bg', {
-	bulletedTitle: 'Свойства на точков списък',
+	armenian: 'Арменско номериране',
+	bulletedTitle: 'Bulleted List Properties',
 	circle: 'Кръг',
-	decimal: 'Числа (1, 2, 3 и т.н.)',
+	decimal: 'Числа (1, 2, 3 и др.)',
+	decimalLeadingZero: 'Числа с водеща нула (01, 02, 03 и т.н.)',
 	disc: 'Диск',
+	georgian: 'Грузинско номериране (an, ban, gan, и т.н.)',
 	lowerAlpha: 'Малки букви (а, б, в, г, д и т.н.)',
+	lowerGreek: 'Малки гръцки букви (алфа, бета, гама и т.н.)',
 	lowerRoman: 'Малки римски числа (i, ii, iii, iv, v и т.н.)',
 	none: 'Няма',
 	notset: '<не е указано>',
@@ -17,5 +21,5 @@ CKEDITOR.plugins.setLang( 'liststyle', 'bg', {
 	type: 'Тип',
 	upperAlpha: 'Големи букви (А, Б, В, Г, Д и т.н.)',
 	upperRoman: 'Големи римски числа (I, II, III, IV, V и т.н.)',
-	validateStartNumber: 'Началният номер на списъка трябва да е цяло число.'
+	validateStartNumber: 'List start number must be a whole number.'
 } );

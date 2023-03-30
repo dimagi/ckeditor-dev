@@ -3,9 +3,5 @@
 </div>
 
 <script>
-	var editor = CKEDITOR.replace( 'editor' );
-
-	editor.once( 'instanceReady', function() {
-		bender.tools.ignoreUnsupportedEnvironment( 'uploadimage' );
-	} );
+	CKEDITOR.replace( 'editor' );
 </script>

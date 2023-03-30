@@ -1,10 +1,10 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
- * @fileOverview A plugin created to handle ticket https://dev.ckeditor.com/ticket/11064. While the issue is caused by native WebKit/Blink behaviour,
+ * @fileOverview A plugin created to handle ticket #11064. While the issue is caused by native WebKit/Blink behaviour,
  * this plugin can be easily detached or modified when the issue is fixed in the browsers without changing the core.
  * When Ctrl/Cmd + A is pressed to select all content it does not work due to a bug in
  * Webkit/Blink if a non-editable element is at the beginning or the end of the content.
@@ -22,13 +22,18 @@
 				editor.on( 'contentDom', function( evt ) {
 
 					var editor = evt.editor,
+						doc = editor.document,
 						editable = editor.editable();
 
-					editable.attachListener( editable, 'keydown', function( evt ) {
+					editable.attachListener( doc, 'keydown', function( evt ) {
+						var data = evt.data.$;
+
 						// Ctrl/Cmd + A
-						if ( evt.data.getKeystroke() == CKEDITOR.CTRL + 65 ) {
+						if ( evt.data.getKey() == 65 && ( CKEDITOR.env.mac && data.metaKey || !CKEDITOR.env.mac && data.ctrlKey ) ) {
+
 							// Defer the call so the selection is already changed by the pressed keys.
 							CKEDITOR.tools.setTimeout( function() {
+
 								// Manage filler elements on keydown. If there is no need
 								// to add fillers, we need to check and clean previously used once.
 								if ( !widgetselection.addFillers( editable ) ) {
@@ -334,7 +339,7 @@
 		},
 
 		/**
-		 * Adds an integration for the [Select All](https://ckeditor.com/cke4/addon/selectall) plugin to the given `editor`.
+		 * Adds an integration for the [Select All](http://ckeditor.com/addon/selectall) plugin to the given `editor`.
 		 *
 		 * @private
 		 * @param {CKEDITOR.editor} editor

@@ -1,21 +1,21 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'image2', 'hr', {
 	alt: 'Alternativni tekst',
 	btnUpload: 'Pošalji na server',
-	captioned: 'Titl slike',
-	captionPlaceholder: 'Titl',
+	captioned: 'Captioned image', // MISSING
+	captionPlaceholder: 'Caption', // MISSING
 	infoTab: 'Info slike',
 	lockRatio: 'Zaključaj odnos',
 	menu: 'Svojstva slika',
-	pathName: 'slika',
-	pathNameCaption: 'titl',
+	pathName: 'image', // MISSING
+	pathNameCaption: 'caption', // MISSING
 	resetSize: 'Obriši veličinu',
-	resizer: 'Odaberi i povuci za promjenu veličine',
+	resizer: 'Click and drag to resize', // MISSING
 	title: 'Svojstva slika',
 	uploadTab: 'Pošalji',
 	urlMissing: 'Nedostaje URL slike.',
-	altMissing: 'Nedostaje alternativni tekst.'
+	altMissing: 'Alternative text is missing.' // MISSING
 } );

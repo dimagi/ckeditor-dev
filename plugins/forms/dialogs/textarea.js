@@ -1,37 +1,30 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 CKEDITOR.dialog.add( 'textarea', function( editor ) {
 	return {
 		title: editor.lang.forms.textarea.title,
 		minWidth: 350,
 		minHeight: 220,
-		getModel: function( editor ) {
-			var element = editor.getSelection().getSelectedElement();
-
-			if ( element && element.getName() == 'textarea' ) {
-				return element;
-			}
-
-			return null;
-		},
 		onShow: function() {
-			var element = this.getModel( this.getParentEditor() );
+			delete this.textarea;
 
-			if ( element ) {
+			var element = this.getParentEditor().getSelection().getSelectedElement();
+			if ( element && element.getName() == 'textarea' ) {
+				this.textarea = element;
 				this.setupContent( element );
 			}
 		},
 		onOk: function() {
-			var editor = this.getParentEditor(),
-				element = this.getModel( editor ),
-				isInsertMode = this.getMode( editor ) == CKEDITOR.dialog.CREATION_MODE;
+			var editor,
+				element = this.textarea,
+				isInsertMode = !element;
 
 			if ( isInsertMode ) {
+				editor = this.getParentEditor();
 				element = editor.document.createElement( 'textarea' );
 			}
-
 			this.commitContent( element );
 
 			if ( isInsertMode )
@@ -120,7 +113,9 @@ CKEDITOR.dialog.add( 'textarea', function( editor ) {
 				'default': '',
 				accessKey: 'Q',
 				value: 'required',
-				setup: CKEDITOR.plugins.forms._setupRequiredAttribute,
+				setup: function( element ) {
+					this.setValue( element.getAttribute( 'required' ) );
+				},
 				commit: function( element ) {
 					if ( this.getValue() )
 						element.setAttribute( 'required', 'required' );

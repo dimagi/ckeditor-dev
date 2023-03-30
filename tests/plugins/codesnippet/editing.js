@@ -1,4 +1,4 @@
-/* bender-tags: editor,widget */
+/* bender-tags: editor,unit,widget */
 /* bender-ckeditor-plugins: codesnippet,toolbar */
 /* global widgetTestsTools */
 
@@ -12,7 +12,7 @@
 		}
 	};
 
-	var objToArray = bender.tools.objToArray;
+	var obj2Array = widgetTestsTools.obj2Array;
 
 	bender.test( {
 		'test edit with dialog: defined language, change language': function() {
@@ -92,7 +92,7 @@
 				dialog.setValueOf( 'info', 'code', newCode );
 				dialog.getButton( 'ok' ).click();
 
-				var widget = objToArray( bot.editor.widgets.instances )[ 0 ];
+				var widget = obj2Array( bot.editor.widgets.instances )[ 0 ];
 
 				assert.isTrue( widget.parts.code.hasClass( 'customClass' ), 'Code has codeSnippet_codeClass' );
 				assert.areSame( expected, bot.getData(), 'Widget created.' );

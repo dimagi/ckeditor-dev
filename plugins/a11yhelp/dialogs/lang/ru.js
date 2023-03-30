@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.plugins.setLang( 'a11yhelp', 'ru', {
@@ -79,11 +79,6 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'ru', {
 			{
 			name: 'Справка по горячим клавишам',
 			legend: 'Нажмите ${a11yHelp}'
-		},
-			{
-			name: 'Вставить только текст',
-			legend: 'Нажмите ${pastetext}',
-			legendEdge: 'Нажмите ${pastetext} и затем ${paste}'
 		}
 		]
 	}

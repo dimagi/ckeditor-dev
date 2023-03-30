@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 'use strict';
@@ -57,11 +57,6 @@
 		// Backward compact.
 		root = root || startNode.getDocument().getBody();
 
-		// Assign root value if startNode is null (#424)(https://dev.ckeditor.com/ticket/17028).
-		if ( !e ) {
-			e = root;
-		}
-
 		do {
 			if ( e.type == CKEDITOR.NODE_ELEMENT ) {
 				elements.push( e );
@@ -89,7 +84,7 @@
 						block = e;
 
 					if ( pathBlockLimitElements[ elementName ] ) {
-						// End level DIV is considered as the block, if no block is available. (https://dev.ckeditor.com/ticket/525)
+						// End level DIV is considered as the block, if no block is available. (#525)
 						// But it must NOT be the root element (checked above).
 						if ( !block && elementName == 'div' && !checkHasBlock( e ) )
 							block = e;
@@ -186,9 +181,7 @@ CKEDITOR.dom.elementPath.prototype = {
 	 * @returns {CKEDITOR.dom.element} The first matched dom element or `null`.
 	 */
 	contains: function( query, excludeRoot, fromTop ) {
-		var i = 0,
-			evaluator;
-
+		var evaluator;
 		if ( typeof query == 'string' )
 			evaluator = function( node ) {
 				return node.getName() == query;
@@ -210,21 +203,14 @@ CKEDITOR.dom.elementPath.prototype = {
 
 		var elements = this.elements,
 			length = elements.length;
-
-		if ( excludeRoot ) {
-			if ( !fromTop ) {
-				length -= 1;
-			} else {
-				i += 1;
-			}
-		}
+		excludeRoot && length--;
 
 		if ( fromTop ) {
 			elements = Array.prototype.slice.call( elements, 0 );
 			elements.reverse();
 		}
 
-		for ( ; i < length; i++ ) {
+		for ( var i = 0; i < length; i++ ) {
 			if ( evaluator( elements[ i ] ) )
 				return elements[ i ];
 		}

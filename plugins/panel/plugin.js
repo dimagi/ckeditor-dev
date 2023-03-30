@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 ( function() {
@@ -90,17 +90,6 @@
 		 * to this button.
 		 */
 		render: function( editor, output ) {
-			var data = {
-				editorId: editor.id,
-				id: this.id,
-				langCode: editor.langCode,
-				dir: editor.lang.dir,
-				cls: this.className,
-				frame: '',
-				env: CKEDITOR.env.cssClass,
-				'z-index': editor.config.baseFloatZIndex + 1
-			};
-
 			this.getHolderElement = function() {
 				var holder = this._.holder;
 
@@ -110,7 +99,7 @@
 							parentDiv = iframe.getParent(),
 							doc = iframe.getFrameDocument();
 
-						// Make it scrollable on iOS. (https://dev.ckeditor.com/ticket/8308)
+						// Make it scrollable on iOS. (#8308)
 						CKEDITOR.env.iOS && parentDiv.setStyles( {
 							'overflow': 'scroll',
 							'-webkit-overflow-scrolling': 'touch'
@@ -132,21 +121,14 @@
 						// Register the CKEDITOR global.
 						win.$.CKEDITOR = CKEDITOR;
 
-						// Arrow keys for scrolling is only preventable with 'keypress' event in Opera (https://dev.ckeditor.com/ticket/4534).
+						// Arrow keys for scrolling is only preventable with 'keypress' event in Opera (#4534).
 						doc.on( 'keydown', function( evt ) {
 							var keystroke = evt.data.getKeystroke(),
 								dir = this.document.getById( this.id ).getAttribute( 'dir' );
 
-							// Arrow left and right should use native behaviour inside input element
-							if ( evt.data.getTarget().getName() === 'input' && ( keystroke === 37 || keystroke === 39 ) ) {
-								return;
-							}
 							// Delegate key processing to block.
 							if ( this._.onKeyDown && this._.onKeyDown( keystroke ) === false ) {
-								if ( !( evt.data.getTarget().getName() === 'input' && keystroke === 32 ) ) {
-									// Don't prevent space when is pressed on a input filed.
-									evt.data.preventDefault();
-								}
+								evt.data.preventDefault();
 								return;
 							}
 
@@ -170,13 +152,24 @@
 				return holder;
 			};
 
+			var data = {
+				editorId: editor.id,
+				id: this.id,
+				langCode: editor.langCode,
+				dir: editor.lang.dir,
+				cls: this.className,
+				frame: '',
+				env: CKEDITOR.env.cssClass,
+				'z-index': editor.config.baseFloatZIndex + 1
+			};
+
 			if ( this.isFramed ) {
 				// With IE, the custom domain has to be taken care at first,
 				// for other browers, the 'src' attribute should be left empty to
 				// trigger iframe's 'load' event.
 				var src =
 					CKEDITOR.env.air ? 'javascript:void(0)' : // jshint ignore:line
-					( CKEDITOR.env.ie && !CKEDITOR.env.edge ) ? 'javascript:void(function(){' + encodeURIComponent( // jshint ignore:line
+					CKEDITOR.env.ie ? 'javascript:void(function(){' + encodeURIComponent( // jshint ignore:line
 						'document.open();' +
 						// In IE, the document domain must be set any time we call document.open().
 						'(' + CKEDITOR.tools.fixDomain + ')();' +
@@ -226,7 +219,7 @@
 				current = this._.currentBlock;
 
 			// ARIA role works better in IE on the body element, while on the iframe
-			// for FF. (https://dev.ckeditor.com/ticket/8864)
+			// for FF. (#8864)
 			var holder = !this.forceIFrame || CKEDITOR.env.ie ? this._.holder : this.document.getById( this.id + '_frame' );
 
 			if ( current )
@@ -304,71 +297,16 @@
 			markItem: function( index ) {
 				if ( index == -1 )
 					return;
-				var focusables = this._.getItems();
-				var item = focusables.getItem( this._.focusIndex = index );
+				var links = this.element.getElementsByTag( 'a' );
+				var item = links.getItem( this._.focusIndex = index );
 
-				// Safari need focus on the iframe window first(https://dev.ckeditor.com/ticket/3389), but we need
+				// Safari need focus on the iframe window first(#3389), but we need
 				// lock the blur to avoid hiding the panel.
 				if ( CKEDITOR.env.webkit )
 					item.getDocument().getWindow().focus();
 				item.focus();
 
 				this.onMark && this.onMark( item );
-			},
-
-			/**
-			 * Marks the first visible item or the one whose `aria-selected` attribute is set to `true`.
-			 * The latter has priority over the former.
-			 *
-			 * @private
-			 * @param beforeMark function to be executed just before marking.
-			 * Used in cases when any preparatory cleanup (like unmarking all items) would simultaneously
-			 * destroy the information that is needed to determine the focused item.
-			 */
-			markFirstDisplayed: function( beforeMark ) {
-				var notDisplayed = function( element ) {
-						return element.type == CKEDITOR.NODE_ELEMENT && element.getStyle( 'display' ) == 'none';
-					},
-					focusables = this._.getItems(),
-					item, focused;
-
-				for ( var i = focusables.count() - 1; i >= 0; i-- ) {
-					item = focusables.getItem( i );
-
-					if ( !item.getAscendant( notDisplayed ) ) {
-						focused = item;
-						this._.focusIndex = i;
-					}
-
-					if ( item.getAttribute( 'aria-selected' ) == 'true' ) {
-						focused = item;
-						this._.focusIndex = i;
-						break;
-					}
-				}
-
-				if ( !focused ) {
-					return;
-				}
-
-				if ( beforeMark ) {
-					beforeMark();
-				}
-
-				if ( CKEDITOR.env.webkit )
-					focused.getDocument().getWindow().focus();
-				focused.focus();
-
-				this.onMark && this.onMark( focused );
-			},
-
-			/**
-			 * Returns a `CKEDITOR.dom.nodeList` of block items.
-			 *
-			 * @returns {CKEDITOR.dom.nodeList}
-			 */
-			getItems: function() {
-				return this.element.find( 'a,input' );
 			}
 		},
 
@@ -388,22 +326,22 @@
 					// Move forward.
 					case 'next':
 						var index = this._.focusIndex,
-							focusables = this._.getItems(),
-							focusable;
+							links = this.element.getElementsByTag( 'a' ),
+							link;
 
-						while ( ( focusable = focusables.getItem( ++index ) ) ) {
+						while ( ( link = links.getItem( ++index ) ) ) {
 							// Move the focus only if the element is marked with
 							// the _cke_focus and it it's visible (check if it has
 							// width).
-							if ( focusable.getAttribute( '_cke_focus' ) && focusable.$.offsetWidth ) {
+							if ( link.getAttribute( '_cke_focus' ) && link.$.offsetWidth ) {
 								this._.focusIndex = index;
-								focusable.focus( true );
+								link.focus();
 								break;
 							}
 						}
 
-						// If no focusable was found, cycle and restart from the top. (https://dev.ckeditor.com/ticket/11125)
-						if ( !focusable && !noCycle ) {
+						// If no link was found, cycle and restart from the top. (#11125)
+						if ( !link && !noCycle ) {
 							this._.focusIndex = -1;
 							return this.onKeyDown( keystroke, 1 );
 						}
@@ -413,26 +351,26 @@
 						// Move backward.
 					case 'prev':
 						index = this._.focusIndex;
-						focusables = this._.getItems();
+						links = this.element.getElementsByTag( 'a' );
 
-						while ( index > 0 && ( focusable = focusables.getItem( --index ) ) ) {
+						while ( index > 0 && ( link = links.getItem( --index ) ) ) {
 							// Move the focus only if the element is marked with
 							// the _cke_focus and it it's visible (check if it has
 							// width).
-							if ( focusable.getAttribute( '_cke_focus' ) && focusable.$.offsetWidth ) {
+							if ( link.getAttribute( '_cke_focus' ) && link.$.offsetWidth ) {
 								this._.focusIndex = index;
-								focusable.focus( true );
+								link.focus();
 								break;
 							}
 
-							// Make sure focusable is null when the loop ends and nothing was
-							// found (https://dev.ckeditor.com/ticket/11125).
-							focusable = null;
+							// Make sure link is null when the loop ends and nothing was
+							// found (#11125).
+							link = null;
 						}
 
-						// If no focusable was found, cycle and restart from the bottom. (https://dev.ckeditor.com/ticket/11125)
-						if ( !focusable && !noCycle ) {
-							this._.focusIndex = focusables.count();
+						// If no link was found, cycle and restart from the bottom. (#11125)
+						if ( !link && !noCycle ) {
+							this._.focusIndex = links.count();
 							return this.onKeyDown( keystroke, 1 );
 						}
 
@@ -441,14 +379,10 @@
 					case 'click':
 					case 'mouseup':
 						index = this._.focusIndex;
-						focusable = index >= 0 && this._.getItems().getItem( index );
+						link = index >= 0 && this.element.getElementsByTag( 'a' ).getItem( index );
 
-						if ( focusable ) {
-							// We must pass info about clicked button (#2857).
-							focusable.fireEventHandler( keyAction, {
-								button: CKEDITOR.tools.normalizeMouseButton( CKEDITOR.MOUSE_BUTTON_LEFT, true )
-							} );
-						}
+						if ( link )
+							link.$[ keyAction ] ? link.$[ keyAction ]() : link.$[ 'on' + keyAction ]();
 
 						return false;
 				}

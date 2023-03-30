@@ -1,6 +1,6 @@
 ﻿/**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.dialog.add( 'colordialog', function( editor ) {
@@ -21,14 +21,6 @@ CKEDITOR.dialog.add( 'colordialog', function( editor ) {
 		type: 'html',
 		html: '&nbsp;'
 	};
-
-	var numbering = function( id ) {
-			return CKEDITOR.tools.getNextId() + '_' + id;
-		},
-		hicolorId = numbering( 'hicolor' ),
-		hicolorTextId = numbering( 'hicolortext' ),
-		selHiColorId = numbering( 'selhicolor' ),
-		table;
 
 	function clearSelected() {
 		$doc.getById( selHiColorId ).removeStyle( 'background-color' );
@@ -93,10 +85,8 @@ CKEDITOR.dialog.add( 'colordialog', function( editor ) {
 	}
 
 	function clearHighlight() {
-		if ( focused ) {
-			focused.removeClass( focusedColorLightCls );
-			focused.removeClass( focusedColorDarkCls );
-		}
+		focused.removeClass( focusedColorLightCls );
+		focused.removeClass( focusedColorDarkCls );
 		setHighlight( false );
 		focused = null;
 	}
@@ -128,12 +118,12 @@ CKEDITOR.dialog.add( 'colordialog', function( editor ) {
 	}
 
 	function onKeyStrokes( evt ) {
-		var domEvt = evt.data,
-			element = domEvt.getTarget(),
-			keystroke = domEvt.getKeystroke(),
-			rtl = editor.lang.dir == 'rtl',
-			relative,
-			nodeToMove;
+		var domEvt = evt.data;
+
+		var element = domEvt.getTarget();
+		var relative, nodeToMove;
+		var keystroke = domEvt.getKeystroke(),
+			rtl = editor.lang.dir == 'rtl';
 
 		switch ( keystroke ) {
 			// UP-ARROW
@@ -145,15 +135,14 @@ CKEDITOR.dialog.add( 'colordialog', function( editor ) {
 				}
 				domEvt.preventDefault();
 				break;
-
 			// DOWN-ARROW
 			case 40:
 				// relative is TR
 				if ( ( relative = element.getParent().getNext() ) ) {
 					nodeToMove = relative.getChild( [ element.getIndex() ] );
-					if ( nodeToMove && nodeToMove.type == 1 ) {
+					if ( nodeToMove && nodeToMove.type == 1 )
 						nodeToMove.focus();
-					}
+
 				}
 				domEvt.preventDefault();
 				break;
@@ -231,7 +220,7 @@ CKEDITOR.dialog.add( 'colordialog', function( editor ) {
 			}
 		}
 
-		// This function creates a single color cell in the color table.
+		// This function create a single color cell in the color table.
 		function appendColorCell( targetRow, color ) {
 			var cell = new $el( targetRow.insertCell( -1 ) );
 			cell.setAttribute( 'class', 'ColorCell ' + colorCellCls );
@@ -268,6 +257,14 @@ CKEDITOR.dialog.add( 'colordialog', function( editor ) {
 		appendColorCell( oRow.$, '#ffffff' );
 	}
 
+	var numbering = function( id ) {
+			return CKEDITOR.tools.getNextId() + '_' + id;
+		},
+		hicolorId = numbering( 'hicolor' ),
+		hicolorTextId = numbering( 'hicolortext' ),
+		selHiColorId = numbering( 'selhicolor' ),
+		table;
+
 	createColorTable();
 
 	// Load CSS.
@@ -277,30 +274,6 @@ CKEDITOR.dialog.add( 'colordialog', function( editor ) {
 		title: lang.title,
 		minWidth: 360,
 		minHeight: 220,
-		onShow: function( evt ) {
-			if ( !evt.data.selectionColor ||
-				( evt.data.selectionColor == evt.data.automaticTextColor ) ||
-				( evt.data.selectionColor == '#rgba(0, 0, 0, 0)' && evt.data.type == 'back' ) ) {
-				// Fallback for IE.
-				clearSelected();
-				clearHighlight();
-				return;
-			}
-
-			var selectionColor = evt.data.selectionColor,
-				colorPalette = this.parts.contents.getElementsByTag( 'td' ).toArray(),
-				itemColor;
-
-			dialog.getContentElement( 'picker', 'selectedColor' ).setValue( selectionColor );
-
-			CKEDITOR.tools.array.forEach( colorPalette, function( paletteItem ) {
-				itemColor = CKEDITOR.tools.convertRgbToHex( paletteItem.getStyle( 'background-color' ) );
-				if ( selectionColor === itemColor ) {
-					paletteItem.focus();
-					focused = paletteItem;
-				}
-			} );
-		},
 		onLoad: function() {
 			// Update reference.
 			dialog = this;

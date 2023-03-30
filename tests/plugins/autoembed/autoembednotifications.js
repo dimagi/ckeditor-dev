@@ -1,4 +1,4 @@
-/* bender-tags: editor,13421 */
+/* bender-tags: editor,unit,13421 */
 /* bender-ckeditor-plugins: embed,autoembed,enterkey,undo,link */
 /* bender-include: ../embedbase/_helpers/tools.js */
 
@@ -18,12 +18,6 @@ bender.editor = {
 
 bender.test( {
 	'test notifications showed when embedding is finished correctly': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot,
 			editor = bot.editor,
 			pastedText = 'https://foo.bar/notifiacation/finish/correct',
@@ -52,12 +46,6 @@ bender.test( {
 	},
 
 	'test notifications showed when embedding is finished with error': function() {
-		// Autolink plugin is disabled in IE to avoid feature duplication,
-		// which causes the test to fail (#4500).
-		if ( CKEDITOR.env.ie ) {
-			assert.ignore();
-		}
-
 		var bot = this.editorBot,
 			editor = bot.editor,
 			pastedText = 'https://foo.bar/notifiacation/finish/error',

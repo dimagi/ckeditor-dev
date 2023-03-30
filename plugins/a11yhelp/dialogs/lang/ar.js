@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.plugins.setLang( 'a11yhelp', 'ar', {
@@ -12,13 +12,13 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'ar', {
 		items: [
 			{
 			name: 'Editor Toolbar', // MISSING
-			legend: 'Press ${toolbarFocus} to navigate to the toolbar. Move to the next and previous toolbar group with TAB and SHIFT+TAB. Move to the next and previous toolbar button with RIGHT ARROW or LEFT ARROW. Press SPACE or ENTER to activate the toolbar button. The focus will be moved back to the editing area upon activating the toolbar button.' // MISSING
+			legend: 'Press ${toolbarFocus} to navigate to the toolbar. Move to the next and previous toolbar group with TAB and SHIFT+TAB. Move to the next and previous toolbar button with RIGHT ARROW or LEFT ARROW. Press SPACE or ENTER to activate the toolbar button.' // MISSING
 		},
 
 			{
 			name: 'Editor Dialog', // MISSING
 			legend:
-				'Inside a dialog, press TAB to navigate to the next dialog element, press SHIFT+TAB to move to the previous dialog element, press ENTER to submit the dialog, press ESC to cancel the dialog. When a dialog has multiple tabs, the tab list can be reached either with ALT+F10 or with TAB as part of the dialog tabbing order. With tab list focused, move to the next and previous tab with RIGHT and LEFT ARROW, respectively. Press ESC to discard changes and close the dialog. The focus will be moved back to the editing area upon leaving the dialog.'  // MISSING
+				'Inside a dialog, press TAB to navigate to the next dialog element, press SHIFT+TAB to move to the previous dialog element, press ENTER to submit the dialog, press ESC to cancel the dialog. When a dialog has multiple tabs, the tab list can be reached either with ALT+F10 or with TAB as part of the dialog tabbing order. With tab list focused, move to the next and previous tab with RIGHT and LEFT ARROW, respectively.'  // MISSING
 		},
 
 			{
@@ -38,10 +38,10 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'ar', {
 		]
 	},
 		{
-		name: 'الاوامر',
+		name: 'Commands', // MISSING
 		items: [
 			{
-			name: 'تراجع',
+			name: ' Undo command', // MISSING
 			legend: 'Press ${undo}' // MISSING
 		},
 			{
@@ -49,15 +49,15 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'ar', {
 			legend: 'Press ${redo}' // MISSING
 		},
 			{
-			name: 'نص غامق',
+			name: ' Bold command', // MISSING
 			legend: 'Press ${bold}' // MISSING
 		},
 			{
-			name: 'نص مائل',
+			name: ' Italic command', // MISSING
 			legend: 'Press ${italic}' // MISSING
 		},
 			{
-			name: 'نص تحته خط',
+			name: ' Underline command', // MISSING
 			legend: 'Press ${underline}' // MISSING
 		},
 			{
@@ -79,11 +79,6 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'ar', {
 			{
 			name: ' Accessibility Help', // MISSING
 			legend: 'Press ${a11yHelp}' // MISSING
-		},
-			{
-			name: ' Paste as plain text', // MISSING
-			legend: 'Press ${pastetext}', // MISSING
-			legendEdge: 'Press ${pastetext}, followed by ${paste}' // MISSING
 		}
 		]
 	}
@@ -91,13 +86,13 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'ar', {
 	tab: 'Tab', // MISSING
 	pause: 'Pause', // MISSING
 	capslock: 'Caps Lock', // MISSING
-	escape: 'هروب',
-	pageUp: 'اعلى الصفحة',
-	pageDown: 'اسفل الصفحة',
-	leftArrow: 'السهم الايسر',
-	upArrow: 'السهم العلوي',
-	rightArrow: 'السهم الأيمن',
-	downArrow: 'السهم السفلي',
+	escape: 'Escape', // MISSING
+	pageUp: 'Page Up', // MISSING
+	pageDown: 'Page Down', // MISSING
+	leftArrow: 'Left Arrow', // MISSING
+	upArrow: 'Up Arrow', // MISSING
+	rightArrow: 'Right Arrow', // MISSING
+	downArrow: 'Down Arrow', // MISSING
 	insert: 'Insert', // MISSING
 	leftWindowKey: 'Left Windows key', // MISSING
 	rightWindowKey: 'Right Windows key', // MISSING
@@ -112,34 +107,34 @@ CKEDITOR.plugins.setLang( 'a11yhelp', 'ar', {
 	numpad7: 'Numpad 7', // MISSING
 	numpad8: 'Numpad 8', // MISSING
 	numpad9: 'Numpad 9', // MISSING
-	multiply: 'مضروب',
+	multiply: 'Multiply', // MISSING
 	add: 'إضافة',
-	subtract: 'طرح',
+	subtract: 'Subtract', // MISSING
 	decimalPoint: 'Decimal Point', // MISSING
 	divide: 'تقسيم',
-	f1: 'F1',
-	f2: 'F2',
-	f3: 'F3',
-	f4: 'F4',
-	f5: 'F5',
-	f6: 'F6',
-	f7: 'F7',
-	f8: 'F8',
-	f9: 'F9',
-	f10: 'F10',
-	f11: 'F11',
-	f12: 'F12',
+	f1: 'F1', // MISSING
+	f2: 'F2', // MISSING
+	f3: 'F3', // MISSING
+	f4: 'F4', // MISSING
+	f5: 'F5', // MISSING
+	f6: 'F6', // MISSING
+	f7: 'F7', // MISSING
+	f8: 'F8', // MISSING
+	f9: 'F9', // MISSING
+	f10: 'F10', // MISSING
+	f11: 'F11', // MISSING
+	f12: 'F12', // MISSING
 	numLock: 'Num Lock', // MISSING
 	scrollLock: 'Scroll Lock', // MISSING
-	semiColon: 'الفاصلة المنقوطة',
-	equalSign: 'علامة "يساوي"',
+	semiColon: 'Semicolon', // MISSING
+	equalSign: 'Equal Sign', // MISSING
 	comma: 'فاصلة',
-	dash: 'شرطة',
+	dash: 'Dash', // MISSING
 	period: 'نقطة',
 	forwardSlash: 'Forward Slash', // MISSING
 	graveAccent: 'Grave Accent', // MISSING
-	openBracket: 'افتح القوس',
+	openBracket: 'Open Bracket', // MISSING
 	backSlash: 'Backslash', // MISSING
-	closeBracket: 'اغلق القوس',
+	closeBracket: 'Close Bracket', // MISSING
 	singleQuote: 'Single Quote' // MISSING
 } );

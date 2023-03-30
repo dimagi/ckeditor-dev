@@ -1,4 +1,4 @@
-/* bender-tags: editor */
+/* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: basicstyles,toolbar,undo,sourcearea */
 
 ( function() {
@@ -226,7 +226,7 @@
 			} );
 		},
 
-		// https://dev.ckeditor.com/ticket/5217#comment:20
+		// http://dev.ckeditor.com/ticket/5217#comment:20
 		'test switch mode with unrecoreded, inner HTML specific content (boguses)': function( editor ) {
 			if ( editor.elementMode == CKEDITOR.ELEMENT_MODE_INLINE )
 				assert.ignore();
@@ -257,7 +257,7 @@
 			} );
 		},
 
-		// https://dev.ckeditor.com/ticket/5217#comment:20
+		// http://dev.ckeditor.com/ticket/5217#comment:20
 		'test switch mode with unrecoreded, inner HTML specific content (boguses) plus changes in source mode': function( editor ) {
 			if ( editor.elementMode == CKEDITOR.ELEMENT_MODE_INLINE )
 				assert.ignore();
@@ -328,5 +328,5 @@
 		}
 	}
 
-	bender.test( bender.tools.createTestsForEditors( CKEDITOR.tools.object.keys( bender.editors ), tests ) );
+	bender.test( bender.tools.createTestsForEditors( CKEDITOR.tools.objectKeys( bender.editors ), tests ) );
 } )();

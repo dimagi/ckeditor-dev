@@ -1,5 +1,4 @@
 @bender-ui: collapsed
-@bender-tags: feature
 @bender-ckeditor-plugins: wysiwygarea, toolbar, undo, basicstyles, notification, floatingspace
 @bender-include: _helpers/manualplayground.js
 

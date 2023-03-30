@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'table', 'fr', {
 	border: 'Taille de la bordure',
@@ -27,8 +27,6 @@ CKEDITOR.plugins.setLang( 'table', 'fr', {
 		borderColor: 'Couleur de bordure',
 		data: 'Données',
 		header: 'En-tête',
-		columnHeader: 'Column Header', // MISSING
-		rowHeader: 'Row Header', // MISSING
 		yes: 'Oui',
 		no: 'Non',
 		invalidWidth: 'La largeur de la cellule doit être un nombre.',
@@ -52,7 +50,6 @@ CKEDITOR.plugins.setLang( 'table', 'fr', {
 	headersColumn: 'Première colonne',
 	headersNone: 'Aucun',
 	headersRow: 'Première ligne',
-	heightUnit: 'unité de hauteur',
 	invalidBorder: 'La taille de la bordure doit être un nombre.',
 	invalidCellPadding: 'La marge interne des cellules doit être un nombre positif.',
 	invalidCellSpacing: 'L\'espacement entre les cellules doit être un nombre positif.',
